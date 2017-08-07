@@ -1,0 +1,22 @@
+    <script type="text/javascript" src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
+    {% if app.request.getLocale() == 'es' %}
+	<script type="text/javascript" src="{{ asset('js/locales/bootstrap-datetimepicker.es.js') }}"></script>
+    {% else %}
+        <script type="text/javascript" src="{{ asset('js/locales/bootstrap-datetimepicker.eu.js') }}"></script>
+    {% endif %}
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+	$(".js-datepicker").datetimepicker({
+	    format: 'yyyy-mm-dd hh:ii',
+	    autoclose: true,
+	    language: '{{app.request.getLocale()}}',
+	    fontAwesome: true
+	}).attr('type','text'); // Honekin chromen ez da testua agertzen
+
+	$('.js-datepicker').siblings().on('click', function (e) {
+	    $(e.currentTarget).siblings().addClass("active");
+	    $(e.currentTarget).datetimepicker("show");
+	});
+    });
+    </script>

@@ -1,0 +1,26 @@
+{# FOSUserBundle defektuzko orrialdea ekiditzeko eta gurea hartzeko #}
+{% extends 'base.html.twig' %}
+
+{% block menua %}
+    {{ parent() }}
+{% endblock %}
+
+{% block mezuak %}
+    {{ parent() }}
+{% endblock %}
+
+{% block edukia %}
+{% block fos_user_content %}{% endblock %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" language="javascript">
+	$(document).ready(function(){
+	    
+	    $("#atzera").click(function() {
+		window.location.href=Routing.generate('admin_users_list');
+	    });
+	});    
+    </script>
+{% endblock%}

@@ -1,0 +1,27 @@
+{{ form_start(estatistikaForm, {
+	'attr': {
+	    'novalidate': 'novalidate',
+	}
+	})
+}}
+{#
+{{ dump(estatistikaForm.vars) }}
+
+#}
+{{ form_errors(estatistikaForm) }}
+	<div class="row">
+	    <div class="col-lg-2 col-md-2 md-form form-group form-sm">
+		<i class="fa fa-calendar prefix"></i>
+		{{ form_widget(estatistikaForm.urtea, { 'attr': { 'class' : 'md-select' } }) }}
+		{{ form_errors(estatistikaForm.urtea) }}
+	    </div>
+	    <div class="col-lg-4 col-md-4 md-form form-group form-sm">
+		<i class="fa fa-building prefix"></i>
+		{{ form_widget(estatistikaForm.enpresa, { 'attr': { 'class' : 'md-select' } }) }}
+		{{ form_errors(estatistikaForm.enpresa) }}
+	    </div>
+	    <div class="col-lg-2 col-md-2 md-form form-group form-sm">
+		<button id="js-btn-bilatu" class="col btn btn-primary form-control" type="submit"><i class="fa fa-search left"></i>{{ 'messages.bilatu' | trans | capitalize }}</button>
+	    </div>
+	</div>
+{{ form_end(estatistikaForm) }}

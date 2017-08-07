@@ -1,0 +1,26 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/service_container.html
+parameters:
+    #parameter_name: value
+
+services:
+    #service_name:
+    #    class: AppBundle\Directory\ClassName
+    #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']
+
+    app.form.registration:
+        class: AppBundle\Controller\Web\Admin\ErabiltzaileaFormType
+        tags:
+            - { name: form.type }
+
+    app.redirect_after_password_reset_subscriber:
+        class: AppBundle\EventListener\RedirectAfterResetPasswordSubscriber
+        autowire: true
+        tags:
+            - { name: kernel.event_subscriber }
+
+    app.locale_listener:
+        class: AppBundle\EventListener\LocaleListener
+        arguments: ['%kernel.default_locale%']
+        tags:
+        - { name: kernel.event_subscriber }

@@ -1,0 +1,11 @@
+.bootstrap-table .fixed-table-toolbar .btn-group button {
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.page-list .btn-group button {
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+}

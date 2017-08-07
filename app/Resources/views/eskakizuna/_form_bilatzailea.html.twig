@@ -1,0 +1,62 @@
+{{ form_start(bilatzaileaForm, {
+	'attr': {
+	    'novalidate': 'novalidate',
+	}
+	})
+}}
+{#
+{{ dump(bilatzaileaForm.vars) }}
+
+#}
+{{ form_errors(bilatzaileaForm) }}
+	<div class="row">
+	    <div class="col-lg-3 col-md-3 md-form form-group form-sm">
+		<i class="fa fa-id-card prefix"></i>
+		<label for="let">{{ 'messages.lep' | trans | capitalize }}</label>
+		{{ form_widget(bilatzaileaForm.lep, { 'attr': { 'class' : 'form-control' } }) }}
+		{{ form_errors(bilatzaileaForm.lep) }}
+	    </div>
+	    <div class="col-lg-3 col-md-3 md-form form-group form-sm date" id="datetimepicker1">
+		    <i class="fa fa-calendar prefix js-calendar"></i>
+		    <label class="js-noiztik-label" for="noiztik">{{ 'messages.noiztik' | trans | capitalize }}</label>
+		    {{ form_widget(bilatzaileaForm.noiztik, { 'attr': { 'class' : 'form-control js-datepicker js-datepicker-noiztik' } }) }}
+		    {{ form_errors(bilatzaileaForm.noiztik) }}
+	    </div>
+	    <div class="col-lg-3 col-md-3 md-form form-group form-sm" id="datetimepicker2">
+		    <i class="fa fa-calendar prefix js-calendar"></i>
+		    <label class="js-nora-label" for="nora">{{ 'messages.nora' | trans | capitalize }}</label>
+		    {{ form_widget(bilatzaileaForm.nora, { 'attr': { 'class' : 'form-control js-datepicker js-datepicker-nora' } }) }}
+		    {{ form_errors(bilatzaileaForm.nora) }}
+	    </div>
+	    <div class="col-lg-3 col-md-3 md-form form-group form-sm">
+		<div class="col-12 md-form form-group form-sm">
+		    <i class="fa fa-compass prefix"></i>
+			{{ form_widget(bilatzaileaForm.egoera, { 'attr': { 'class' : 'md-select' } }) }}
+			{{ form_errors(bilatzaileaForm.egoera) }}
+		</div>
+	    </div>
+	</div>
+	<div class="row">
+	    <div class="col-lg-3 col-md-3 md-form form-group form-sm">
+		<i class="fa fa-compass prefix"></i>
+		<label for="let">{{ 'messages.kalea' | trans | capitalize }}</label>
+		{{ form_widget(bilatzaileaForm.kalea, { 'attr': { 'class' : 'form-control' } }) }}
+		{{ form_errors(bilatzaileaForm.kalea) }}
+	    </div>
+	    <div class="col-lg-4 col-md-4 md-form form-group form-sm">
+		<i class="fa fa-crosshairs prefix"></i>
+		    {{ form_widget(bilatzaileaForm.zerbitzua, { 'attr': { 'class' : 'md-select' } }) }}
+		    {{ form_errors(bilatzaileaForm.zerbitzua) }}
+	    </div>
+	    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_INFORMATZAILEA') or is_granted('ROLE_ARDURADUNA') %}
+	    <div class="col-lg-4 col-md-4 md-form form-group form-sm">
+		<i class="fa fa-building prefix"></i>
+		    {{ form_widget(bilatzaileaForm.enpresa, { 'attr': { 'class' : 'md-select' } }) }}
+		    {{ form_errors(bilatzaileaForm.enpresa) }}
+	    </div>
+	    {% endif %}
+	    <div class="col-lg-2 col-md-2 md-form form-group form-sm">
+		<button id="js-btn-bilatu" class="col btn btn-primary form-control" type="submit"><i class="fa fa-search left"></i>{{ 'messages.bilatu' | trans | capitalize }}</button>
+	    </div>
+	</div>
+{{ form_end(bilatzaileaForm) }}

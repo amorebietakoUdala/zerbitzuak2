@@ -1,0 +1,49 @@
+{% block body_html %}
+<p>
+"{{ eskakizuna.zerbitzua.izena_eu }}" zerbitzuaren arduradun zarenez Amorebieta-Etxanoko udalak honako eskaria bidaltzen dizu.<br/>
+Mesedez lehenbailehen esaiguzue zein izan den abisu honen konponbidea.<br/>
+Eskerrik asko.<br/>
+
+Como responsable del Servicio de "{{ eskakizuna.zerbitzua.izena_es }}" el Ayuntamiento de Amorebieta-Etxano<br/>
+le manda el siguiente aviso. <br/>
+Comentadnos a la mayor brevedad posible, cuál ha sido la resolución de la misma. <br/>
+Muchas gracias. <br/>
+
+Bulego Teknikoa <br/>
+Amorebieta-Etxano-ko udala. <br/>
+94 630 01 61 <br/>
+bulegoteknikoa@amorebieta.net <br/>
+
+Número de aviso / Ohar zenbakia : {{ eskakizuna.id }} <br/> 
+PPI / LET : {{ eskakizuna.lep }} <br/> 
+Servicio / Zerbitzua: {{ eskakizuna.zerbitzua.izena_es }} / {{ eskakizuna.zerbitzua.izena_eu }}<br/>
+Fecha conocimiento/Ezagutza data: {{ eskakizuna.noiz | date('Y-m-d') }}<br/>
+Texto/Testua:<br/>
+{{ eskakizuna.mamia | raw }}<br/>
+Dirección solicitud/Eskariaren helbidea: {{ eskakizuna.kalea }}<br/>
+Erantzunak / Respuestas:
+</p>
+    <ul>
+    {% for erantzuna in eskakizuna.erantzunak %}
+	<li>
+	    {{ erantzuna | raw }}
+	</li>
+    {% endfor %}
+    </ul>
+</p>    
+    <a href="{{ absolute_url(asset( path ('admin_eskakizuna_show', {'id': eskakizuna.id }))) }}">Ver la solicitud / Eskakizuna ikusi</a>.<br/>
+    {% if ( eskakizuna.argazkia != null) %}
+	<img src="{{ absolute_url(asset( images_uploads_url)) }}/{{ eskakizuna.argazkia }}"/>
+    {% endif %}
+</p>
+
+<p>
+Nota: Por favor utilice la aplicación para enviar su respuesta. / Oharra: Erabili aplikazioa zure erantzuna bidaltzeko 
+</p>
+
+{% endblock %}
+{#
+{% block body_text %}
+    {{ eskakizuna.mamia | raw }}
+{% endblock %}
+#}

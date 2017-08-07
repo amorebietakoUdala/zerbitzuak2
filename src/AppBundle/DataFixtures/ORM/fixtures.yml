@@ -1,0 +1,127 @@
+AppBundle\Entity\Enpresa:
+    enpresa_{1..22}:
+        izena: <company()>
+        ordena: <current()>
+        aktibatua: '50%? 1 : 0'
+
+AppBundle\Entity\Erabiltzailea:
+    erabiltzailea_{1..10}:
+        izena: arduraduna<current()>
+        email: <freeEmail()>
+        telefonoa: <numberbetween(600000000,699999999)>
+        telefonoa2: <numberbetween(600000000,699999999)>
+        username: arduraduna<current()>
+        plainpassword: arduraduna<current()>
+        enabled: '50%? 1 : 0'
+        enpresa: '@enpresa_*'
+        ordena: <current()>
+        roles: [ROLE_ARDURADUNA]
+    admin:
+        izena: admin
+        username: admin
+        email: admin@amorebieta.eus
+        plainpassword: admin
+        enabled: true
+        roles: [ROLE_ADMIN]
+    kanpoko_teknikaria:
+        izena: kanpoko_teknikaria
+        username: tek1
+        email: <freeEmail()>
+        plainpassword: tek1
+        enabled: true
+        roles: [ROLE_KANPOKO_TEKNIKARIA]
+        enpresa: '@enpresa_*'
+    informatzailea:
+        izena: inform1
+        username: inform1
+        email: <freeEmail()>
+        plainpassword: inform1
+        enabled: true
+        roles: [ROLE_INFORMATZAILEA]
+
+AppBundle\Entity\Zerbitzua:
+    zerbitzua_{1..10}:
+        izena_es: <zerbitzuak_es()>
+        izena_eu: <zerbitzuak_eu()>
+        enpresa: '@enpresa_*'
+        ordena: <current()>
+        aktibatua: '50%? 1 : 0' 
+
+AppBundle\Entity\Egoera:
+    egoera1:
+# Ez du balio id jartzerik jakiteko baino ez da
+        id: 1
+        deskripzioa_es: Bidali-gabe (Erdaraz)
+        deskripzioa_eu: Bidali-gabe
+    egoera2:
+        id: 2
+        deskripzioa_es: Bidalia (Erdaraz)
+        deskripzioa_eu: Bidalia
+    egoera3:
+        id: 3
+        deskripzioa_es: Erantzunda (Erdaraz)
+        deskripzioa_eu: Erantzunda
+    egoera4:
+        id: 4
+        deskripzioa_es: Itxia (Erdaraz)
+        deskripzioa_eu: Itxia
+
+AppBundle\Entity\EskakizunMota:
+    eskakizunMota1:
+        deskripzioa_es: Aviso
+        deskripzioa_eu: Abisua
+    eskakizunMota2:
+        deskripzioa_es: Queja
+        deskripzioa_eu: Kexa
+    eskakizunMota3:
+        deskripzioa_es: Sugerencia
+        deskripzioa_eu: Iradokizuna
+
+AppBundle\Entity\Jatorria:
+    jatorria1:
+        deskripzioa_es: Escrita
+        deskripzioa_eu: Idatziz
+    jatorria2:
+        deskripzioa_es: Web
+        deskripzioa_eu: Web
+    jatorria3:
+        deskripzioa_es: Oral
+        deskripzioa_eu: Ahoz
+    jatorria4:
+        deskripzioa_es: Telefónica
+        deskripzioa_eu: Telefonoz
+
+AppBundle\Entity\Eskatzailea:
+    eskatzailea_{1..10}:
+        izena: <izenak()> <lastname()>
+        telefonoa: <numberbetween(600000000,699999999)>
+        faxa: <numberbetween(600000000,699999999)>
+        nan: <numberbetween(1000000,69999999)>A
+        helbidea: <streetAddress()>
+        emaila: <freeEmail()>
+        herria: <city()>
+        postaKodea: <numberbetween(0,50000)>
+
+AppBundle\Entity\Erantzuna:
+    erantzuna_{1..30}:
+        erantzuna: <text(200)>
+        eskakizuna: '@eskakizuna_*'
+        erantzulea: '@erabiltzailea_*'
+        noiz: <dateTimeBetween('-3 months', 'now')>
+
+AppBundle\Entity\Eskakizuna:
+    eskakizuna_{1..100}:
+        eskatzailea: '@eskatzailea_*'
+        lep: <numberbetween(600000,699999)>
+        eskakizunMota: '@eskakizunMota*'
+        jatorria: '@jatorria*'
+        mamia: <text(200)>
+        kalea: <streetAddress()>
+        zerbitzua: '@zerbitzua_*'
+        enpresa: '@enpresa_*'
+        noiz: <dateTimeBetween('-3 years', 'now')>
+        noizBidalia: <dateTimeBetween('-3 months', 'now')>
+        itxieraData: <dateTimeBetween('-3 months', 'now')>
+        egoera: '@egoera*'
+        norkInformatua: '@erabiltzailea_*'
+        norkErreklamatua: '@erabiltzailea_*'

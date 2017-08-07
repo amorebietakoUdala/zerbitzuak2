@@ -1,0 +1,28 @@
+{
+  "name": "prototipo",
+  "version": "1.0.0",
+  "main": "public_html/css",
+  "ignore": [
+    ".jshintrc",
+    "**/*.txt",
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public_html/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "MDBootstrap": "4.3.2",
+    "fontawesome": "^4.6.0",
+    "bootstrap-table": "^1.11.1",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.47",
+    "tinymce-dist": "4.6.0",
+    "moment": "^2.18.1"
+  },
+  "devDependencies": {},
+  "description": "Prototipo Zerbitzuak",
+  "license": "MIT",
+  "homepage": "public_html/index.html",
+  "private": true
+}

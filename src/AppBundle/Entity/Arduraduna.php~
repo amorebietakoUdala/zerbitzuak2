@@ -1,0 +1,154 @@
+<?php
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+namespace AppBundle\Entity;
+
+/**
+ * Arduradunen Entitatea
+ *
+ * @author ibilbao
+ */
+
+use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Entity\Enpresa;
+
+/**
+* @ORM\Entity
+* @ORM\Table(name="arduradunak")
+*/
+class Arduraduna {
+/**
+* @ORM\Id
+* @ORM\GeneratedValue(strategy="AUTO")
+* @ORM\Column(type="integer")
+*/
+private $id;
+
+/**
+* @ORM\Column(type="string")
+*/
+private $izena;
+/**
+* @ORM\ManyToOne (targetEntity="Enpresa", inversedBy="arduradunak")
+* @ORM\JoinColumn(nullable=true);
+*/
+private $enpresa;
+/**
+* @ORM\Column(type="string", nullable=true)
+*/
+private $emaila;
+/**
+* @ORM\Column(type="string", nullable=true)
+*/
+private $telefonoa;
+/**
+* @ORM\Column(type="string", nullable=true)
+*/
+private $telefonoa2;
+/**
+* @ORM\Column(type="string", unique=true)
+*/
+private $erabiltzailea;
+/**
+* @ORM\Column(type="string", nullable=true)
+*/
+private $pasahitza;
+
+/*
+private $pasahitza_zifratu_barik;
+*/
+
+/**
+* @ORM\Column(type="integer", nullable=true)
+*/
+private $ordena;
+
+    public function getId() {
+	return $this->id;
+    }
+
+    public function getIzena() {
+	return $this->izena;
+    }
+
+    public function getEnpresa() {
+	return $this->enpresa;
+    }
+
+    public function getEmaila() {
+	return $this->emaila;
+    }
+
+    public function getTelefonoa() {
+	return $this->telefonoa;
+    }
+
+    public function getTelefonoa2() {
+	return $this->telefonoa2;
+    }
+
+    public function getErabiltzailea() {
+	return $this->erabiltzailea;
+    }
+
+    public function getPasahitza() {
+	return $this->pasahitza;
+    }
+/*
+    public function getPasahitza_zifratu_barik() {
+	return $this->pasahitza_zifratu_barik;
+    }
+*/
+    public function setId($id) {
+	$this->id = $id;
+    }
+
+    public function setIzena($izena) {
+	$this->izena = $izena;
+    }
+
+    public function setEnpresa(Enpresa $enpresa) {
+	$this->enpresa = $enpresa;
+    }
+
+    public function setEmaila($emaila) {
+	$this->emaila = $emaila;
+    }
+
+    public function setTelefonoa($telefonoa) {
+	$this->telefonoa = $telefonoa;
+    }
+
+    public function setTelefonoa2($telefonoa2) {
+	$this->telefonoa2 = $telefonoa2;
+    }
+
+    public function setErabiltzailea($erabiltzailea) {
+	$this->erabiltzailea = $erabiltzailea;
+    }
+
+    public function setPasahitza($pasahitza) {
+	$this->pasahitza = $pasahitza;
+    }
+
+/*
+    public function setPasahitza_zifratu_barik($pasahitza_zifratu_barik) {
+	$this->pasahitza_zifratu_barik = $pasahitza_zifratu_barik;
+    }
+*/
+
+    public function getOrdena() {
+	return $this->ordena;
+    }
+
+    public function setOrdena($ordena) {
+	$this->ordena = $ordena;
+    }
+
+
+}

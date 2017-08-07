@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{"messages.eskakizun" | trans | capitalize}} {{"messages.editatu" | trans | capitalize}}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+	<link href="{{ asset('css/glyphicon.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('bower_components/jquery-ui/themes/base/jquery-ui.css') }}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block edukia %}
+   <div class="container-fluid margin-top-13">
+    {{ include('eskakizuna/_form.html.twig',{
+				'gordeBotoia': true 
+			    }) }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bower_components/tinymce/tinymce.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bower_components/jquery-ui/jquery-ui.min.js') }}"></script>
+    <!--Google Maps-->
+    <script type="text/javascript" src="{{ asset('https://maps.googleapis.com/maps/api/js?key=AIzaSyCn-GGZ6dxYSUHErqsyVHzKHwReuUz4XPY') }}"></script>
+    {{ include('default/datepicker_js.html.twig') }}
+    <script type="text/javascript" src="{{ asset('js/eskakizuna.js') }}"></script>
+
+    <script type="text/javascript" language="javascript">
+	$(document).ready(function(){
+	    $("#atzera").click(function() {
+		window.location.href=Routing.generate('admin_eskakizuna_list',{'_locale': $("html").attr("lang") });
+	    });
+	});    
+    </script>
+
+{% endblock%}

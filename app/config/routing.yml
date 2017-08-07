@@ -1,0 +1,22 @@
+app_web:
+    resource: '@AppBundle/Controller/Web/'
+    type: annotation
+
+app_api:
+    resource: '@AppBundle/Controller/API/'
+    type: annotation
+
+fos_js_routing:
+    resource: '@FOSJsRoutingBundle/Resources/config/routing/routing.xml'
+    
+fos_user_security:
+    resource: '@FOSUserBundle/Resources/config/routing/security.xml'
+    prefix: /{_locale}
+
+fos_user_profile:
+    resource: '@FOSUserBundle/Resources/config/routing/profile.xml'
+    prefix: /{_locale}/profile
+
+fos_user_resetting:
+    resource: '@FOSUserBundle/Resources/config/routing/resetting.xml'
+    prefix: /{_locale}/resetting

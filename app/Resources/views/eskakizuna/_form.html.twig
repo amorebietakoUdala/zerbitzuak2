@@ -1,0 +1,186 @@
+{{ form_start(eskakizunaForm, {
+	'attr': {
+	    'novalidate': 'novalidate',
+	}
+	})
+}}
+{#
+{{ dump(eskakizunaForm.vars)}}
+
+#}
+{{ form_errors(eskakizunaForm) }}
+	<div class="row">
+	    <div class="col-12">
+		{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ARDURADUNA') or is_granted('ROLE_INFORMATZAILEA') %}
+		    <div id="eskatzailea" class="card">
+			<div class="card-block">
+			    <div class="text-center">
+				<p class="text-primary">{{"messages.eskatzailea" | trans | capitalize}}</p>
+				<hr class="mt-1 mb-1">
+			    </div>
+			    <div class="card-text">
+				<div class="row col-12 form-inline">
+				    <div class="col-lg-2 col-md-3 md-form form-sm">
+					<i class="fa fa-id-card prefix"></i>
+					<label for="nan">{{ 'messages.nan' | trans | capitalize }}</label>
+					{{ form_widget(eskakizunaForm.eskatzailea.nan, { 'attr': { 'class' : 'form-control' } }) }}
+					{{ form_errors(eskakizunaForm.eskatzailea.nan) }}
+				    </div>
+				    <div class="col-lg-4 col-md-9 md-form form-sm">
+					<i class="fa fa-user prefix"></i>
+					<label for="izena">{{ 'messages.izena' | trans | capitalize }}</label>
+					{{ form_widget(eskakizunaForm.eskatzailea.izena, { 'attr': { 'class' : 'form-control' } }) }}
+					{{ form_errors(eskakizunaForm.eskatzailea.izena) }}
+					<input type="hidden" id="eskatzailea-id">
+				    </div>
+				    <div class="col-lg-4 col-md-5 md-form form-sm">
+					<i class="fa fa-send prefix"></i>
+					<label for="emaila">{{ 'messages.emaila' | trans | capitalize }}</label>
+					{{ form_widget(eskakizunaForm.eskatzailea.emaila, { 'attr': { 'class' : 'form-control' } }) }}
+					{{ form_errors(eskakizunaForm.eskatzailea.emaila) }}
+				    </div>
+				    <div class="col-lg-2 col-md-3 md-form form-sm">
+					<i class="fa fa-phone prefix"></i>
+					<label for="telefonoa">{{ 'messages.telefonoa' | trans | capitalize }}</label>
+					{{ form_widget(eskakizunaForm.eskatzailea.telefonoa, { 'attr': { 'class' : 'form-control' } }) }}
+					{{ form_errors(eskakizunaForm.eskatzailea.telefonoa) }}
+				    </div>
+				</div>
+				<div class="row col-12 form-inline">
+				    <div class="col-lg-2 col-md-3 md-form form-sm">
+					<i class="fa fa-fax prefix"></i>
+					<label for="faxa">{{ 'messages.faxa' | trans | capitalize }}</label>
+					{{ form_widget(eskakizunaForm.eskatzailea.faxa, { 'attr': { 'class' : 'form-control' } }) }}
+					{{ form_errors(eskakizunaForm.eskatzailea.faxa) }}
+				    </div>
+				    <div class="col-lg-4 col-md-9 md-form form-sm">
+					<i class="fa fa-compass prefix"></i>
+					<label for="helbidea">{{ 'messages.helbidea' | trans | capitalize }}</label>
+					{{ form_widget(eskakizunaForm.eskatzailea.helbidea, { 'attr': { 'class' : 'form-control' } }) }}
+					{{ form_errors(eskakizunaForm.eskatzailea.helbidea) }}
+				    </div>
+				    <div class="col-lg-2 col-md-2 md-form form-sm">
+					<i class="fa fa-envelope prefix"></i>
+					<label for="postaKodea">{{ 'messages.postaKodea' | trans | capitalize }}</label>
+					{{ form_widget(eskakizunaForm.eskatzailea.postaKodea, { 'attr': { 'class' : 'form-control' } }) }}
+					{{ form_errors(eskakizunaForm.eskatzailea.postaKodea) }}
+				    </div>
+				    <div class="col-lg-2 col-md-4 md-form form-sm">
+					<i class="fa fa-institution prefix"></i>
+					<label for="herria">{{ 'messages.herria' | trans | capitalize }}</label>
+					{{ form_widget(eskakizunaForm.eskatzailea.herria, { 'attr': { 'class' : 'form-control' } }) }}
+					{{ form_errors(eskakizunaForm.eskatzailea.herria) }}
+				    </div>
+				</div>
+			    </div>
+			</div>
+		    </div>
+		{% endif %}
+		<div id="eskaria" class="card">
+		    <div class="card-block">
+			<div class="text-center">
+			    <p class="text-primary">{{"messages.eskakizuna" | trans | capitalize}}</p>
+			    <hr class="mt-1 mb-1">
+			</div>
+			<div class="card-text">
+			    <div class="row col-12">
+				<div class="col-lg-2 col-md-3 md-form form-group form-sm">
+				    <i class="fa fa-id-card prefix js-calendar"></i>
+				    <label for="let">{{ 'messages.lep' | trans | capitalize }}</label>
+				    {{ form_widget(eskakizunaForm.lep, { 'attr': { 'class' : 'form-control' } }) }}
+				    {{ form_errors(eskakizunaForm.lep) }}
+				</div>
+				
+				<div class="col-lg-2 col-md-3 md-form form-group form-sm">
+				    <i class="fa fa-calendar prefix js-calendar"></i>
+				    <label class="js-noiz-label" for="noiz">{{ 'messages.noiz' | trans | capitalize }}</label>
+				    {{ form_widget(eskakizunaForm.noiz, { 'attr': { 'class' : 'js-datepicker' } }) }}
+				    {{ form_errors(eskakizunaForm.noiz) }}
+				</div>
+				<div class="col-lg-5 col-md-4 md-form form-group form-sm">
+				    <i class="fa fa-compass prefix"></i>
+				    <label for="kalea">{{ 'messages.kalea' | trans | capitalize }}</label>
+				    {{ form_widget(eskakizunaForm.kalea, { 'attr': { 'class' : 'form-control' } }) }}
+				    {{ form_errors(eskakizunaForm.kalea) }}
+				</div>
+                                <button id="buscar" class="col-2 btn btn-primary form-control" type="button"><i class="fa fa-compass"></i>{{"messages.bilatu" | trans | capitalize}}</button>
+			    </div>
+			    <div class="row col-12">
+				<div class="col-12 md-form form-group form-sm">
+				    <i class="fa fa-crosshairs prefix"></i>
+					{{ form_widget(eskakizunaForm.zerbitzua, { 'attr': { 'class' : 'md-select' } }) }}
+					{{ form_errors(eskakizunaForm.zerbitzua) }}
+				</div>
+			    </div>
+				<div class="row col-12">
+				    <div class="col-lg-6 md-form form-group form-sm">
+					    <i class="fa fa-picture-o prefix"></i>
+					    {{ form_widget(eskakizunaForm.argazkia, { 'attr': { 'class' : 'form-control js-argazkia' } }) }}
+					    {{ form_errors(eskakizunaForm.argazkia) }}
+					{% if ( eskakizunaForm.vars.value.argazkia != null ) %}
+					    <img id="argazkia-preview" src="{{ images_uploads_url }}/{{ eskakizunaForm.vars.value.argazkia }}" alt=""/>
+					{% else %}
+					    <img id="argazkia-preview" src="" alt=""/>
+					{% endif %}
+				    </div>
+                                    
+				    <div id="map-container" class="col-lg-6 z-depth-1" style="height: 300px">
+				    </div>
+				</div>
+
+			    <div class="row col-12 margin-top-13">
+				<div class="col-6">
+				    <p class="grey-text">{{ 'messages.eskakizun_mota_zehaztu' | trans | capitalize }}</p>
+				    <div class="md-form form-group form-sm form-inline">
+					{{ form_widget(eskakizunaForm.eskakizunMota) }}
+					{{ form_errors(eskakizunaForm.eskakizunMota) }}
+				    </div>
+				</div>
+				<div class="col-6">
+				    <p class="grey-text">{{ 'messages.jatorria' | trans | capitalize }}</p>
+				    <div class="md-form form-group form-sm form-inline">
+					{{ form_widget(eskakizunaForm.jatorria) }}
+					{{ form_errors(eskakizunaForm.jatorria) }}
+				    </div>
+				</div>
+			    </div>
+			    <div class="container row">
+				<div class="col-12 md-form form-group form-sm margin-top-13">
+				    <p class="grey-text">{{ 'messages.mamia' | trans | capitalize }}</p>
+					    {{ form_widget(eskakizunaForm.mamia, { 'attr': { 'class' : 'js-mamia tinymce' } }) }}
+					    {{ form_errors(eskakizunaForm.mamia) }}
+				</div>
+				<div class="col-12 margin-top-13">
+				    <ul id="js-erantzunak-list" class="col-12" data-prototype="{{ form_widget(eskakizunaForm.erantzunak.vars.prototype)|e }}">
+					{% if eskakizunaForm.erantzunak|length > 0 %}
+					    <p class="grey-text">{{ 'messages.erantzunak' | trans | capitalize }}</p>
+					    {{ form_errors(eskakizunaForm.erantzunak) }}
+					    {% for erantzuna in eskakizunaForm.erantzunak %}
+						<li>
+						    {{ form_errors(erantzuna) }}
+						    {{ form_widget(erantzuna) }}
+						</li>
+					    {% endfor %}
+					{% endif %}
+				    </ul>
+				    {% if editatzen == true or erantzun == true %} 
+					<a href="#" id="add-another-erantzuna">Erantzun bat gehitu</a>
+				    {% endif %}
+				</div>
+
+				<div class="row col-12 md-form form-group form-sm margin-top-13">
+                                {% if (gordeBotoia == true) %}
+                                    <button class="col-3 btn btn-primary form-control" type="submit" formnovalidate><i class="fa fa-save left"></i>{{"messages.gorde" | trans | capitalize}}</button>
+                                {% endif %}
+                                {% if (erantzun == true) %}
+                                    <button class="col-3 btn btn-primary form-control" type="submit" formnovalidate><i class="fa fa-reply left"></i>{{"messages.erantzun" | trans | capitalize}}</button>
+                                {% endif %}
+                                <button id="atzera" class="col-3 btn btn-primary form-control" type="button"><i class="fa fa-arrow-circle-left left"></i>{{"messages.utzi" | trans | capitalize}}</button>
+			    </div>
+			</div>
+		    </div>
+		</div>
+	    </div>
+	</div>
+    </div>
+{{ form_end(eskakizunaForm) }}

@@ -1,0 +1,47 @@
+# To get started with security, check out the documentation:
+# http://symfony.com/doc/current/security.html
+security:
+
+    encoders:
+        AppBundle\Entity\Erabiltzailea: bcrypt
+
+    # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    providers:
+        fos_userbundle:
+            id: fos_user.user_provider.username
+
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            pattern: ^/
+            anonymous: ~
+            
+            logout:
+                path: /%locale%/logout
+            # activate different ways to authenticate
+
+            # http://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+            #http_basic: ~
+
+            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+            form_login:
+                login_path: /%locale%/login
+                check_path: /%locale%/login_check
+                provider: fos_userbundle
+                csrf_token_generator: security.csrf.token_manager
+
+            remember_me:
+                secret: '%secret%'
+
+    access_control:
+        - { path: ^/[a-z]+/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/[a-z]+/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api, role: ROLE_USER }
+        - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/eskakizuna/, role: ROLE_USER }
+        - { path: ^/, role: ROLE_USER }
+

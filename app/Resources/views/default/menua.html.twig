@@ -1,0 +1,44 @@
+<div class="container-fluid">
+    <div class="row">
+	<div class="col">
+
+	    <!--Navbar-->
+	    <nav class="navbar navbar-dark bg-primary">
+		<div class="container">
+		    <div class="pull-left">
+			<ul class="navbar-nav mr-auto">
+			    <li class="nav-item dropdown btn-group active">
+				<a class="nav-link dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-envelope prefix"></i>{{ "messages.eskakizunak" | trans | capitalize }}</a>
+				<div class="dropdown-menu dropdown" aria-labelledby="dropdownMenu1">
+				    {% if is_granted('ROLE_ARDURADUNA') or is_granted('ROLE_ADMIN') or is_granted('ROLE_INFORMATZAILEA')%}
+					<a class="dropdown-item" href="{{ path('admin_eskakizuna_new') }}"><i class="fa fa-plus prefix"></i>&nbsp;{{ "messages.berria" | trans | capitalize }}</a>
+				    {% endif %}
+					<a class="dropdown-item" href="{{ path('admin_eskakizuna_list') }}"><i class="fa fa-search prefix"></i>&nbsp;{{ "messages.bilatu" | trans | capitalize }}</a>
+				</div>
+			    </li>
+                            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ARDURADUNA') %}
+			    <li class="nav-item">
+				<a href="{{ path('admin_estatistika_enpresako') }}" class="nav-link"><i class="fa fa-bar-chart prefix"></i>{{ "messages.estatistikak" | trans | capitalize }}</a>
+			    </li>
+                            {% endif %}
+                            {% if is_granted('ROLE_ADMIN') %}
+                            <li class="nav-item dropdown btn-group">
+				<a class="nav-link dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-folder prefix"></i> {{ "messages.administrazioa" | trans | capitalize }}</a>
+				<div class="dropdown-menu dropdown" aria-labelledby="dropdownMenu1">
+				    <a href="{{ path('admin_zerbitzua_list') }}" class="dropdown-item"><i class="fa fa-folder-open prefix"></i>&nbsp;{{ "messages.zerbitzuak" | trans | capitalize }}</a>
+				    <a href="{{ path('admin_erabiltzailea_list') }}" class="dropdown-item"><i class="fa fa-folder-open prefix"></i>&nbsp;{{ "messages.erabiltzaileak" | trans | capitalize }}</a>
+				    <a href="{{ path('admin_enpresa_list') }}" class="dropdown-item"><i class="fa fa-folder-open prefix"></i>&nbsp;{{ "messages.enpresak" | trans | capitalize }}</a>
+				    <a href="{{ path('admin_egoera_list') }}" class="dropdown-item"><i class="fa fa-folder-open prefix"></i>&nbsp;{{ "messages.egoerak" | trans | capitalize }}</a>
+				    <a href="{{ path('admin_eskakizun_mota_list') }}" class="dropdown-item"><i class="fa fa-folder-open prefix"></i>&nbsp;{{ "messages.eskakizun_motak" | trans | capitalize }}</a>
+				    <a href="{{ path('admin_jatorria_list') }}" class="dropdown-item"><i class="fa fa-folder-open prefix"></i>&nbsp;{{ "messages.eskakizun_jatorriak" | trans | capitalize }}</a>
+				    <a href="{{ path('admin_eskatzailea_list') }}" class="dropdown-item"><i class="fa fa-folder-open prefix"></i>&nbsp;{{ "messages.eskatzaileak" | trans | capitalize }}</a>
+				</div>
+			    </li>
+                            {% endif %}
+			</ul>
+		    </div>
+		</div>
+	    </nav>
+	</div>
+    </div>
+</div>

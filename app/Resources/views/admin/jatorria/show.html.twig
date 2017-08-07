@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{"messages.jatorria" | trans | capitalize}} {{"messages.ikusi" | trans | capitalize}}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+	<link href="{{ asset('css/glyphicon.css') }}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block edukia %}
+    <div class="container">
+	<div class="row">
+	    <div class="card margin-top-13 col-6">
+		<div class="card-block col">
+			<div class="text-center">
+			    <div class="text-primary">{{"messages.jatorria" | trans | capitalize}} {{"messages.ikusi" | trans | capitalize}}</div>
+			    <hr class="mt-1 mb-1">
+			</div>
+			<div class="card-text">
+			    {{ include('admin/jatorria/_form.html.twig',{
+				'gordeBotoia': false 
+			    }) }}
+			</div>
+		</div>
+	    </div>
+	</div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    
+    <script type="text/javascript" language="javascript">
+	$(document).ready(function(){
+	    
+	    $("#atzera").click(function() {
+		window.location.href=Routing.generate('admin_jatorria_list',{'_locale': '{{ app.request.getLocale() }}' });
+	    });
+	});    
+    </script>
+{% endblock%}

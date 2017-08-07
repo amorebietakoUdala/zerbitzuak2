@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale|split('_')[0] }}">
+    {% set lang = app.request.locale|split('_')[0] %}
+    <head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="description" content="{{ "messages.aplikazioa" | trans }}"/>
+        <meta charset="UTF-8" />
+
+        <title>{% block title %}{{ "messages.aplikazioa" | trans }}{% endblock %}</title>
+	{% block stylesheets %}
+	    <link href="{{ asset('bower_components/fontawesome/css/font-awesome.min.css') }}"  rel="stylesheet" type="text/css">
+	    <link href="{{ asset('bower_components/MDBootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+	    <link href="{{ asset('bower_components/MDBootstrap/css/mdb.min.css') }}" rel="stylesheet" type="text/css">
+	    <link href="{{ asset('css/style.css')}}" rel="stylesheet" type="text/css">
+            <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}" />
+	{% endblock %}
+    </head>
+    <body>
+	{% block header %}
+	    {{ include('default/header.html.twig') }}
+	{% endblock %}
+        {% if is_granted('ROLE_USER') %}
+            {% block menua %}{{ include('default/menua.html.twig') }}{% endblock %}
+        {% endif %}
+	{% block mezuak %}
+	    {% for msg in app.session.flashBag.get('success') %}
+		<div class="alert alert-success margin-top-13">
+		    {{ msg | trans}}
+		</div>
+	    {% endfor %}
+	    {% for msg in app.session.flashBag.get('error') %}
+		<div class="alert alert-danger margin-top-13">
+		    {{ msg | trans}}
+		</div>
+	    {% endfor %}
+	{% endblock %}
+	<main>
+	{% block edukia %}{% endblock %}
+	{% block gorputza %}{% endblock %}
+	</main>
+	{% block footer %}
+	    <footer class="page-footer fixed-bottom">
+		<div class="container-fluid border-top-grey-thin  padding-top-06">
+		    <span class="pull-right">2017 Amorebieta-Etxano</span>
+		</div>
+	    </footer>
+	{% endblock %}
+        {% block javascripts %}
+	    <!-- JQuery -->
+	    <script type="text/javascript" src="{{ asset('bower_components/MDBootstrap/js/jquery-3.1.1.min.js') }}"></script>
+	    <!-- Bootstrap tooltips -->
+	    <script type="text/javascript" src="{{ asset('bower_components/MDBootstrap/js/tether.min.js') }}"></script>
+	    <!-- Bootstrap core JavaScript -->
+	    <script type="text/javascript" src="{{ asset('bower_components/MDBootstrap/js/bootstrap.min.js') }}"></script>
+	    <!-- MDB core JavaScript -->
+	    <script type="text/javascript" src="{{ asset('bower_components/MDBootstrap/js/mdb.min.js') }}"></script>
+	    <!-- FOSRouting Symfony Bundle -->
+	    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+
+{#	    {% if app.request.locale == 'es'%}
+	    <script src="/js/fos/fos_js_routes_es.js"></script>
+	    {% else %}
+	    <script src="/js/fos/fos_js_routes_eu.js"></script>
+	    {% endif%}
+#}
+
+	    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+
+	    <script type="text/javascript" src="{{ asset('js/orokorra.js') }}"></script>
+	{% endblock %}
+    </body>
+</html>
+
+

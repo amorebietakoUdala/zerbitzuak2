@@ -1,0 +1,30 @@
+{{ form_start(enpresaForm, {
+	'attr': {
+	    'novalidate': 'novalidate'
+	}
+    })
+}}
+
+    <div class="md-form form-group form-sm">
+	<i class="fa fa-building prefix"></i>
+	<label for="izena">{{ 'messages.izena' | trans | capitalize }}</label>
+	{{ form_widget(enpresaForm.izena, { 'attr': { 'class' : 'form-control' } }) }}
+	{{ form_errors(enpresaForm.izena) }}
+    </div>
+    <div class="md-form form-group form-sm">
+	<i class="fa fa-sort-numeric-asc prefix"></i>
+	<label for="ordena">{{ 'messages.ordena' | trans | capitalize }}</label>
+	{{ form_widget(enpresaForm.ordena, { 'attr': { 'class' : 'form-control' } }) }}
+	{{ form_errors(enpresaForm.ordena) }}
+    </div>
+    <div class="clearfix form-inline">
+	{{ form_widget(enpresaForm.aktibatua, { 'attr': { 'class' : 'form-control' } }) }}
+	{{ form_errors(enpresaForm.aktibatua) }}
+    </div>
+    <div id="botonera"class="md-form form-group form-sm col-12 clearfix">
+	{% if (gordeBotoia == true) %}
+	    <button class="col-3 btn btn-primary form-control" type="submit" formnovalidate><i class="fa fa-save left"></i>{{"messages.gorde" | trans | capitalize}}</button>
+	{% endif %}
+	<button id="atzera" class="col-3 btn btn-primary form-control" type="button"><i class="fa fa-arrow-circle-left left"></i>{{"messages.utzi" | trans | capitalize}}</button>
+    </div>
+{{ form_end(enpresaForm) }}
