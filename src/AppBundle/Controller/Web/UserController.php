@@ -3,13 +3,11 @@
 namespace AppBundle\Controller\Web;
 
 use AppBundle\Controller\Web\Admin\ErabiltzaileaFormType;
-use AppBundle\Controller\Web\User\EskakizunaFormType;
 use AppBundle\Entity\Erabiltzailea;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class UserController extends Controller
 {
@@ -21,19 +19,31 @@ class UserController extends Controller
     {
 	$user = $this->get('security.token_storage')->getToken()->getUser();
         $authorization_checker = $this->get('security.authorization_checker');
-	$locale = $this->getParameter('locale');
-	$request->getSession()->set('_locale', $locale);
+	$locale = $request->attributes->get('_locale');
+	if ( $locale !== null ) {
+	    $request->getSession()->set('_locale', $locale);
+	} else {
+	    $request->setLocale($request->getSession()->get('_locale'));
+	}
         if ( $authorization_checker->isGranted('ROLE_INFORMATZAILEA') ) {
-	    return $this->redirectToRoute('admin_eskakizuna_new');
+	    return $this->redirectToRoute('admin_eskakizuna_new',[
+		'_locale' => $request->getLocale()
+	    ]);
         }
         else 
 	    if ( $authorization_checker->isGranted('ROLE_ARDURADUNA') ) {
-		return $this->redirectToRoute('admin_eskakizuna_list');
+		return $this->redirectToRoute('admin_eskakizuna_list',[
+		'_locale' => $request->getLocale()
+	    ]);
             } else if ( $authorization_checker->isGranted('ROLE_ADMIN') ) {
-		  return $this->redirectToRoute('admin_eskakizuna_list');
+		  return $this->redirectToRoute('admin_eskakizuna_list',[
+		'_locale' => $request->getLocale()
+	    ]);
 	    } else if ( $authorization_checker->isGranted('ROLE_KANPOKO_TEKNIKARIA')) {
 		$this->get('logger')->debug('Kanpoko Teknikaria erabiltzailea: '.$user->getUsername());
-		return $this->redirectToRoute('admin_eskakizuna_list');
+		return $this->redirectToRoute('admin_eskakizuna_list',[
+		'_locale' => $request->getLocale()
+	    ]);
 	    }
     }
 
@@ -56,7 +66,6 @@ class UserController extends Controller
 	
 	if ( $erabiltzaileaForm->isSubmitted() && $erabiltzaileaForm->isValid() ) {
 	    $erabiltzailea = $erabiltzaileaForm->getData();
-//	    dump($aurrekoErabiltzailea,$erabiltzailea->getUsername());die;
 	    if ($erabiltzailea->getPlainPassword() !== null || $aurrekoErabiltzailea !== $erabiltzailea->getUsername()) {
                 $userManager = $this->get('fos_user.user_manager');
                 $userManager->updateUser($erabiltzailea,false);
