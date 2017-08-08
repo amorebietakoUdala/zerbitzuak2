@@ -10,93 +10,96 @@ $(document).ready(function(){
 	longitudea = $("#eskakizuna_form_georeferentziazioa_longitudea").val();
     }
 
-    /* INICIO Autocompletes */
-    $( "#eskakizuna_form_eskatzailea_izena" ).autocomplete({
-        minLength: 3,
-        source: function (request, response) {
-          $.ajax({
-              url: "/api/eskatzailea",
-              dataType: "json",
-              data: {
-                izena: request.term
-              },
-              success: function (data) {
-                response(data.eskatzaileak);
-              }
-          });
-        },
-        focus: function( event, ui ) {
-          $( "#eskakizuna_form_eskatzailea_izena" ).val( ui.item.izena );
-          return false;
-        },
-        select: function( event, ui ) {
-        $( "#eskakizuna_form_eskatzailea_id" ).val( ui.item.id );
-        $( "#eskakizuna_form_eskatzailea_nan" ).val( ui.item.nan );
-        $( "#eskakizuna_form_eskatzailea_izena" ).val( ui.item.izena );
-        $( "#eskakizuna_form_eskatzailea_emaila" ).val( ui.item.emaila );
-        $( "#eskakizuna_form_eskatzailea_telefonoa" ).val( ui.item.telefonoa );
-        $( "#eskakizuna_form_eskatzailea_faxa" ).val( ui.item.faxa );
-        $( "#eskakizuna_form_eskatzailea_helbidea" ).val( ui.item.helbidea );
-        $( "#eskakizuna_form_eskatzailea_postaKodea" ).val( ui.item.posta_kodea );
-        $( "#eskakizuna_form_eskatzailea_herria" ).val( ui.item.herria );
-        $( "i + label + input" ).each(function(x){
-            if ($(this).val() !== "" ) {
-                $(this).addClass("active");
-                $(this).siblings().addClass("active");
-            }
-        });
-        return false;
-        }
-    })
-    .autocomplete( "instance" )._renderItem = function( ul, item ) {
-      return $( "<li>" )
-        .append( "<div>" + item.izena + "</div>" )
-        .appendTo( ul );
-    };            
-
-    $( "#eskakizuna_form_eskatzailea_nan" ).autocomplete({
-        minLength: 3,
-        source: function (request, response) {
-          $.ajax({
-              url: "/api/eskatzailea",
-              dataType: "json",
-              data: {
-                nan: request.term
-              },
-              success: function (data) {
-                console.log(data);
-                response(data.eskatzaileak);
-              }
-          });
-        },
-        focus: function( event, ui ) {
-          $( "#eskakizuna_form_eskatzailea_nan" ).val( ui.item.nan );
-          return false;
-        },
-        select: function( event, ui ) {
-        $( "#eskakizuna_form_eskatzailea_id" ).val( ui.item.id );
-        $( "#eskakizuna_form_eskatzailea_nan" ).val( ui.item.nan );
-        $( "#eskakizuna_form_eskatzailea_izena" ).val( ui.item.izena );
-        $( "#eskakizuna_form_eskatzailea_emaila" ).val( ui.item.emaila );
-        $( "#eskakizuna_form_eskatzailea_telefonoa" ).val( ui.item.telefonoa );
-        $( "#eskakizuna_form_eskatzailea_faxa" ).val( ui.item.faxa );
-        $( "#eskakizuna_form_eskatzailea_helbidea" ).val( ui.item.helbidea );
-        $( "#eskakizuna_form_eskatzailea_postaKodea" ).val( ui.item.postaKodea );
-        $( "#eskakizuna_form_eskatzailea_herria" ).val( ui.item.herria );
-        $( "i + label + input" ).each(function(x){
-            if ($(this).val() !== "" ) {
-                $(this).addClass("active");
-                $(this).siblings().addClass("active");
-            }
-        });
-        return false;
-        }
-    })
-    .autocomplete( "instance" )._renderItem = function( ul, item ) {
-      return $( "<li>" )
-        .append( "<div>" + item.nan + "</div>" )
-        .appendTo( ul );
-    };            
+    if ( typeof $( "#eskakizuna_form_eskatzailea_izena" ).val() !== "undefined" ) {
+	/* INICIO Autocompletes */
+	$( "#eskakizuna_form_eskatzailea_izena" ).autocomplete({
+	    minLength: 3,
+	    source: function (request, response) {
+	      $.ajax({
+		  url: "/api/eskatzailea",
+		  dataType: "json",
+		  data: {
+		    izena: request.term
+		  },
+		  success: function (data) {
+		    response(data.eskatzaileak);
+		  }
+	      });
+	    },
+	    focus: function( event, ui ) {
+	      $( "#eskakizuna_form_eskatzailea_izena" ).val( ui.item.izena );
+	      return false;
+	    },
+	    select: function( event, ui ) {
+	    $( "#eskakizuna_form_eskatzailea_id" ).val( ui.item.id );
+	    $( "#eskakizuna_form_eskatzailea_nan" ).val( ui.item.nan );
+	    $( "#eskakizuna_form_eskatzailea_izena" ).val( ui.item.izena );
+	    $( "#eskakizuna_form_eskatzailea_emaila" ).val( ui.item.emaila );
+	    $( "#eskakizuna_form_eskatzailea_telefonoa" ).val( ui.item.telefonoa );
+	    $( "#eskakizuna_form_eskatzailea_faxa" ).val( ui.item.faxa );
+	    $( "#eskakizuna_form_eskatzailea_helbidea" ).val( ui.item.helbidea );
+	    $( "#eskakizuna_form_eskatzailea_postaKodea" ).val( ui.item.posta_kodea );
+	    $( "#eskakizuna_form_eskatzailea_herria" ).val( ui.item.herria );
+	    $( "i + label + input" ).each(function(x){
+		if ($(this).val() !== "" ) {
+		    $(this).addClass("active");
+		    $(this).siblings().addClass("active");
+		}
+	    });
+	    return false;
+	    }
+	})
+	.autocomplete( "instance" )._renderItem = function( ul, item ) {
+	  return $( "<li>" )
+	    .append( "<div>" + item.izena + "</div>" )
+	    .appendTo( ul );
+	};            
+    }
+    if ( typeof $( "#eskakizuna_form_eskatzailea_nan" ).val() !== "undefined" ) {
+	$( "#eskakizuna_form_eskatzailea_nan" ).autocomplete({
+	    minLength: 3,
+	    source: function (request, response) {
+	      $.ajax({
+		  url: "/api/eskatzailea",
+		  dataType: "json",
+		  data: {
+		    nan: request.term
+		  },
+		  success: function (data) {
+		    console.log(data);
+		    response(data.eskatzaileak);
+		  }
+	      });
+	    },
+	    focus: function( event, ui ) {
+	      $( "#eskakizuna_form_eskatzailea_nan" ).val( ui.item.nan );
+	      return false;
+	    },
+	    select: function( event, ui ) {
+	    $( "#eskakizuna_form_eskatzailea_id" ).val( ui.item.id );
+	    $( "#eskakizuna_form_eskatzailea_nan" ).val( ui.item.nan );
+	    $( "#eskakizuna_form_eskatzailea_izena" ).val( ui.item.izena );
+	    $( "#eskakizuna_form_eskatzailea_emaila" ).val( ui.item.emaila );
+	    $( "#eskakizuna_form_eskatzailea_telefonoa" ).val( ui.item.telefonoa );
+	    $( "#eskakizuna_form_eskatzailea_faxa" ).val( ui.item.faxa );
+	    $( "#eskakizuna_form_eskatzailea_helbidea" ).val( ui.item.helbidea );
+	    $( "#eskakizuna_form_eskatzailea_postaKodea" ).val( ui.item.postaKodea );
+	    $( "#eskakizuna_form_eskatzailea_herria" ).val( ui.item.herria );
+	    $( "i + label + input" ).each(function(x){
+		if ($(this).val() !== "" ) {
+		    $(this).addClass("active");
+		    $(this).siblings().addClass("active");
+		}
+	    });
+	    return false;
+	    }
+	})
+	.autocomplete( "instance" )._renderItem = function( ul, item ) {
+	  return $( "<li>" )
+	    .append( "<div>" + item.nan + "</div>" )
+	    .appendTo( ul );
+	};     
+    }
     /* FIN Autocompletes */
 
     /* INICIO Erantzunak */
