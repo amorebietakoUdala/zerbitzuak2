@@ -49,7 +49,7 @@
 	{% endblock %}
         {% block javascripts %}
 	    <!-- JQuery -->
-	    <script type="text/javascript" src="{{ asset('bower_components/MDBootstrap/js/jquery-3.1.1.min.js') }}"></script>
+	    <script type="text/javascript" src="{{ asset('bower_components/MDBootstrap/js/jquery-2.2.3.min.js') }}"></script>
 	    <!-- Bootstrap tooltips -->
 	    <script type="text/javascript" src="{{ asset('bower_components/MDBootstrap/js/tether.min.js') }}"></script>
 	    <!-- Bootstrap core JavaScript -->
@@ -58,13 +58,6 @@
 	    <script type="text/javascript" src="{{ asset('bower_components/MDBootstrap/js/mdb.min.js') }}"></script>
 	    <!-- FOSRouting Symfony Bundle -->
 	    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-
-{#	    {% if app.request.locale == 'es'%}
-	    <script src="/js/fos/fos_js_routes_es.js"></script>
-	    {% else %}
-	    <script src="/js/fos/fos_js_routes_eu.js"></script>
-	    {% endif%}
-#}
 
 	    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
 
