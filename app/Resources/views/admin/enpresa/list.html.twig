@@ -40,19 +40,19 @@
 			<th data-sortable="true">{{"messages.izena" | trans | capitalize}}</th>
 			<th data-sortable="true">{{"messages.ordena" | trans | capitalize}}</th>
 			<th data-sortable="true">{{"messages.aktibatua" | trans | capitalize}}</th>
-			<th data-sortable="true">{{"messages.aukerak" | trans | capitalize}}</th>
+			<th>{{"messages.aukerak" | trans | capitalize}}</th>
 		    </tr>
 		</thead>
 		<tbody>
 		    {% for enpresa in enpresak %}
 		    <tr>
-			<td><a href="{{ path ('admin_enpresa_edit', {'id': enpresa.id }) }}">{{enpresa.id }}</a></td>
-			<td><a href="{{ path ('admin_enpresa_edit', {'id': enpresa.id }) }}">{{enpresa.izena }}</a></td>
-			<td><a href="{{ path ('admin_enpresa_edit', {'id': enpresa.id }) }}">{{enpresa.ordena }}</a></td>
-			<td><a href="{{ path ('admin_enpresa_edit', {'id': enpresa.id }) }}">
-				{% if enpresa.aktibatua == 1 %}{{ "messages.bai" | trans | capitalize }}{% else %}{{ "messages.ez" | trans | capitalize }}{% endif %}
-			</a></td>
+			<td>{{enpresa.id }}</td>
+			<td>{{enpresa.izena }}</td>
+			<td>{{enpresa.ordena }}</td>
 			<td>
+				{% if enpresa.aktibatua == 1 %}{{ "messages.bai" | trans | capitalize }}{% else %}{{ "messages.ez" | trans | capitalize }}{% endif %}
+			</td>
+			<td class="white-space-nowrap">
 			    <a href="{{ path ('admin_enpresa_show', {'id': enpresa.id }) }}"><i class="fa fa-eye prefix"></i></a>
 			    &nbsp;<a href="{{ path ('admin_enpresa_edit', {'id': enpresa.id }) }}"><i class="fa fa-edit prefix"></i></a>
 			    &nbsp;<a class="js-ezabatu_botoia" data-url="{{ path ('admin_enpresa_delete', {'id': enpresa.id }) }}" href="#"><i class="fa fa-window-close prefix"></i></a>
