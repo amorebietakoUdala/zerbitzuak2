@@ -39,6 +39,10 @@
                 <source>messages.gorde</source>
                 <target>gorde</target>
             </trans-unit>
+            <trans-unit id="messages.bilaketa">
+                <source>messages.bilaketa</source>
+                <target>Bilaketa</target>
+            </trans-unit>
             <trans-unit id="messages.hautatu_enpresa">
                 <source>messages.hautatu_enpresa</source>
                 <target>Hautatu enpresa bat mesedez</target>

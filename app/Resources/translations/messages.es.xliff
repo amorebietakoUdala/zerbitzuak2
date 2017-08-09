@@ -39,6 +39,10 @@
                 <source>messages.gorde</source>
                 <target>guardar</target>
             </trans-unit>
+            <trans-unit id="messages.bilaketa">
+                <source>messages.bilaketa</source>
+                <target>Búsqueda</target>
+            </trans-unit>
             <trans-unit id="messages.hautatu_enpresa">
                 <source>messages.hautatu_enpresa</source>
                 <target>Elige una empresa por favor</target>

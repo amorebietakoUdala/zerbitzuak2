@@ -164,6 +164,13 @@ $(document).ready(function(){
         $(this).siblings().addClass("active").focus();
     });
 
+    $('.js-datepicker').datetimepicker({
+	format: 'yyyy-mm-dd hh:ii',
+	autoclose: true,
+	language: locale,
+	fontAwesome: true
+    }).attr('type','text'); // Honekin chromen ez da testua agertzen
+
     $('.js-datepicker').on('focus', function(e){
         $('.js-noiz-label').addClass("active");
         $('.js-calendar').addClass("active");
@@ -175,6 +182,7 @@ $(document).ready(function(){
             $('.js-calendar').removeClass("active");
         }
     });
+    
     $(".js-argazkia").change(function(){
 	console.log(locale);
         var ok = readURL(this,$('argazkia-preview'));
@@ -201,7 +209,6 @@ $(document).ready(function(){
     google.maps.event.addDomListener(window, 'load', init_map(latitudea, longitudea));
 
 });    
-
 
 function readURL(input) {
     if (input.files && input.files[0]) {

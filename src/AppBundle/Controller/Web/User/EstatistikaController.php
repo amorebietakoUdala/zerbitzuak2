@@ -3,13 +3,11 @@
 namespace AppBundle\Controller\Web\User;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
 
 use SaadTazi\GChartBundle\DataTable;
 use Symfony\Component\Routing\Annotation\Route;
 
 
-use SaadTazi\GChartBundle\Chart\PieChart;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Estatistika;
 

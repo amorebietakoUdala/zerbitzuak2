@@ -21,7 +21,7 @@ security:
             anonymous: ~
             
             logout:
-                path: /%locale%/logout
+                path: fos_user_security_logout
             # activate different ways to authenticate
 
             # http://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
@@ -30,13 +30,13 @@ security:
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
             form_login:
                 login_path: /%locale%/login
-                check_path: /%locale%/login_check
+                check_path: fos_user_security_check
                 provider: fos_userbundle
                 csrf_token_generator: security.csrf.token_manager
 
             remember_me:
                 secret: '%secret%'
-
+                
     access_control:
         - { path: ^/[a-z]+/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/[a-z]+/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }

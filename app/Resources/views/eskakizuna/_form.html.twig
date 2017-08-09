@@ -4,10 +4,7 @@
 	}
 	})
 }}
-{#
-{{ dump(eskakizunaForm.vars)}}
 
-#}
 {{ form_errors(eskakizunaForm) }}
 	<div class="row">
 	    <div class="col-12">
@@ -94,7 +91,7 @@
 				<div class="col-lg-2 col-md-3 md-form form-group form-sm">
 				    <i class="fa fa-calendar prefix js-calendar"></i>
 				    <label class="js-noiz-label" for="noiz">{{ 'messages.noiz' | trans | capitalize }}</label>
-				    {{ form_widget(eskakizunaForm.noiz, { 'attr': { 'class' : 'js-datepicker' } }) }}
+					{{ form_widget(eskakizunaForm.noiz, { 'attr': { 'class' : 'js-datepicker' } }) }}
 				    {{ form_errors(eskakizunaForm.noiz) }}
 				</div>
 				<div class="col-lg-5 col-md-4 md-form form-group form-sm">

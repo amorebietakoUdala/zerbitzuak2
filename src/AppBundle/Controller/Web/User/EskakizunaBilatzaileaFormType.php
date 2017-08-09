@@ -8,41 +8,18 @@
 
 namespace AppBundle\Controller\Web\User;
 
-use AppBundle\Controller\Web\Admin\EskatzaileaFormType;
-use AppBundle\Controller\Web\Admin\GeoreferentziazioaFormType;
-use AppBundle\Controller\Web\User\ErantzunaFormType;
 use AppBundle\Entity\Egoera;
 use AppBundle\Entity\Enpresa;
-use AppBundle\Entity\Erabiltzailea;
-use AppBundle\Entity\Eskakizuna;
-use AppBundle\Entity\EskakizunMota;
-use AppBundle\Entity\Eskatzailea;
-use AppBundle\Entity\Georeferentziazioa;
-use AppBundle\Entity\Jatorria;
 use AppBundle\Entity\Zerbitzua;
 use AppBundle\Repository\EgoeraRepository;
 use AppBundle\Repository\EnpresaRepository;
-use AppBundle\Repository\ErabiltzaileaRepository;
-use AppBundle\Repository\EskakizunMotaRepository;
-use AppBundle\Repository\GeoreferentziazioaRepository;
-use AppBundle\Repository\JatorriaRepository;
 use AppBundle\Repository\ZerbitzuaRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Email;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\Regex;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 /**
  * Description of EskakizunaFormType
@@ -52,7 +29,6 @@ use Symfony\Component\Validator\Constraints\Regex;
 class EskakizunaBilatzaileaFormType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
-//        dump($options);die;
 	$builder
             ->add('lep')
 	    ->add('noiztik', DateTimeType::class, [

@@ -51,19 +51,19 @@ AppBundle\Entity\Egoera:
     egoera1:
 # Ez du balio id jartzerik jakiteko baino ez da
         id: 1
-        deskripzioa_es: Bidali-gabe (Erdaraz)
+        deskripzioa_es: Sin enviar
         deskripzioa_eu: Bidali-gabe
     egoera2:
         id: 2
-        deskripzioa_es: Bidalia (Erdaraz)
+        deskripzioa_es: Enviado
         deskripzioa_eu: Bidalia
     egoera3:
         id: 3
-        deskripzioa_es: Erantzunda (Erdaraz)
+        deskripzioa_es: Respondido
         deskripzioa_eu: Erantzunda
     egoera4:
         id: 4
-        deskripzioa_es: Itxia (Erdaraz)
+        deskripzioa_es: Cerrado
         deskripzioa_eu: Itxia
 
 AppBundle\Entity\EskakizunMota:

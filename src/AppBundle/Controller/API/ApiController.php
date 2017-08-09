@@ -265,8 +265,6 @@ class ApiController extends BaseController
         $data = json_decode($request->getContent(), true);
         $clearMissing = $request->getMethod() != 'PATCH';
         $form->submit($data, $clearMissing);
-
-//	dump($form);die;
     }
     
     private function _remove_blank_filters ($criteria) {

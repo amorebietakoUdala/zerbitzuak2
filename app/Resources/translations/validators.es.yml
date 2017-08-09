@@ -1,2 +1,3 @@
 "This value is not a valid email address.": "El email {{ value }} no es válido"
-
+"postaKodea ez da zuzena": "El código postal {{ value }} no es válido"
+"NANa ez da zuzena": "El DNI {{ value }} no es válido"

@@ -13,7 +13,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use FOS\UserBundle\Form\Type\RegistrationFormType as BaseRegistrationFormType;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use AppBundle\Entity\Enpresa;

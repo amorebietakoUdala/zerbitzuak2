@@ -9,3 +9,19 @@
     border-radius: 0;
     box-shadow: none;
 }
+
+.bootstrap-table {
+    font-size: 0.8rem;
+}
+
+.bootstrap-table .fa {
+    font-size: 1.2rem;
+}
+
+.fixed-table-body {
+    height: auto;
+}
+
+.fixed-table-container {
+    border: 0;
+}

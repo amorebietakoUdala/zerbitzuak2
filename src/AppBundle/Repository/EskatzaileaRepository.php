@@ -10,7 +10,6 @@ namespace AppBundle\Repository;
 
 
 use Doctrine\ORM\EntityRepository;
-use AppBundle\Entity\Eskatzailea;
 
 /**
  * Description of EskatzaileaRepository

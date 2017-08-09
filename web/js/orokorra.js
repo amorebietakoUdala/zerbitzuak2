@@ -1,5 +1,5 @@
 $(function() {
-
+    var locale = $('html').attr('lang');
     $(document).ready(function(){
         if ( $("select").val() !== "" ) {
             $("select").addClass("active");
@@ -27,10 +27,10 @@ $(function() {
 	e.preventDefault();
 	var url = $(e.currentTarget).data('url');
 	swal({
-	    title: 'Ezabatu?',
-	    text: 'Konfirmatu mesedez',
-	    confirmButtonText: 'Bai',
-	    cancelButtonText: 'Ez',
+	    title: locale === 'eu' ? 'Ezabatu?' : 'Borrar?',
+	    text: locale === 'eu' ? 'Konfirmatu mesedez' : 'Confirme por favor',
+	    confirmButtonText: locale === 'eu' ? 'Bai' : 'Sí',
+	    cancelButtonText: locale === 'eu' ? 'Ez' : 'No',
 	    showCancelButton: true,
 	    showLoaderOnConfirm: true,
 	    preConfirm: function () {
@@ -40,6 +40,7 @@ $(function() {
 	}).catch(function (arg) {
 		console.log('Canceled!');
 	});
+    
     });
 
 });

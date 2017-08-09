@@ -9,8 +9,6 @@
 namespace AppBundle\Repository;
 
 use AppBundle\Entity\Egoera;
-use AppBundle\Entity\Erabiltzailea;
-use AppBundle\Entity\Zerbitzua;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\ORM\EntityRepository;
 

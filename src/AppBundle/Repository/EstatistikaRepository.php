@@ -41,18 +41,4 @@ class EstatistikaRepository extends EntityRepository {
 	return $new_criteria;
     }
 
-//    /**
-//    * @return \Doctrine\DBAL\Query\QueryBuilder
-//    */
-//    public function findDistinctUrteaQB()
-//    {
-//        return $this->createQueryBuilder('e')
-//	    ->select(['e.urtea'], ['e.eskakizunak'])
-//	    ->addGroupBy('e.urtea')
-//            ->orderBy('e.urtea', 'DESC');
-//	
-////	    ->setMaxResults(10);
-//	
-//    }
-
 }

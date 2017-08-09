@@ -192,18 +192,6 @@ i.btn-primary {
 
 
 /* Estilos página alta solicitud */
-.bootstrap-table {
-    font-size: 0.8rem;
-}
-
-.bootstrap-table .fa {
-    font-size: 1.2rem;
-}
-
-.fixed-table-body {
-    height: auto;
-}
-
 .breadcrumb {
     padding: 0.3rem 0.1rem;
 }
@@ -288,6 +276,9 @@ i.btn-primary {
     padding: 1rem 1rem;
 }
 
+.white-space-nowrap {
+    white-space: nowrap;
+}
 
 select.form-control:not([size]):not([multiple]) {
     height: calc(1.5rem + 2px) !important;

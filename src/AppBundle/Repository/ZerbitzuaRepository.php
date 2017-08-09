@@ -10,7 +10,7 @@ namespace AppBundle\Repository;
 
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\Common\Collections\Criteria;
+
 
 /**
  * Description of ZerbitzuaRepository
@@ -46,8 +46,4 @@ class ZerbitzuaRepository extends EntityRepository {
         }
         return $qb;
     }
-
-        /**
-     * @return \Doctrine\DBAL\Query\QueryBuilder
-     */
 }

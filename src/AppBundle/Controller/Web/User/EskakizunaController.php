@@ -15,16 +15,11 @@ use AppBundle\Entity\Erabiltzailea;
 use AppBundle\Entity\Eskakizuna;
 use AppBundle\Entity\Eskatzailea;
 use AppBundle\Entity\Georeferentziazioa;
-use AppBundle\Entity\Zerbitzua;
-use AppBundle\Entity\Erantzuna;
-use AppBundle\Repository\EskakizunaRepository;
 use AppBundle\Controller\Web\User\EskakizunaBilatzaileaFormType;
 use Imagick;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Doctrine\Common\Collections\ArrayCollection;
 use \Swift_Message;
 
@@ -58,7 +53,6 @@ class EskakizunaController extends Controller {
 
 	    /* @var data \AppBundle\Entity\Eskakizuna */
             $eskakizuna = $form->getData();
-//	    dump($eskakizuna);die;
             $this->eskatzailea = $eskakizuna->getEskatzailea();
 	    if ( $this->eskatzailea->getId() !== null ) {
                 $this->eskatzailea = $em->getRepository(Eskatzailea::class)->find($this->eskatzailea->getId());
@@ -72,17 +66,15 @@ class EskakizunaController extends Controller {
 	    $this->eskakizuna->setEskatzailea($this->eskatzailea);
 	    $georeferentziazioa = $eskakizuna->getGeoreferentziazioa();
 	    if ( $georeferentziazioa->getLongitudea() !== null && $georeferentziazioa->getLatitudea() !== null ) {
-//		$georeferentziazioa = $this->_parseGeoreferentziazioa($form);
 		$this->eskakizuna->setGeoreferentziazioa($georeferentziazioa);
 		$em->persist($georeferentziazioa);
 	    }
 	    $zerbitzua = $this->eskakizuna->getZerbitzua();
-	    $mezuaBidali = false;
+	    $zerbitzua_hautatua = false;
 	    if ($zerbitzua !== null) {
 		$this->eskakizuna->setEnpresa($zerbitzua->getEnpresa());
-		$mezuaBidali = true;
+		$zerbitzua_hautatua = true;
 	    }
-//	    dump($this->eskakizuna);die;
 	    $this->_argazkia_gorde();
             if ( $eskakizuna->getZerbitzua() != null ) {
                 $egoera = $em->getRepository(Egoera::class)->find(Egoera::EGOERA_BIDALIA);
@@ -98,7 +90,8 @@ class EskakizunaController extends Controller {
 	    $em->persist($this->eskatzailea);
 	    $em->persist($this->eskakizuna);
 	    $em->flush();
-	    if ( $mezuaBidali ) {
+	    $mezuak_bidali = $this->getParameter('mezuak_bidali');
+	    if ( $mezuak_bidali && $zerbitzua_hautatua ) {
 		$title = 'Eskakizun Berria. Eskakizun zenbakia:';
 		$this->_mezuaBidaliEnpresari($title, $this->eskakizuna, $this->eskakizuna->getEnpresa());
 	    }
@@ -127,7 +120,6 @@ class EskakizunaController extends Controller {
 	]);
 	
 	$bilatzaileaForm->handleRequest($request);
-//	dump($bilatzaileaForm,$bilatzaileaForm->getData());die;
 	if ( $bilatzaileaForm->isSubmitted() && $bilatzaileaForm->isValid() ) {
 	    $criteria = $bilatzaileaForm->getData();
 	    $criteria['role'] = null; 
@@ -165,7 +157,6 @@ class EskakizunaController extends Controller {
 	    $from = array_key_exists( 'noiztik', $criteria ) ? $criteria['noiztik'] : null;
 	    $to = array_key_exists( 'nora', $criteria ) ? $criteria['nora'] : null;
 	    $criteria_without_blanks = $this->_remove_noiztik_nora($criteria);
-//	    dump($criteria_without_blanks,$from, $to);die;
 	    $eskakizunak = $this->getDoctrine()
 		    ->getRepository(Eskakizuna::class)
 		    ->findAllOpen($criteria_without_blanks, $from, $to);
@@ -181,7 +172,6 @@ class EskakizunaController extends Controller {
      * @Route("/{id}/edit", name="admin_eskakizuna_edit")
      */
     public function editAction (Request $request, Eskakizuna $eskakizuna){
-//	dump($eskakizuna);die;
 	$logger = $this->get('logger');
         $user = $this->get('security.token_storage')->getToken()->getUser();
 	$form = $this->createForm(EskakizunaFormType::class, $eskakizuna, [
@@ -206,7 +196,6 @@ class EskakizunaController extends Controller {
 		$geo = $em->getRepository(Georeferentziazioa::class)->find($eskakizuna->getId());
 	    } else if ($geo->getLongitudea() !== null && $geo->getLatitudea() !== null ) {
 		    $this->georeferentziazioa = $geo;
-//		    $this->_parseGeoreferentziazioa($form);
 		    $this->eskakizuna->setGeoreferentziazioa($this->georeferentziazioa);
 		    $em->persist($this->georeferentziazioa);
 	    }
@@ -224,8 +213,11 @@ class EskakizunaController extends Controller {
 		    $this->eskakizuna->setEgoera($egoera);
 		    $this->eskakizuna->setNoizBidalia(new \DateTime());
 		    $title = 'Eskakizuna esleitu egin zaizu. Eskakizun zenbakia:';
-		    $this->_mezuaBidaliEnpresari($title, $this->eskakizuna, $this->eskakizuna->getEnpresa());
-		    $logger->debug('Mezua Bidalia');
+		    $mezuak_bidali = $this->getParameter('mezuak_bidali');
+		    if ($mezuak_bidali) {
+			$this->_mezuaBidaliEnpresari($title, $this->eskakizuna, $this->eskakizuna->getEnpresa());
+			$logger->debug('Mezua Bidalia');
+		    }
 		}
 	    }
 	    $this->_argazkia_gorde();
@@ -248,9 +240,6 @@ class EskakizunaController extends Controller {
 		$egoera = $em->getRepository(Egoera::class)->find(Egoera::EGOERA_ERANTZUNDA);
 		$this->eskakizuna->setEgoera($egoera);
 	    }
-//            if ($geo !== null) {
-//                $em->persist($geo);
-//            }
 	    $em->persist($this->eskakizuna);
 	    $em->flush();
 	    
@@ -316,7 +305,6 @@ class EskakizunaController extends Controller {
                 }
             }
 	    
-//	    $this->_argazkia_gorde();
 	    if ($this->eskakizuna->getArgazkia() === null) {
 		$this->eskakizuna->setArgazkia($eskakizuna->getArgazkia());
 	    }
@@ -326,12 +314,12 @@ class EskakizunaController extends Controller {
 		$egoera = $em->getRepository(Egoera::class)->find(Egoera::EGOERA_ERANTZUNDA);
 		$this->eskakizuna->setEgoera($egoera);
 		$erantzundakoan_mezua_bidali = $this->getParameter('erantzundakoan_mezua_bidali');
-		if ($erantzundakoan_mezua_bidali) {
+		$mezuak_bidali = $this->getParameter('mezuak_bidali');
+		if ( $erantzundakoan_mezua_bidali && $mezuak_bidali ) {
 		    $title = 'Eskakizuna erantzunda. Eskakizun zenbakia: ';
 		    $this->_mezuaBidaliArduradunei($title, $this->eskakizuna);
 		}
 	    }
-//	    dump($this->eskakizuna);die;
 	    $em->persist($this->eskakizuna);
 	    $em->flush();
 
@@ -356,12 +344,6 @@ class EskakizunaController extends Controller {
      * @Route("/{id}/close", name="admin_eskakizuna_close")
      */
     public function closeAction (Request $request, Eskakizuna $eskakizuna){
-//	Teorían, eskakizuna argumentu bezala pasatzean, {id}-a erabiltzen du eskakizun hori bilatzeko
-//	$em = $this->getDoctrine()->getManager();
-//	$eskakizuna = $em->getRepository(Eskakizuna::class)->findOneBy([
-//	    'id' => $id 
-//	]);
-
 	if (!$eskakizuna) {
 	    $this->addFlash('error', 'messages.eskakizuna_ez_da_existitzen');
 	    return $this->listAction();
@@ -386,12 +368,6 @@ class EskakizunaController extends Controller {
      */
     public function resendAction (Request $request, Eskakizuna $eskakizuna){
 	$user = $this->get('security.token_storage')->getToken()->getUser();
-//	Teorían, eskakizuna argumentu bezala pasatzean, {id}-a erabiltzen du eskakizun hori bilatzeko
-//	$em = $this->getDoctrine()->getManager();
-//	$eskakizuna = $em->getRepository(Eskakizuna::class)->findOneBy([
-//	    'id' => $id 
-//	]);
-
 	if (!$eskakizuna) {
 	    $this->addFlash('error', 'messages.eskakizuna_ez_da_existitzen');
 	    return $this->listAction();
@@ -414,8 +390,6 @@ class EskakizunaController extends Controller {
 
     private function _parseEskatzailea($form){
         $data = $form->getData();
-//	dump($data);die;
-//        $this->eskatzailea->setId($data['eskatzailea']);
 	$eskatzailea = $data->getEskatzailea();
 	$this->eskatzailea->setIzena($eskatzailea->getIzena());
 	$this->eskatzailea->setNan($eskatzailea->getNan());
@@ -441,15 +415,6 @@ class EskakizunaController extends Controller {
 	}
     }
 
-//    private function _parseGeoreferentziazioa($form){
-//	$data = $form->getData()->getGeoreferentziazioa();
-//	$this->georeferentziazioa->setLatitudea($data->getLatitudea());
-//	$this->georeferentziazioa->setLongitudea($data->getLongitudea());
-//	$this->georeferentziazioa->setGoogleAddress($data->getGoogleAddress());
-//	$this->georeferentziazioa->setMapaLatitudea($data->getMapaLatitudea());
-//	$this->georeferentziazioa->setMapaLongitudea($data->getMapaLongitudea());
-//    }
-    
     private function _argazkia_gorde() {
 	$argazkia = $this->eskakizuna->getArgazkia();
 	if ( $argazkia !== null ) {
@@ -506,7 +471,6 @@ class EskakizunaController extends Controller {
 	$message->setFrom($from);
 //	$message->setTo('ibilbao@amorebieta.eus');
 	// TODO deskomentatu denei bidaltzeko
-	//dump($emailak);die;
 //	$message->setTo($this->getParameter('mailer_from'));
 	$message->setTo($emailak);
 	$message->setBody(

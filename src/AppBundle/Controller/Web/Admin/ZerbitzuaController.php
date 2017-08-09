@@ -9,7 +9,6 @@
 namespace AppBundle\Controller\Web\Admin;
 
 use AppBundle\Entity\Zerbitzua;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Controller\Web\Admin\ZerbitzuaFormType;

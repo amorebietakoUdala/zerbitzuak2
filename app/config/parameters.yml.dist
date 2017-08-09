@@ -19,3 +19,4 @@ parameters:
     images_thumb_width: 200
     max_upload_image_size: 4M
     erantzundakoan_mezua_bidali: false
+    mezuak_bidali: false

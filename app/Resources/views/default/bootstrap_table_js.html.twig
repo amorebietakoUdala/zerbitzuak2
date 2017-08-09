@@ -1,13 +1,14 @@
     <script type="text/javascript" src="{{ asset('bower_components/bootstrap-table/dist/bootstrap-table.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bower_components/bootstrap-table/dist/extensions/export/bootstrap-table-export.js') }}"></script>
-    
+    <script type="text/javascript" src="{{ asset('bower_components/bootstrap-table/dist/extensions/export/bootstrap-table-export.min.js') }}"></script>
+{#    <script type="text/javascript" src="{{ asset('bower_components/bootstrap-table/dist/extensions/natural-sorting/bootstrap-table-natural-sorting.min.js') }}"></script>
+#}    
     {% if app.request.getLocale() == 'es' %}
 	<script type="text/javascript" src="{{ asset('js/locales/bootstrap-table-es-ES.js') }}"></script>
     {% else %}
 	<script type="text/javascript" src="{{ asset('js/locales/bootstrap-table-es-EU.js') }}"></script>
     {% endif %}
 
-    <script type="text/javascript" src="//rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js"></script>
+    <script type="text/javascript" src="{{ asset('bower_components/tableexport.jquery.plugin/tableExport.min.js') }}"></script>
 
     <script type="text/javascript">
     $(document).ready(function(){
@@ -17,8 +18,9 @@
 		exportTypes: {exportTypes:['excel']},
 		exportDataType: 'all',
 		exportOptions: {
-		    "fileName" : "eskakizunak",
-		    "worksheetName": "test1"
+{#		    fileName: "eskakizunak",
+		    worksheetName: "test1",
+#}		    ignoreColumn: ['aukerak']
 		},
 		showColumns: true,
 		pagination: true,
@@ -26,16 +28,15 @@
 		striped: true,
 		sortStable: true,
 		pageSize: 25,
-		pageList: [25,50,75],
+		pageList: [25,50,75,100],
 		sortable: true,
 		locale: 'es_{{ app.request.getLocale() | upper }}'
 	});
 	var $table = $('.taula');
 	$(function () {
 	    $('#toolbar').find('select').change(function () {
-		$table.
 		$table.bootstrapTable('destroy').bootstrapTable({
-		    exportDataType: $(this).val()
+		    exportDataType: $(this).val(),
 		});
 	    });
 	});
