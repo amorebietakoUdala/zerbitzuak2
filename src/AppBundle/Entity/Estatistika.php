@@ -75,3 +75,4 @@ class Estatistika {
 	return $this->getUrtea().'';
     }
 }
+
