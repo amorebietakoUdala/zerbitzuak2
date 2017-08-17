@@ -27,6 +27,17 @@ class EstatistikaRepository extends EntityRepository {
             ->orderBy('e.urtea', 'DESC');
     }
 
+    /**
+    * @return \Doctrine\DBAL\Query\QueryBuilder
+    */
+    public function findDistinctUrteak()
+    {
+        return $this->createQueryBuilder('e')
+		->select('est.urtea')
+		->distinct()
+		->from('AppBundle:Estatistika', 'est');
+    }
+
     public function findByCriteria(array $criteria, mixed $orderBy = null, $limit = null, $offset = null) {
 	$criteria1 = $this->_remove_blank_filters($criteria);
 	return parent::findBy($criteria1, $orderBy, $limit, $offset);
