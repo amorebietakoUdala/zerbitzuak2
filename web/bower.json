@@ -19,7 +19,9 @@
     "moment": "^2.18.1",
     "sweetalert2": "^6.6.6",
     "jquery-ui": "^1.12.1",
-    "tether": "^1.4.0"
+    "tether": "^1.4.0",
+    "tableexport.jquery.plugin": "^1.9.4",
+    "tinymce": "^4.6.5"
   },
   "devDependencies": {},
   "description": "Prototipo Zerbitzuak",
