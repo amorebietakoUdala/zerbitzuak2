@@ -205,7 +205,8 @@ class EskakizunaController extends Controller {
 	    {
 		$zerbitzua = $this->eskakizuna->getZerbitzua();
 		$this->eskakizuna->setEnpresa($zerbitzua->getEnpresa());
-		if ( $this->eskakizuna->getEgoera()->getId() === Egoera::EGOERA_BIDALI_GABE || $zerbitzua->getId() !== $zerbitzuaAldatuAurretik->getId()) {
+		if ( $this->eskakizuna->getEgoera()->getId() === Egoera::EGOERA_BIDALI_GABE 
+			    || $zerbitzuaAldatuAurretik !== null && ( $zerbitzua->getId() !== $zerbitzuaAldatuAurretik->getId() )) {
 		    $logger->debug('Egoera: Bidali gabe edo zerbitzua aldatua');
 		    $egoera = $em->getRepository(Egoera::class)->find(Egoera::EGOERA_BIDALIA);
 		    $this->eskakizuna->setEgoera($egoera);
@@ -217,6 +218,9 @@ class EskakizunaController extends Controller {
 			$logger->debug('Mezua Bidalia');
 		    }
 		}
+	    } else {
+		    $egoera = $em->getRepository(Egoera::class)->find(Egoera::EGOERA_BIDALI_GABE);
+		    $this->eskakizuna->setEgoera($egoera);
 	    }
 	    $this->_argazkia_gorde();
 	    
