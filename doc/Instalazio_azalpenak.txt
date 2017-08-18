@@ -1,8 +1,62 @@
+# Aplikazio honek php-imagick gehigarria erabiltzen du.
+# Linux Ubuntu 16.04 eta PHP 7.0-arekin instalatzeko instrukzioak honako hauek dira.
+sudo apt-get install php-imagick
+sudo apt-get install imagemagick
 
+# /etc/php/7.0/apache2/php.ini fitxategia editatu eta date.timezone aldagaia aldatu
+date.timezone = 'Europe/Madrid'
+
+
+# Apache berabiarazi
+sudo service apache2 reload
+
+# Imagick gehigarria ondo instalatu dela konprobatzeko honako bi komando hauek erabili.
+php -m | grep imagick
+# Bilatu gehigarrien atalean zenbat formatu onartzen dituen. 0 jartzen badu txarto joan da zerbait.
+php -i
+
+# Documento root-era joan
+cd /var/wwww
+
+# Github-etik kode iturria jaitsi.
 git clone https://github.com/amorebietakoUdala/zerbitzuak2.git
+# Tag concretu bat nahi baduzu
+git checkout -b 0.9b
 
+# MySQL databasea sortu
+
+
+# Dependentzia guztiak jaitsi
 composer install
 cd web
-bower install
-cd ..
+# Bower instalatuta ez badago instalatu behar honako komandoekin
+sudo apt-get install nodejs
+sudo apt install nodejs-legacy
+sudo apt install npm
+sudo npm install -g bower
 
+sudo bower --allow-root install
+
+cd ..
+php bin/console assets:install web --symlink
+php bin/console cache:clear --env=prod --no-debug
+
+#####Baimenak ezarri
+
+sudo mkdir -p web/images/uploads
+sudo chown www-data:www-data web/images/uploads
+
+sudo setfacl -R -m u:www-data:rwx -m u:whoami:rwx var/cache var/logs var/sessions web/images/uploads
+sudo setfacl -dR -m u:www-data:rwx -m u:whoami:rwx var/cache var/logs var/sessions web/images/uploads
+
+# Datu basearen egitura sortu.
+sudo php bin/console doctrine:database:create
+sudo php bin/console doctrine:schema:create
+
+
+
+# Datu basean honako script "create_estatistikak_view.sql" abiarazi, 
+estatistikentzako bistak sortzeko.
+
+mysql -u <user> -p < doc/taula_nagusien_carga.sql
+mysql -u <user> -p < doc/create_estatistikak_view.sql
