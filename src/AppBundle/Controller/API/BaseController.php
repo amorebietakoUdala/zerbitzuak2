@@ -3,6 +3,9 @@
 namespace AppBundle\Controller\API;
 
 use AppBundle\Entity\Erabiltzailea;
+use AppBundle\Api\ApiProblem;
+use AppBundle\Api\ApiProblemException;
+use Symfony\Component\Form\FormInterface;
 use AppBundle\Repository\ApiTokenRepository;
 use JMS\Serializer\SerializationContext;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -92,4 +95,24 @@ abstract class BaseController extends Controller
         return $this->container->get('jms_serializer')
             ->serialize($data, $format, $context);
     }
+    
+    protected function processForm(Request $request, FormInterface $form) {
+        $data = json_decode($request->getContent(), true);
+        if ($data === null) {
+            $apiProblem = new ApiProblem(400, ApiProblem::TYPE_INVALID_REQUEST_BODY_FORMAT);
+            throw new ApiProblemException($apiProblem);
+        }
+        $clearMissing = $request->getMethod() != 'PATCH';
+        $form->submit($data, $clearMissing);
+    }
+    
+    protected function _remove_blank_filters ($criteria) {
+	$new_criteria = [];
+	foreach ($criteria as $key => $value) {
+	    if (!empty($value))
+		$new_criteria[$key] = $value;
+	}
+	return $new_criteria;
+    }
+
 }
