@@ -123,6 +123,11 @@ class Eskatzailea {
 	return $this->postaKodea;
     }
 
+    public function getPosta_kodea() {
+	return $this->postaKodea;
+    }
+
+    
     public function getFaxa() {
 	return $this->faxa;
     }
@@ -156,6 +161,10 @@ class Eskatzailea {
     }
 
     public function setPostaKodea($postaKodea) {
+	$this->postaKodea = $postaKodea;
+    }
+
+    public function setPosta_kodea($postaKodea) {
 	$this->postaKodea = $postaKodea;
     }
 
