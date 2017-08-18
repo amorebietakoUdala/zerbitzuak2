@@ -24,3 +24,9 @@ services:
         arguments: ['%kernel.default_locale%']
         tags:
         - { name: kernel.event_subscriber }
+
+    api_problem_subscriber:
+        class: AppBundle\EventListener\ApiExceptionSubscriber
+        arguments: [ '%kernel.debug%' ]
+        tags:
+            - { name: kernel.event_subscriber }
