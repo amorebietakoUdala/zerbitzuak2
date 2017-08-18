@@ -1,8 +1,6 @@
-DROP TABLE estatistikak;
+DROP VIEW view_estatistikak;
 
-DROP VIEW estatistikak;
-
-CREATE OR REPLACE VIEW estatistikak as 
+CREATE OR REPLACE VIEW view_estatistikak as 
 SELECT enpresa_id, year(noiz) as urtea, count(*) as eskakizunak
 FROM eskakizunak
 group by enpresa_id, urtea
