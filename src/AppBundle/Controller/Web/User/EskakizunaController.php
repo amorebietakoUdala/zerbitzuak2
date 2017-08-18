@@ -168,7 +168,7 @@ class EskakizunaController extends Controller {
 	]);
     }
 
-    /**
+     /**
      * @Route("/{id}/edit", name="admin_eskakizuna_edit")
      */
     public function editAction (Request $request, Eskakizuna $eskakizuna){
@@ -204,8 +204,6 @@ class EskakizunaController extends Controller {
 	    if ( $this->eskakizuna->getZerbitzua() !== null ) 
 	    {
 		$zerbitzua = $this->eskakizuna->getZerbitzua();
-		$logger->debug('Zerbitzua aldatu aurretik: '.$zerbitzuaAldatuAurretik->getIzena_eu());
-		$logger->debug('Zerbitzua aldatu ostean: '.$zerbitzua->getIzena_eu());
 		$this->eskakizuna->setEnpresa($zerbitzua->getEnpresa());
 		if ( $this->eskakizuna->getEgoera()->getId() === Egoera::EGOERA_BIDALI_GABE || $zerbitzua->getId() !== $zerbitzuaAldatuAurretik->getId()) {
 		    $logger->debug('Egoera: Bidali gabe edo zerbitzua aldatua');
