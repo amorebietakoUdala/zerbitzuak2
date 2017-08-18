@@ -168,7 +168,7 @@ class EskakizunaController extends Controller {
 	]);
     }
 
-    /**
+     /**
      * @Route("/{id}/edit", name="admin_eskakizuna_edit")
      */
     public function editAction (Request $request, Eskakizuna $eskakizuna){
@@ -204,10 +204,9 @@ class EskakizunaController extends Controller {
 	    if ( $this->eskakizuna->getZerbitzua() !== null ) 
 	    {
 		$zerbitzua = $this->eskakizuna->getZerbitzua();
-		$logger->debug('Zerbitzua aldatu aurretik: '.$zerbitzuaAldatuAurretik->getIzena_eu());
-		$logger->debug('Zerbitzua aldatu ostean: '.$zerbitzua->getIzena_eu());
 		$this->eskakizuna->setEnpresa($zerbitzua->getEnpresa());
-		if ( $this->eskakizuna->getEgoera()->getId() === Egoera::EGOERA_BIDALI_GABE || $zerbitzua->getId() !== $zerbitzuaAldatuAurretik->getId()) {
+		if ( $this->eskakizuna->getEgoera()->getId() === Egoera::EGOERA_BIDALI_GABE 
+			    || $zerbitzuaAldatuAurretik !== null && ( $zerbitzua->getId() !== $zerbitzuaAldatuAurretik->getId() )) {
 		    $logger->debug('Egoera: Bidali gabe edo zerbitzua aldatua');
 		    $egoera = $em->getRepository(Egoera::class)->find(Egoera::EGOERA_BIDALIA);
 		    $this->eskakizuna->setEgoera($egoera);
@@ -219,6 +218,9 @@ class EskakizunaController extends Controller {
 			$logger->debug('Mezua Bidalia');
 		    }
 		}
+	    } else {
+		    $egoera = $em->getRepository(Egoera::class)->find(Egoera::EGOERA_BIDALI_GABE);
+		    $this->eskakizuna->setEgoera($egoera);
 	    }
 	    $this->_argazkia_gorde();
 	    

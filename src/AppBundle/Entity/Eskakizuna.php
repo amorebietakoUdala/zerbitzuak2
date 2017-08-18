@@ -145,13 +145,14 @@ class Eskakizuna {
     * Eskakizun askok georeferentziazio bat daukate (OWNING SIDE)
     * @ORM\ManyToOne (targetEntity="Georeferentziazioa", cascade={"persist", "remove"} )
     * @ORM\JoinColumn(nullable=true);
+    * @JMS\MaxDepth(1)
+    * @JMS\Expose(true)
     */
     private $georeferentziazioa;
 
     /**
     * @ORM\OneToMany (targetEntity="Erantzuna", mappedBy="eskakizuna", cascade={"persist", "remove"})
     * @ORM\JoinColumn(nullable=true);
-    * @JMS\Exclude()
     */
     private $erantzunak;
 
@@ -258,7 +259,7 @@ class Eskakizuna {
 	$this->kalea = $kalea;
     }
 
-    public function setZerbitzua(Zerbitzua $zerbitzua) {
+    public function setZerbitzua(Zerbitzua $zerbitzua = null ) {
 	$this->zerbitzua = $zerbitzua;
     }
 
@@ -274,7 +275,7 @@ class Eskakizuna {
 	$this->itxieraData = $itxieraData;
     }
 
-    public function setEgoera(Egoera $egoera) {
+    public function setEgoera(Egoera $egoera = null) {
 	$this->egoera = $egoera;
     }
 
