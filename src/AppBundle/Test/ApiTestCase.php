@@ -2,9 +2,11 @@
 
 namespace AppBundle\Test;
 
+use AppBundle\DataFixtures\ORM\LoadFixturesTest;
 use AppBundle\Entity\Erabiltzailea;
+use AppBundle\Entity\Eskakizuna;
 use AppBundle\Entity\Eskatzailea;
-use Doctrine\Common\DataFixtures\Purger\ORMPurger;
+use AppBundle\Test\ORMPurgerCustom;
 use Doctrine\ORM\EntityManager;
 use Exception;
 use GuzzleHttp\Client;
@@ -19,8 +21,6 @@ use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use function GuzzleHttp\json_decode;
 use function GuzzleHttp\json_encode;
-
-use AppBundle\DataFixtures\ORM\LoadFixtures;
 
 class ApiTestCase extends KernelTestCase
 {
@@ -47,6 +47,8 @@ class ApiTestCase extends KernelTestCase
     private $formatterHelper;
 
     private $responseAsserter;
+    
+    protected $em;
 
     public static function setUpBeforeClass()
     {
@@ -83,16 +85,16 @@ class ApiTestCase extends KernelTestCase
 
     protected function setUp()
     {
-//        $this->purgeDatabase();
+        $this->purgeDatabase();
 	$this->client = self::$staticClient;
         // reset the history
         self::$history = array();
-//	$container = self::$kernel->getContainer();
-//	$doctrine = $container->get('doctrine');
-//	$em = $doctrine->getManager();
+	$container = self::$kernel->getContainer();
+	$doctrine = $container->get('doctrine');
+	$this->em = $doctrine->getManager();
 	
-//	$fixture = new LoadFixtures();
-//	$fixture->load($em);
+	$fixture = new LoadFixturesTest();
+	$fixture->load($this->em);
     }
 
     /**
@@ -119,8 +121,8 @@ class ApiTestCase extends KernelTestCase
 
     private function purgeDatabase()
     {
-	$purger = new ORMPurger($this->getService('doctrine')->getManager());
-	$purger->setPurgeMode(ORMPurger::PURGE_MODE_DELETE);
+	$purger = new ORMPurgerCustom($this->getService('doctrine')->getManager());
+	$purger->setPurgeMode(ORMPurgerCustom::PURGE_MODE_DELETE);
         $purger->purge();
     }
 
@@ -166,7 +168,8 @@ class ApiTestCase extends KernelTestCase
             if ($isValidHtml) {
                 $this->printDebug('');
                 $crawler = new Crawler($body);
-
+		$this->printDebug($body);
+		
                 // very specific to Symfony's error page
                 $isError = $crawler->filter('#traces-text')->count() > 0
                     || strpos($body, 'looks like something went wrong') !== false;
@@ -283,22 +286,6 @@ class ApiTestCase extends KernelTestCase
         return $last['response'];
     }
 
-//    protected function createUser($username, $plainPassword = 'foo')
-//    {
-//        $user = new User();
-//        $user->setUsername($username);
-//        $user->setEmail($username.'@foo.com');
-//        $password = $this->getService('security.password_encoder')
-//            ->encodePassword($user, $plainPassword);
-//        $user->setPassword($password);
-//
-//        $em = $this->getEntityManager();
-//        $em->persist($user);
-//        $em->flush();
-//
-//        return $user;
-//    }
-//
     protected function createEskatzailea(array $data)
     {
         $accessor = PropertyAccess::createPropertyAccessor();
@@ -313,7 +300,7 @@ class ApiTestCase extends KernelTestCase
         return $eskatzailea;
     }
 
-    protected function createErabitzailea(array $data, $plainPassword = 'admin')
+    protected function createErabitzailea(array $data, $plainPassword = 'admin_test')
     {
         $accessor = PropertyAccess::createPropertyAccessor();
         $erabiltzailea = new Erabiltzailea();
@@ -328,6 +315,13 @@ class ApiTestCase extends KernelTestCase
         $this->getEntityManager()->flush();
 
         return $erabiltzailea;
+    }
+
+    protected function createEskakizuna(Eskakizuna $eskakizuna)
+    {
+        $this->getEntityManager()->persist($eskakizuna);
+        $this->getEntityManager()->flush();
+        return $eskakizuna;
     }
 
     
