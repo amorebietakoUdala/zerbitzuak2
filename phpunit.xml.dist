@@ -14,8 +14,10 @@
     </php>
 
     <testsuites>
-        <testsuite name="Project Test Suite">
-            <directory>tests</directory>
+        <testsuite name="Zerbitzuak API Test Suite">
+<!--            <directory>src/AppBundle/Tests</directory> -->
+	    <file>src/AppBundle/Tests/Controller/API/ApiEskatzaileaControllerTest.php</file>
+<!--	    <file>src/AppBundle/Tests/Controller/API/ApiEskakizunaControllerTest.php</file> -->
         </testsuite>
     </testsuites>
 
