@@ -60,7 +60,7 @@ $(document).ready(function(){
 	    minLength: 3,
 	    source: function (request, response) {
 	      $.ajax({
-		  url: "../../api/eskatzailea",
+		  url: "/api/eskatzailea",
 		  dataType: "json",
 		  data: {
 		    nan: request.term
