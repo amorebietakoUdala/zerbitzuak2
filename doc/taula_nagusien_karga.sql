@@ -151,3 +151,4 @@ INSERT INTO `zerbitzuak` (`id`, `izena_eu`, `izena_es`,`enpresa_id`, `ordena`, `
 (76, '60a Izer eta Nafarroako parkinen mantenimendua', '60a Mantenimiento parking automático Izer y Nafarroa', 24, 99, 1),
 (77, 'Parking-en panelak', 'Paneles de parking', 1, 99, 1);
 
+

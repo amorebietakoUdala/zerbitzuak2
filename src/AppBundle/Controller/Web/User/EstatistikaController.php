@@ -10,23 +10,31 @@ use Symfony\Component\Routing\Annotation\Route;
 
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Estatistika;
+use AppBundle\Interfaces\EstatistikakInterface;
 
 /**
 * @Route("/{_locale}/estatistika")
 */
 class EstatistikaController extends Controller
 {
-     /**
+    private $estatistikak;
+
+    public function __construct(Estatistikak $estatistikak = null)
+    {
+        $this->estatistikak = $estatistikak;
+    }
+    
+
+    /**
      * @Route("/enpresako", name="admin_estatistika_enpresako")
      */
     public function estatistikaEnpresakoAction(Request $request) {
         $user = $this->get('security.token_storage')->getToken()->getUser();
 	$authorization_checker = $this->get('security.authorization_checker');
-	$connection = $this->getDoctrine()->getConnection(); // ...or getEntityManager() prior to Symfony 2.1
-	$urteakstatement = $connection->prepare("SELECT distinct(urtea) FROM ESTATISTIKAK ORDER BY urtea DESC");
-	$urteakstatement->execute();
-	$urteakResultSet = $urteakstatement->fetchAll();
-	foreach ($urteakResultSet as $key => $value) {
+	$urteakResult = $this->getDoctrine()
+		    ->getRepository(Estatistika::class)
+		    ->findDistinctUrteak()->getQuery()->getResult();
+	foreach ($urteakResult as $key => $value) {
 	    $urtea = $value['urtea'];
 	    $urteak[$urtea] = $urtea;
 	}

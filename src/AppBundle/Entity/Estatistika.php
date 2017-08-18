@@ -15,8 +15,8 @@ use AppBundle\Entity\Enpresa;
 use JMS\Serializer\Annotation as JMS;
 
 /**
-* @ORM\Entity(repositoryClass="AppBundle\Repository\EstatistikaRepository")
-* @ORM\Table(name="estatistikak")
+* @ORM\Entity(repositoryClass="AppBundle\Repository\EstatistikaRepository", readOnly=true)
+* @ORM\Table(name="view_estatistikak")
 */
 
 class Estatistika {
@@ -40,6 +40,8 @@ class Estatistika {
     * @ORM\Column(type="integer", nullable=false , options={"default":0})
     */
     private $eskakizunak;
+
+    private function __construct() {}
     
     public function getId() {
 	return $this->enpresa->getId().$this->urtea;
@@ -73,3 +75,4 @@ class Estatistika {
 	return $this->getUrtea().'';
     }
 }
+
