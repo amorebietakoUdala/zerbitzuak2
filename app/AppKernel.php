@@ -23,6 +23,7 @@ class AppKernel extends Kernel
 	    new FOS\UserBundle\FOSUserBundle(),
 	    new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
     	    new SaadTazi\GChartBundle\SaadTaziGChartBundle(),
+	    new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
             new AppBundle\AppBundle(),
         ];
 
