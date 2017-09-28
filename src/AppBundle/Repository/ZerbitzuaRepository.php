@@ -33,18 +33,25 @@ class ZerbitzuaRepository extends EntityRepository {
      */
     public function createOrderedQueryBuilder($criteria = null)
     {
-	$qb = $this->createQueryBuilder('zerbitzua');
-        
+	$qb = $this->createQueryBuilder('qb');
+        $qb->select('qb')
+	    ->from('AppBundle\Entity\Zerbitzua', 'z')
+	    ->leftJoin('AppBundle\Entity\Enpresa','e',
+		\Doctrine\ORM\Query\Expr\Join::WITH,
+		'qb.enpresa = e.id'
+        );
+	
         if ( $criteria !== null )
         {
             foreach ( $criteria as $eremua => $filtroa ) {
 		if ($eremua !== 'role' && $eremua !== 'locale' ) {
-		    $qb->andWhere('zerbitzua.'.$eremua.' = :'.$eremua)
+		    $qb->andWhere('z.'.$eremua.' = :'.$eremua)
 			->setParameter($eremua, $filtroa);
 		}
             }
         }
-	$qb->orderBy('zerbitzua.ordena', 'ASC');
+	$qb->orderBy('e.ordena', 'ASC');
+	$qb->addOrderBy('qb.ordena', 'ASC');
         return $qb;
     }
 }
