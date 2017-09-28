@@ -33,7 +33,7 @@ class EnpresaRepository extends EntityRepository {
     public function createOrderedQueryBuilder()
     {
         return $this->createQueryBuilder('enpresa')
-            ->orderBy('enpresa.ordena', 'DESC')
+            ->orderBy('enpresa.ordena', 'ASC')
 	;
     }
 

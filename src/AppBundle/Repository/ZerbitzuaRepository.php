@@ -38,12 +38,13 @@ class ZerbitzuaRepository extends EntityRepository {
         if ( $criteria !== null )
         {
             foreach ( $criteria as $eremua => $filtroa ) {
-		if ($eremua !== 'role') {
+		if ($eremua !== 'role' && $eremua !== 'locale' ) {
 		    $qb->andWhere('zerbitzua.'.$eremua.' = :'.$eremua)
 			->setParameter($eremua, $filtroa);
 		}
             }
         }
+	$qb->orderBy('zerbitzua.ordena', 'ASC');
         return $qb;
     }
 }
