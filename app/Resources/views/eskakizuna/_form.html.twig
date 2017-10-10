@@ -108,8 +108,13 @@
 					{{ form_widget(eskakizunaForm.zerbitzua, { 'attr': { 'class' : 'md-select' } }) }}
 					{{ form_errors(eskakizunaForm.zerbitzua) }}
 				</div>
+				<div class="col-12 md-form form-group form-sm">
+				    <p class="grey-text">{{ 'messages.mamia' | trans | capitalize }}</p>
+					    {{ form_widget(eskakizunaForm.mamia, { 'attr': { 'class' : 'js-mamia tinymce' } }) }}
+					    {{ form_errors(eskakizunaForm.mamia) }}
+				</div>
 			    </div>
-				<div class="row col-12">
+				<div class="row col-12 margin-top-13">
 				    <div class="col-lg-6 md-form form-group form-sm">
 					    <i class="fa fa-picture-o prefix"></i>
 					    {{ form_widget(eskakizunaForm.argazkia, { 'attr': { 'class' : 'form-control js-argazkia' } }) }}
@@ -142,11 +147,6 @@
 				</div>
 			    </div>
 			    <div class="container row">
-				<div class="col-12 md-form form-group form-sm margin-top-13">
-				    <p class="grey-text">{{ 'messages.mamia' | trans | capitalize }}</p>
-					    {{ form_widget(eskakizunaForm.mamia, { 'attr': { 'class' : 'js-mamia tinymce' } }) }}
-					    {{ form_errors(eskakizunaForm.mamia) }}
-				</div>
 				<div class="col-12 margin-top-13">
 				    <ul id="js-erantzunak-list" class="col-12" data-prototype="{{ form_widget(eskakizunaForm.erantzunak.vars.prototype)|e }}">
 					{% if eskakizunaForm.erantzunak|length > 0 %}
