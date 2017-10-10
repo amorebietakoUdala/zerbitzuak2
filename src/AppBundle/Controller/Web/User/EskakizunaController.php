@@ -116,7 +116,8 @@ class EskakizunaController extends Controller {
 	$authorization_checker = $this->get('security.authorization_checker');
 	$bilatzaileaForm = $this->createForm(EskakizunaBilatzaileaFormType::class,[
 	    'role' => $user->getRoles(),
-	    'enpresa' => $user->getEnpresa()
+	    'enpresa' => $user->getEnpresa(),
+	    'locale' => $request->getLocale(),
 	]);
 	
 	$bilatzaileaForm->handleRequest($request);

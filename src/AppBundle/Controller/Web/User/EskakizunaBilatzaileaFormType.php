@@ -29,6 +29,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 class EskakizunaBilatzaileaFormType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
+	$locale = $options['data']['locale'];
 	$builder
             ->add('lep')
 	    ->add('noiztik', DateTimeType::class, [
@@ -46,9 +47,13 @@ class EskakizunaBilatzaileaFormType extends AbstractType {
 	    ->add('egoera', EntityType::class,[
 		'placeholder'=> 'messages.hautatu_egoera',
 		'class' => Egoera::class,
-		'query_builder' => function (EgoeraRepository $repo) {
-			return $repo->createOrderedQueryBuilder();
+		'choice_label' => function ($egoera) use ($locale) {
+		    if ($locale === 'es') {
+			return $egoera->getDeskripzioaEs();
+		    } else {
+			return $egoera->getDeskripzioaEu();
 		    }
+		},
 	    ])
 	    ->add('kalea', TextType::class,[
 	    ]);
@@ -64,6 +69,13 @@ class EskakizunaBilatzaileaFormType extends AbstractType {
 		    'placeholder'=> 'messages.hautatu_zerbitzua',
 		    'class' => Zerbitzua::class,
 		    'group_by' => 'enpresa',
+		    'choice_label' => function ($zerbitzua) use ($locale) {
+		    if ($locale === 'es') {
+			return $zerbitzua->getIzenaEs();
+		    } else {
+			return $zerbitzua->getIzenaEu();
+		    }
+		    },
 		    'query_builder' => function (ZerbitzuaRepository $repo) {
 			    return $repo->createOrderedQueryBuilder();
 		    }
@@ -83,5 +95,4 @@ class EskakizunaBilatzaileaFormType extends AbstractType {
 	    'csrf_protection' => true,
 	]);
     }
-
 }
