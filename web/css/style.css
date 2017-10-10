@@ -364,3 +364,22 @@ select::-ms-expand {
   width: 100%; 
   min-height: 450px;
 }
+
+@media screen and (max-width: 699px) {
+    h1 {
+        font-size: 1.1rem;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    #span-titulua {
+	width: 250px !important;
+    }
+
+    #span-logo {
+	width: 65px !important;
+    }
+
+}
+
+
