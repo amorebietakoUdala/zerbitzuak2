@@ -163,7 +163,6 @@ class EskakizunaController extends Controller {
 		    ->findAllOpen($criteria_without_blanks, $from, $to);
 	    }
 
-//	dump($eskakizunak);die;
 	return $this->render('/eskakizuna/list.html.twig', [
 	    'bilatzaileaForm' => $bilatzaileaForm->createView(),
 	    'eskakizunak' => $eskakizunak,

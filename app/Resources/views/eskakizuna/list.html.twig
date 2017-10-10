@@ -52,7 +52,7 @@
 	</div>
 	<div class="row">
 	    <div class="margin-top-13">
-		<table class="taula bootstrap-table table-sm table-responsive col-12" data-toolbar="#toolbar" data-locale="es-{{  app.request.getLocale() | upper }}">
+		<table class="taula bootstrap-table table-sm table-responsive col-12">
 		<thead>
 		    <tr>
 			<th data-sortable="true">{{"messages.egoera" | trans | capitalize}}</th>
@@ -66,7 +66,6 @@
 			<th data-sortable="true">{{"messages.zerbitzua" | trans | capitalize}}</th>
 			<th data-sortable="true">{{"messages.noiz" | trans | capitalize}}</th>
 			<th data-sortable="true">{{"messages.egun" | trans | capitalize}}</th>
-			<th data-sortable="true" data-visible="false" data-field="erantzunak" data-tableexport-display="always">{{"messages.erantzunak" | trans | capitalize}}</th>
 			<th data-field="aukerak">{{"messages.aukerak" | trans | capitalize}}</th>
 		    </tr>
 		</thead>
@@ -96,11 +95,6 @@
                         {% set tartea = date().diff(date(eskakizuna.noiz)) %}
                         {% set egun = tartea.days %}
                         <td>{{ egun }}</td>
-			<td>
-			    {% for erantzuna in eskakizuna.erantzunak %}
-				<p>{{ erantzuna | raw }}</p>
-			    {% endfor %}
-			</td>
 			<td class="white-space-nowrap">
 				<a href="{{ path ('admin_eskakizuna_show', {'id': eskakizuna.id }) }}"><i class="fa fa-eye prefix" title="{{"messages.ikusi" | trans | capitalize }}"></i></a>
 				{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ARDURADUNA') or is_granted('ROLE_INFORMATZAILEA') %}
