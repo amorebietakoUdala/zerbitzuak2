@@ -123,7 +123,8 @@ class EskakizunaController extends Controller {
 	$bilatzaileaForm->handleRequest($request);
 	if ( $bilatzaileaForm->isSubmitted() && $bilatzaileaForm->isValid() ) {
 	    $criteria = $bilatzaileaForm->getData();
-	    $criteria['role'] = null; 
+	    $criteria['role'] = null;
+	    $criteria['locale'] = null;
 	    if ( $authorization_checker->isGranted('ROLE_KANPOKO_TEKNIKARIA') ) {
 		$criteria['enpresa'] = $user->getEnpresa(); 
 	    }
