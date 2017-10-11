@@ -521,6 +521,10 @@
                 <source>messages.ezin_jatorria_borratu_eskakizunak_dituelako</source>
                 <target>Ezin da jatorria borratu eskakizunak dituelako</target>
             </trans-unit>
+            <trans-unit id="messages.nork">
+                <source>messages.nork</source>
+                <target>Nork: </target>
+            </trans-unit>
 	    <!-- Amaiera Entitateak -->
 	</body>
     </file>

@@ -521,6 +521,10 @@
                 <source>messages.ezin_jatorria_borratu_eskakizunak_dituelako</source>
                 <target>No se puede borrar el origen porque tiene peticiones</target>
             </trans-unit>
+            <trans-unit id="messages.nork">
+                <source>messages.nork</source>
+                <target>Quién: </target>
+            </trans-unit>
 	    <!-- Amaiera Entitateak -->
 	</body>
     </file>

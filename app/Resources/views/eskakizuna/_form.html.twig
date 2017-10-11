@@ -153,6 +153,7 @@
 					    <p class="grey-text">{{ 'messages.erantzunak' | trans | capitalize }}</p>
 					    {{ form_errors(eskakizunaForm.erantzunak) }}
 					    {% for erantzuna in eskakizunaForm.erantzunak %}
+						<li class="margin-top-13">{{ 'messages.nork' | trans | capitalize }} {{ erantzuna.vars.value.erantzulea.izena }}</li>
 						<li>
 						    {{ form_errors(erantzuna) }}
 						    {{ form_widget(erantzuna) }}
