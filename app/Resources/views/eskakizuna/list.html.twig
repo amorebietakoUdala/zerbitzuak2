@@ -90,7 +90,11 @@
 			    <td>{{eskakizuna.eskatzailea }}</td>
 			{% endif %}
                         <td>{{eskakizuna.enpresa }}</td>
-                        <td>{{eskakizuna.zerbitzua }}</td>
+			{% if app.request.locale == 'es' %}
+			    <td>{% if eskakizuna.zerbitzua is not null %}{{ eskakizuna.zerbitzua.izena_es }}{% endif %}</td>
+			{% else %}
+			     <td>{% if eskakizuna.zerbitzua is not null %}{{ eskakizuna.zerbitzua.izena_eu }}{% endif %}</td>
+			{% endif %}
                         <td class="white-space-nowrap">{{eskakizuna.noiz | date('Y-m-d H:i') }}</td>
                         {% set tartea = date().diff(date(eskakizuna.noiz)) %}
                         {% set egun = tartea.days %}
