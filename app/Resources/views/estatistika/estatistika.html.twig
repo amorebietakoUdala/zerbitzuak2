@@ -80,5 +80,12 @@
 {% block javascripts %}
         {{ parent() }}
 	{{ include('default/bootstrap_table_js.html.twig') }}
+	
 	<script type="text/javascript" src="{{ asset('js/stats.js') }}"></script>
+	<script type="text/javascript">
+	    $(document).ready(function () {
+		var view = View();
+		view.onTituluaClick();
+	    });
+	</script>
 {% endblock %}
