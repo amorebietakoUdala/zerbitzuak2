@@ -171,18 +171,6 @@ $(document).ready(function(){
 	fontAwesome: true
     }).attr('type','text'); // Honekin chromen ez da testua agertzen
 
-    $('.js-datepicker').on('focus', function(e){
-        $('.js-noiz-label').addClass("active");
-        $('.js-calendar').addClass("active");
-    });
-    
-    $('.js-datepicker').on('focusout', function(e){
-        if ( $('.js-datepicker').val() === "" ) {
-            $('.js-noiz-label').removeClass("active");
-            $('.js-calendar').removeClass("active");
-        }
-    });
-    
     $(".js-argazkia").change(function(){
 	console.log(locale);
         var ok = readURL(this,$('argazkia-preview'));

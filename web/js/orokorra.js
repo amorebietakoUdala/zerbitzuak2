@@ -18,6 +18,27 @@ $(function() {
 
     });
 
+    $('.js-datepicker').siblings().on('click', function (e) {
+	$(e.currentTarget).siblings().addClass("active");
+	$(e.currentTarget).addClass("active");
+	$(e.currentTarget).siblings('input').datetimepicker("show");
+    });
+
+    $('.js-datepicker').siblings().on('focus', function (e) {
+	$(e.currentTarget).siblings().addClass("active");
+	$(e.currentTarget).addClass("active");
+	$(e.currentTarget).siblings('input').datetimepicker("show");
+    });
+
+    $('.js-datepicker').siblings().on('focusout', function (e) {
+	if ( $(e.currentTarget).siblings('input').val() === '' ) {
+	    $(e.currentTarget).siblings().removeClass("active");
+            $(e.currentTarget).removeClass("active");
+	}
+    });
+
+    
+
     $("label[for], input[type='text']").click( function (e) {
         $(this).addClass("active");
         $(this).siblings("input[type='text']").addClass("active").focus();
@@ -40,7 +61,6 @@ $(function() {
 	}).catch(function (arg) {
 		console.log('Canceled!');
 	});
-    
     });
 
 });

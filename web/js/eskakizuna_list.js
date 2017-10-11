@@ -2,32 +2,6 @@ $(function() {
 
 $(document).ready(function(){
 
-    $('.js-datepicker-noiztik').on('focus', function(e){
-        $('.js-noiztik-label').addClass("active");
-        $('.js-calendar').addClass("active");
-    });
-
-    $('.js-datepicker-noora').on('focus', function(e){
-        $('.js-nora-label').addClass("active");
-        $('.js-calendar').addClass("active");
-    });
-
-    $('.js-datepicker-noiztik').on('focusout', function(e){
-        if ( $('.js-datepicker-noiztik').val() === '' ) {
-	    $('.js-datepicker').siblings().removeClass("active");
-            $('.js-noiztik-label').removeClass("active");
-            $('.js-calendar').removeClass("active");
-        }
-    });
-
-    $('.js-datepicker-nora').on('focusout', function(e){
-        if ( $('.js-datepicker-nora').val() === '' ) {
-	    $('.js-datepicker-nora').siblings().removeClass("active");
-            $('.js-nora-label').removeClass("active");
-            $('.js-calendar').removeClass("active");
-        }
-    });
-
     if ( $('.js-datepicker-noiztik').val() !== '' ) {
 	$('.js-datepicker-noiztik').siblings().addClass("active");
     }
@@ -109,18 +83,33 @@ $(document).ready(function(){
 	});
     });
 
-    $(".js-datepicker").datetimepicker({
+    $('.js-datepicker').datetimepicker({
 	format: 'yyyy-mm-dd hh:ii',
 	autoclose: true,
 	language: locale,
 	fontAwesome: true
     }).attr('type','text'); // Honekin chromen ez da testua agertzen
 
+/*
     $('.js-datepicker').siblings().on('click', function (e) {
 	$(e.currentTarget).siblings().addClass("active");
-	$(e.currentTarget).datetimepicker("show");
+	$(e.currentTarget).addClass("active");
+	$(e.currentTarget).siblings('input').datetimepicker("show");
     });
 
+    $('.js-datepicker').siblings().on('focus', function (e) {
+	$(e.currentTarget).siblings().addClass("active");
+	$(e.currentTarget).addClass("active");
+	$(e.currentTarget).siblings('input').datetimepicker("show");
+    });
+
+    $('.js-datepicker').siblings().on('focusout', function (e) {
+	if ( $(e.currentTarget).siblings('input').val() === '' ) {
+	    $(e.currentTarget).siblings().removeClass("active");
+            $(e.currentTarget).removeClass("active");
+	}
+    });
+*/
 });    
 
 });
