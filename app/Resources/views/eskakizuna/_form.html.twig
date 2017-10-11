@@ -153,7 +153,7 @@
 					    <p class="grey-text">{{ 'messages.erantzunak' | trans | capitalize }}</p>
 					    {{ form_errors(eskakizunaForm.erantzunak) }}
 					    {% for erantzuna in eskakizunaForm.erantzunak %}
-						<li class="margin-top-13">{{ 'messages.nork' | trans | capitalize }} {{ erantzuna.vars.value.erantzulea.izena }}</li>
+						<li class="margin-top-13">{{ 'messages.nork' | trans | capitalize }} {{ erantzuna.vars.value.erantzulea.izena }} <span class="text-muted">({{ erantzuna.vars.value.noiz | date('Y-m-d H:i') }})</span></li>
 						<li>
 						    {{ form_errors(erantzuna) }}
 						    {{ form_widget(erantzuna) }}
