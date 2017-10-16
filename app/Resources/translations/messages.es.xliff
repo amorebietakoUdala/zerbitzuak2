@@ -525,6 +525,11 @@
                 <source>messages.nork</source>
                 <target>Quién: </target>
             </trans-unit>
+            <trans-unit id="messages.erantzuna_gehitu">
+                <source>messages.erantzuna_gehitu</source>
+                <target>Añadir respuesta</target>
+            </trans-unit>
+
 	    <!-- Amaiera Entitateak -->
 	</body>
     </file>

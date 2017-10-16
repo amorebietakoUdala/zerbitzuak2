@@ -103,6 +103,7 @@ $(document).ready(function(){
     /* FIN Autocompletes */
 
     /* INICIO Erantzunak */
+/*
     $('#add-another-erantzuna').click(function(e) {
 	e.preventDefault();
 
@@ -123,6 +124,7 @@ $(document).ready(function(){
             statusbar: false
 	});
     });
+*/
     // Borratzeko 
 //    var $erantzunakList = $('#js-erantzunak-list');
 //    
@@ -138,6 +140,7 @@ $(document).ready(function(){
             statusbar: false
     });
     
+
 //    function addErantzaunakFormDeleteLink ($tagFormLi) {
 //        var $removeFormA = $('<a href="#"><i class="fa fa-close prefix active"></i></a>');
 //	$tagFormLi.append($removeFormA);
@@ -171,7 +174,7 @@ $(document).ready(function(){
 	fontAwesome: true
     }).attr('type','text'); // Honekin chromen ez da testua agertzen
 
-    $(".js-argazkia").change(function(){
+     $(".js-argazkia").change(function(){
 	console.log(locale);
         var ok = readURL(this,$('argazkia-preview'));
 	if (!ok) {

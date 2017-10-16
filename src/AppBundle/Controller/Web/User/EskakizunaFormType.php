@@ -14,6 +14,7 @@ use AppBundle\Controller\Web\User\ErantzunaFormType;
 use AppBundle\Entity\EskakizunMota;
 use AppBundle\Entity\Jatorria;
 use AppBundle\Entity\Zerbitzua;
+use AppBundle\Entity\Erantzuna;
 use AppBundle\Repository\EskakizunMotaRepository;
 use AppBundle\Repository\JatorriaRepository;
 use AppBundle\Repository\ZerbitzuaRepository;
@@ -88,17 +89,6 @@ class EskakizunaFormType extends AbstractType {
 		    return $repo->createOrderedQueryBuilder();
 		}
 	    ])
-	    ->add('erantzunak', CollectionType::class, [
-	    'entry_type' => ErantzunaFormType::class,
-//		'entry_options' => [
-//		    'attr' => [
-//			'class' => 'tinymce disabled',
-//			]
-//		    ],
-	    'allow_add' => true,
-	    'allow_delete' => true,
-	    'by_reference' => false
-	     ])
 	    ->add('georeferentziazioa', GeoreferentziazioaFormType::class)
 	    ;
 	    if ( $options['editatzen'] === false ) {
@@ -107,12 +97,21 @@ class EskakizunaFormType extends AbstractType {
 		    'constraints' => [new NotBlank(),				    
 				     ],
 		]);
+		if ( $options['readonly'] === true ) {
+		    $builder->add('erantzunak', ErantzunaFormType::class, [
+			'data_class' => null,
+		     ]);
+		}
 	    } else {
 		$builder->add('mamia', TextareaType::class,[
 		    'attr' => ['class' => 'tinymce readonly'],
 		    'constraints' => [new NotBlank(),				    
 				     ],
 		]);
+		$builder->add('erantzunak', ErantzunaFormType::class, [
+		    'data_class' => null,
+		]);
+
 	    }
 	    if (in_array('ROLE_ADMIN', $options['role']) or in_array('ROLE_ARDURADUNA', $options['role']) or in_array('ROLE_INFORMATZAILEA', $options['role'])) {
 		$builder->add('eskatzailea', EskatzaileaFormType::class, [
