@@ -525,6 +525,10 @@
                 <source>messages.nork</source>
                 <target>Nork: </target>
             </trans-unit>
+            <trans-unit id="messages.erantzuna_gehitu">
+                <source>messages.erantzuna_gehitu</source>
+                <target>Erantzuna gehitu</target>
+            </trans-unit>
 	    <!-- Amaiera Entitateak -->
 	</body>
     </file>

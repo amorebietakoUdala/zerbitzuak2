@@ -14,6 +14,7 @@ use AppBundle\Entity\Enpresa;
 use AppBundle\Entity\Erabiltzailea;
 use AppBundle\Entity\Eskakizuna;
 use AppBundle\Entity\Eskatzailea;
+use AppBundle\Entity\Erantzuna;
 use AppBundle\Entity\Georeferentziazioa;
 use AppBundle\Controller\Web\User\EskakizunaBilatzaileaFormType;
 use Imagick;
@@ -103,6 +104,7 @@ class EskakizunaController extends Controller {
 	return $this->render('/eskakizuna/new.html.twig', [
 	    'eskakizunaForm' => $form->createView(),
 	    'argazkia' => null,
+// 'erantzunak' => [],
 	    'erantzun' => false,
 	    'editatzen' => false
 	]);
@@ -181,12 +183,9 @@ class EskakizunaController extends Controller {
    	    'role' => $user->getRoles(),
 	]);
 
-	$erantzunakAldatuBarik = new ArrayCollection();
 	$zerbitzuaAldatuAurretik = $eskakizuna->getZerbitzua();
 	
-	foreach ($eskakizuna->getErantzunak() as $erantzuna) {
-	    $erantzunakAldatuBarik->add($erantzuna);
-	}
+	$erantzunak = $eskakizuna->getErantzunak();
 
 	$form->handleRequest($request);
 	if ( $form->isSubmitted() && $form->isValid() ) {
@@ -226,24 +225,26 @@ class EskakizunaController extends Controller {
 	    }
 	    $this->_argazkia_gorde();
 	    
-	    foreach ($erantzunakAldatuBarik as $erantzuna) {
-		if (false === $eskakizuna->getErantzunak()->contains($erantzuna)) {
-		    $em->remove($erantzuna);
-		}
+            $form_erantzunak = $this->eskakizuna->getErantzunak();
+	    $erantzunak_count =  $form_erantzunak->count();
+	    $erantzun_berria = $form_erantzunak["erantzuna"];
+	    unset($form_erantzunak["erantzuna"]);
+	    if ($erantzun_berria !== null ) {
+		$erantzuna = new Erantzuna();
+		$erantzuna->setErantzulea($user);
+		$erantzuna->setEskakizuna($this->eskakizuna);
+		$erantzuna->setErantzuna($erantzun_berria);
+		$erantzuna->setNoiz(new \DateTime());
+		$em->persist($erantzuna);
+		$erantzunak = $form_erantzunak->getValues();
+		array_push($erantzunak,$erantzuna);
 	    }
-	    
-            $erantzunak = $this->eskakizuna->getErantzunak();
-            foreach ( $erantzunak as $erantzuna ) {
-                if ($erantzuna->getErantzulea() == null ) {
-                    $erantzuna->setErantzulea($user);
-		    $erantzuna->setNoiz(new \DateTime());
-                    $em->persist($erantzuna);
-                }
-            }
-	    if ($erantzunak->count() > 0) {
+
+	    if ($erantzunak_count > 0) {
 		$egoera = $em->getRepository(Egoera::class)->find(Egoera::EGOERA_ERANTZUNDA);
 		$this->eskakizuna->setEgoera($egoera);
 	    }
+	    
 	    $em->persist($this->eskakizuna);
 	    $em->flush();
 	    
@@ -254,6 +255,7 @@ class EskakizunaController extends Controller {
 	
 	return $this->render('/eskakizuna/edit.html.twig', [
 	    'eskakizunaForm' => $form->createView(),
+	    'erantzunak' => $erantzunak,
 	    'editatzen' => true,
 	    'erantzun' => false
 	]);
@@ -297,24 +299,31 @@ class EskakizunaController extends Controller {
 	    'role' => $user->getRoles(),
 	    ]);
 
+	$erantzunak = $eskakizuna->getErantzunak();
 	$eskakizunaForm->handleRequest($request);
 	if ( $eskakizunaForm->isSubmitted() && $eskakizunaForm->isValid() ) {
 	    $em = $this->getDoctrine()->getManager();
 	    $this->eskakizuna = $eskakizunaForm->getData();
-            $erantzunak = $this->eskakizuna->getErantzunak();
-            foreach ( $erantzunak as $erantzuna ) {
-                if ($erantzuna->getErantzulea() == null ) {
-                    $erantzuna->setErantzulea($user);
-                    $em->persist($erantzuna);
-                }
-            }
-	    
+            $form_erantzunak = $this->eskakizuna->getErantzunak();
+    	    $erantzunak_count =  $form_erantzunak->count();
+	    $erantzun_berria = $form_erantzunak["erantzuna"];
+	    unset($erantzunak["erantzuna"]);
+	    if ($erantzun_berria !== null ) {
+		$erantzuna = new Erantzuna();
+		$erantzuna->setErantzulea($user);
+		$erantzuna->setEskakizuna($this->eskakizuna);
+		$erantzuna->setErantzuna($erantzun_berria);
+		$erantzuna->setNoiz(new \DateTime());
+		$em->persist($erantzuna);
+		$erantzunak = $form_erantzunak->getValues();
+		array_push($erantzunak,$erantzuna);
+	    }
 	    if ($this->eskakizuna->getArgazkia() === null) {
 		$this->eskakizuna->setArgazkia($eskakizuna->getArgazkia());
 	    }
 
 	    // Zerbitzurik ez badauka ez dugu emailik bidaltzen.
-	    if ($erantzunak->count() > 0 && $this->eskakizuna->getZerbitzua() !== null) {
+	    if ($erantzunak_count > 0 && $this->eskakizuna->getZerbitzua() !== null) {
 		$egoera = $em->getRepository(Egoera::class)->find(Egoera::EGOERA_ERANTZUNDA);
 		$this->eskakizuna->setEgoera($egoera);
 		$erantzundakoan_mezua_bidali = $this->getParameter('erantzundakoan_mezua_bidali');
@@ -326,10 +335,11 @@ class EskakizunaController extends Controller {
 	    }
 	    $em->persist($this->eskakizuna);
 	    $em->flush();
-
+	    
 	    $this->addFlash('success', 'messages.erantzuna_gordea');
 	    return $this->render('/eskakizuna/show.html.twig', [
 		'eskakizunaForm' => $eskakizunaForm->createView(),
+		'erantzunak' => $erantzunak,
 		'argazkia' => $argazkien_direktorioa.'/'.$eskakizuna->getArgazkia(),
 		'editatzen' => false,
 		'erantzun' => true
@@ -338,6 +348,7 @@ class EskakizunaController extends Controller {
 
 	return $this->render('/eskakizuna/show.html.twig', [
 	    'eskakizunaForm' => $eskakizunaForm->createView(),
+	    'erantzunak' => $erantzunak,
 	    'argazkia' => $argazkien_direktorioa.'/'.$eskakizuna->getArgazkia(),
 	    'editatzen' => false,
 	    'erantzun' => true

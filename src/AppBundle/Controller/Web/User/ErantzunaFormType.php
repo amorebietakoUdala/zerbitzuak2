@@ -26,21 +26,10 @@ class ErantzunaFormType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
 	$builder
 	    ->add('erantzuna', TextareaType::class,[
-//		'attr' => ['class' => 'tinymce'],
-		'constraints' => [new NotBlank(),				    
+		'attr' => ['class' => 'tinymce'],
+		'constraints' => [new NotBlank(),
 				 ],
 	    ])
-//            ->add('noiz', DateType::class, [
-//		'widget' => 'single_text',
-//		'html5' => 'false',
-//		'format' => 'yyyy-MM-dd',
-//		'attr' => [ 'class' => 'hidden' ],
-//		'constraints' => [new NotBlank(),]
-//	    ])
-//            ->add('noiz', HiddenType::class, [
-//                'data' => date('Y-m-d H:i:s')
-//	    ])
-                
 	;
     }
 

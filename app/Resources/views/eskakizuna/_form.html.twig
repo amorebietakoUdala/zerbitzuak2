@@ -146,23 +146,38 @@
 				    </div>
 				</div>
 			    </div>
-			    <div class="container row">
-				<div class="col-12 margin-top-13">
-				    <ul id="js-erantzunak-list" class="col-12" data-prototype="{{ form_widget(eskakizunaForm.erantzunak.vars.prototype)|e }}">
+			    <div class="container row chat_box_wrapper">
+				<div class="col-12 margin-top-13 chat_box chat_box_colors_a">
+				    {% if erantzunak is defined and erantzunak | length > 0 %}
+					    <p class="grey-text">{{ 'messages.erantzunak' | trans | capitalize }}</p>
+					{% for erantzuna in erantzunak %}
+						<div class="chat_message_wrapper chat_message">
+						    <ul id="js-erantzunak-list" class="col-12 chat_message">
+							<li><b>{{ erantzuna.erantzulea.izena | raw }}</b> <span class="text-muted">({{ erantzuna.noiz | date('Y-m-d H:i') }})</span><br/>{{ erantzuna.erantzuna | raw }}</li>
+						    </ul>
+						</div>
+					{% endfor %}
+					{% endif %}
+{#					
 					{% if eskakizunaForm.erantzunak|length > 0 %}
 					    <p class="grey-text">{{ 'messages.erantzunak' | trans | capitalize }}</p>
-					    {{ form_errors(eskakizunaForm.erantzunak) }}
-					    {% for erantzuna in eskakizunaForm.erantzunak %}
-						<li class="margin-top-13">{{ 'messages.nork' | trans | capitalize }} {{ erantzuna.vars.value.erantzulea.izena }} <span class="text-muted">({{ erantzuna.vars.value.noiz | date('Y-m-d H:i') }})</span></li>
-						<li>
-						    {{ form_errors(erantzuna) }}
-						    {{ form_widget(erantzuna) }}
-						</li>
-					    {% endfor %}
+						{{ form_errors(eskakizunaForm.erantzunak) }}
+						{% for erantzuna in eskakizunaForm.erantzunak %}
+						<p class="margin-top-13">{{ 'messages.nork' | trans | capitalize }} {{ erantzuna.vars.value.erantzulea.izena }} <span class="text-muted">({{ erantzuna.vars.value.noiz | date('Y-m-d H:i') }})</span></p>
+						<div class="chat_message_wrapper chat_message">
+						    <ul id="js-erantzunak-list" class="col-12 chat_message" data-prototype="{{ form_widget(eskakizunaForm.erantzunak.vars.prototype)|e }}">
+							<li>{{ form_widget(eskakizunaForm.erantzunak) }}</li>
+						    </ul>
+						</div>
+						{% endfor %}
 					{% endif %}
-				    </ul>
+#}
 				    {% if editatzen == true or erantzun == true %} 
-					<a href="#" id="add-another-erantzuna">Erantzun bat gehitu</a>
+					<div class="col-12 md-form form-group form-sm">
+					    <p class="grey-text">{{ 'messages.erantzuna_gehitu' | trans | capitalize }}</p>
+						    {{ form_widget(eskakizunaForm.erantzunak, { 'attr': { 'class' : 'tinymce' }, 'value': '' }) }}
+						    {{ form_errors(eskakizunaForm.erantzunak) }}
+					</div>
 				    {% endif %}
 				</div>
 
