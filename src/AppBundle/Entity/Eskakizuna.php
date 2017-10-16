@@ -232,7 +232,7 @@ class Eskakizuna {
     }
 
     public function getNorkInformatua() {
-	return $this->norkInformatu;
+	return $this->norkInformatua;
     }
     
     public function getLep() {

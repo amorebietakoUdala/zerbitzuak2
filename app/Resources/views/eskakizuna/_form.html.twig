@@ -109,7 +109,11 @@
 					{{ form_errors(eskakizunaForm.zerbitzua) }}
 				</div>
 				<div class="col-12 md-form form-group form-sm">
-				    <p class="grey-text">{{ 'messages.mamia' | trans | capitalize }}</p>
+				    <p class="grey-text">{{ 'messages.mamia' | trans | capitalize }} 
+					{% if eskakizunaForm.vars.value.norkInformatua is defined and eskakizunaForm.vars.value.norkInformatua != null %}
+					    :<b>{{ eskakizunaForm.vars.value.norkInformatua.izena }}</b> <span class="text-muted">({{ eskakizunaForm.vars.value.noiz | date('Y-m-d H:i') }})</span>
+					{% endif %}
+				    </p>
 					    {{ form_widget(eskakizunaForm.mamia, { 'attr': { 'class' : 'js-mamia tinymce' } }) }}
 					    {{ form_errors(eskakizunaForm.mamia) }}
 				</div>
