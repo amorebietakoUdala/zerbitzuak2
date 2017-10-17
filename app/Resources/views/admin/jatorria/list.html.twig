@@ -67,6 +67,10 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript" src="{{ asset('bower_components/sweetalert2/dist/sweetalert2.min.js') }}"></script>
+    {% set agent = app.request.headers.get('user-agent') %}
+    {% if 'Trident' in agent %}
+    <script type="text/javascript" src="{{ asset('bower_components/core.js/client/core.js') }}"></script>
+    {% endif %}
     {{ include('default/bootstrap_table_js.html.twig') }}
 {% endblock%}
 

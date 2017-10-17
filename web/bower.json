@@ -21,7 +21,8 @@
     "jquery-ui": "^1.12.1",
     "tether": "^1.4.0",
     "tableexport.jquery.plugin": "^1.9.4",
-    "tinymce": "^4.6.5"
+    "tinymce": "^4.6.5",
+    "core.js": "^2.5.1"
   },
   "devDependencies": {},
   "description": "Prototipo Zerbitzuak",
