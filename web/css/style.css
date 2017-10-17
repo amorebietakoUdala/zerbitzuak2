@@ -373,11 +373,11 @@ select::-ms-expand {
 
 @media screen and (max-width: 576px) {
     #span-titulua {
-	width: 250px !important;
+	width: 190px !important;
     }
 
     #span-logo {
-	width: 65px !important;
+	width: auto !important;
     }
 
 }
