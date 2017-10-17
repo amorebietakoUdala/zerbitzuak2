@@ -66,6 +66,7 @@
 			<th data-sortable="true">{{"messages.zerbitzua" | trans | capitalize}}</th>
 			<th data-sortable="true">{{"messages.noiz" | trans | capitalize}}</th>
 			<th data-sortable="true">{{"messages.egun" | trans | capitalize}}</th>
+			<th data-field="erantzunak" data-sortable="true" data-visible="false">{{"messages.erantzunak" | trans | capitalize}}</th>
 			<th data-field="aukerak">{{"messages.aukerak" | trans | capitalize}}</th>
 		    </tr>
 		</thead>
@@ -99,6 +100,11 @@
                         {% set tartea = date().diff(date(eskakizuna.noiz)) %}
                         {% set egun = tartea.days %}
                         <td>{{ egun }}</td>
+			<td>
+			    {% for erantzuna in eskakizuna.erantzunak %}
+			    {{ erantzuna.erantzuna| raw }}<br/>
+			    {% endfor %}
+			</td>
 			<td class="white-space-nowrap">
 				<a href="{{ path ('admin_eskakizuna_show', {'id': eskakizuna.id }) }}"><i class="fa fa-eye prefix" title="{{"messages.ikusi" | trans | capitalize }}"></i></a>
 				{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ARDURADUNA') or is_granted('ROLE_INFORMATZAILEA') %}
