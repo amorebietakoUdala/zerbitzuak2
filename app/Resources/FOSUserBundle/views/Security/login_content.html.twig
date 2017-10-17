@@ -13,7 +13,7 @@
 {% block edukia %}
     <div class="container margin-top-13">
 	<div class="col">
-	    <div class="container col-5 primary-color rounder-edge padding-08">
+	    <div class="container col-lg-5 col-md-5 primary-color rounder-edge padding-08">
 		<form class="login-form" action="{{ path("fos_user_security_check") }}" method="post">
 		{% if csrf_token %}
 		    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
