@@ -23,13 +23,13 @@ body {
 
 #span-erabiltzailea {
     float: left;
-    margin-right: 0;
+    margin-left: auto;
 }
 
 #span-erabiltzailea div a p {
     float: left;
     padding-top: 1.3rem;
-    width: 150px;
+    width: 140px;
     overflow: hidden;
 }
 
@@ -46,6 +46,8 @@ body {
 #hizkuntza {
     float: right;
     width: auto;
+    margin-right: 10px;
+    margin-left: auto;
 }
 
 .margin-left-08 {
@@ -374,6 +376,10 @@ select::-ms-expand {
 @media screen and (max-width: 576px) {
     #span-titulua {
 	width: 190px !important;
+    }
+
+    #span-erabiltzailea {
+	display: none;
     }
 
     #span-logo {
