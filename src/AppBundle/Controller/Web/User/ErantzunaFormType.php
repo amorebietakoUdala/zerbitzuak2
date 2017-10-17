@@ -27,7 +27,7 @@ class ErantzunaFormType extends AbstractType {
 	$builder
 	    ->add('erantzuna', TextareaType::class,[
 		'attr' => ['class' => 'tinymce'],
-		'constraints' => [new NotBlank(),
+		'constraints' => [
 				 ],
 	    ])
 	;
