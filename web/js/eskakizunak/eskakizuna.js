@@ -137,7 +137,8 @@ $(document).ready(function(){
     tinymce.init({ selector:'textarea',
             menubar: false,
             resize: false,
-            statusbar: false
+            statusbar: false,
+	    theme: 'modern',
     });
     
 
