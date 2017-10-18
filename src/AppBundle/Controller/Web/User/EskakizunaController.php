@@ -23,6 +23,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Collections\ArrayCollection;
 use \Swift_Message;
+use \DateTime;
 
 
 /**
@@ -111,6 +112,31 @@ class EskakizunaController extends Controller {
     }
 
      /**
+     * @Route("/atzotik", name="admin_eskakizuna_atzotik", options={"expose" = true})
+     */
+    public function listAtzotikAction (Request $request){
+	$gaur = new \DateTime();
+	return $this->redirectToRoute('admin_eskakizuna_list',[
+	    'nora' => $gaur->format('Y-m-d H:i'),
+	    'noiztik' => $gaur->modify('-1 day')->format('Y-m-d 00:00'),
+	    
+	]);
+    }    
+
+     /**
+     * @Route("/azkenastea", name="admin_eskakizuna_azken_astea", options={"expose" = true})
+     */
+    public function listAzkenAsteaAction (Request $request){
+	$gaur = new \DateTime();
+//	dump($gaur);die;
+	return $this->redirectToRoute('admin_eskakizuna_list',[
+	    'nora' => $gaur->format('Y-m-d H:i'),
+	    'noiztik' => $gaur->modify('-7 day')->format('Y-m-d 00:00'),
+	    
+	]);
+    }    
+
+     /**
      * @Route("/", name="admin_eskakizuna_list", options={"expose" = true})
      */
     public function listAction (Request $request){
@@ -164,8 +190,10 @@ class EskakizunaController extends Controller {
 	    $eskakizunak = $this->getDoctrine()
 		    ->getRepository(Eskakizuna::class)
 		    ->findAllOpen($criteria_without_blanks, $from, $to);
+	    $bilatzaileaForm->get('noiztik')->setData(new DateTime($from));
+	    $bilatzaileaForm->get('nora')->setData(new DateTime($to));
 	    }
-
+	
 	return $this->render('/eskakizuna/list.html.twig', [
 	    'bilatzaileaForm' => $bilatzaileaForm->createView(),
 	    'eskakizunak' => $eskakizunak,
