@@ -16,6 +16,7 @@ body {
 }
 
 #span-titulua {
+    font-family: 'Monda', sans-serif;
     padding-left: 0;
     padding-right: 0;
     padding-top: 1.3rem;
@@ -81,7 +82,7 @@ input[type="text"], input[type="password"], input[type="email"], input[type="url
 }
 
 h1 {
-    font-size: 1.5rem;
+    font-size: 2.5rem;
 }
 
 footer.page-footer {
@@ -369,7 +370,7 @@ select::-ms-expand {
 
 @media screen and (max-width: 699px) {
     h1 {
-        font-size: 1.1rem;
+        font-size: 2.0rem;
     }
 }
 

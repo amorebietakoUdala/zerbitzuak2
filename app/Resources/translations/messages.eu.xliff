@@ -5,7 +5,7 @@
 <!-- Hasiera Generalak -->
             <trans-unit id="messages.aplikazioa">
                 <source>messages.aplikazioa</source>
-                <target>Abisu, Kexa eta Iradokizunen programa</target>
+                <target>rantzun</target>
             </trans-unit>
             <trans-unit id="messages.ikusi">
                 <source>messages.ikusi</source>

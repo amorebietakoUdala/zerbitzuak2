@@ -5,7 +5,7 @@
 <!-- Hasiera Generalak -->
             <trans-unit id="messages.aplikazioa">
                 <source>messages.aplikazioa</source>
-                <target>Programa de Avisos, Quejas y Sugerencias</target>
+                <target>rantzun</target>
             </trans-unit>
             <trans-unit id="messages.ikusi">
                 <source>messages.ikusi</source>
