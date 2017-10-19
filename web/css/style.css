@@ -9,9 +9,13 @@ body {
     border-bottom: #ddd solid thin;
 }
 
+main {
+    margin-bottom: 2rem;
+}
+
 #span-logo img {
 /*    height: 80px; */
-    height: 5rem;
+    height: 4rem;
     width: auto;
 }
 
@@ -385,6 +389,14 @@ select::-ms-expand {
 
     #span-logo {
 	width: auto !important;
+    }
+    
+    .menuaren_titulua {
+	display: none;
+    }
+    
+    .navbar.navbar-dark .nav-link, .navbar.navbar-dark .navbar-toggler {
+	display: inline-flex;
     }
 
 }
