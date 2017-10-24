@@ -185,12 +185,17 @@ class EskakizunaController extends Controller {
 	    $criteria = $request->query->all();
 	    $from = array_key_exists( 'noiztik', $criteria ) ? $criteria['noiztik'] : null;
 	    $to = array_key_exists( 'nora', $criteria ) ? $criteria['nora'] : null;
+	    if ( $from !== null ) {
+		$bilatzaileaForm->get('noiztik')->setData(new DateTime($from));
+	    }
+	    if ( $to !== null ) {
+		$bilatzaileaForm->get('nora')->setData(new DateTime($to));
+	    }
 	    $criteria_without_blanks = $this->_remove_noiztik_nora($criteria);
 	    $eskakizunak = $this->getDoctrine()
 		    ->getRepository(Eskakizuna::class)
 		    ->findAllOpen($criteria_without_blanks, $from, $to);
-	    $bilatzaileaForm->get('noiztik')->setData(new DateTime($from));
-	    $bilatzaileaForm->get('nora')->setData(new DateTime($to));
+
 	    }
 	
 	return $this->render('/eskakizuna/list.html.twig', [
