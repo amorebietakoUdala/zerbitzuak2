@@ -94,20 +94,13 @@
 					{{ form_widget(eskakizunaForm.noiz, { 'attr': { 'class' : 'js-datepicker' } }) }}
 				    {{ form_errors(eskakizunaForm.noiz) }}
 				</div>
-				<div class="col-lg-5 col-md-4 md-form form-group form-sm">
-				    <i class="fa fa-compass prefix"></i>
-				    <label for="kalea">{{ 'messages.kalea' | trans | capitalize }}</label>
-				    {{ form_widget(eskakizunaForm.kalea, { 'attr': { 'class' : 'form-control' } }) }}
-				    {{ form_errors(eskakizunaForm.kalea) }}
-				</div>
-                                <button id="buscar" class="col-2 btn btn-primary form-control" type="button"><i class="fa fa-compass"></i>{{"messages.bilatu" | trans | capitalize}}</button>
-			    </div>
-			    <div class="row col-12">
-				<div class="col-12 md-form form-group form-sm">
+				<div class="col-lg-8 md-form form-group form-sm">
 				    <i class="fa fa-crosshairs prefix"></i>
 					{{ form_widget(eskakizunaForm.zerbitzua, { 'attr': { 'class' : 'md-select' } }) }}
 					{{ form_errors(eskakizunaForm.zerbitzua) }}
 				</div>
+			    </div>
+			    <div class="row col-12">
 				<div class="col-12 md-form form-group form-sm">
 				    <p class="grey-text">{{ 'messages.mamia' | trans | capitalize }} 
 					{% if eskakizunaForm.vars.value.norkInformatua is defined and eskakizunaForm.vars.value.norkInformatua != null %}
@@ -116,38 +109,6 @@
 				    </p>
 					    {{ form_widget(eskakizunaForm.mamia, { 'attr': { 'class' : 'js-mamia tinymce' } }) }}
 					    {{ form_errors(eskakizunaForm.mamia) }}
-				</div>
-			    </div>
-				<div class="row col-12 margin-top-13">
-				    <div class="col-lg-6 md-form form-group form-sm">
-					    <i class="fa fa-picture-o prefix"></i>
-					    {{ form_widget(eskakizunaForm.argazkia, { 'attr': { 'class' : 'form-control js-argazkia' } }) }}
-					    {{ form_errors(eskakizunaForm.argazkia) }}
-					{% if ( eskakizunaForm.vars.value.argazkia != null ) %}
-					    <img id="argazkia-preview" src="{{ images_uploads_url }}/{{ eskakizunaForm.vars.value.argazkia }}" alt=""/>
-					{% else %}
-					    <img id="argazkia-preview" src="" alt=""/>
-					{% endif %}
-				    </div>
-                                    
-				    <div id="map-container" class="col-lg-6 z-depth-1" style="height: 300px">
-				    </div>
-				</div>
-
-			    <div class="row col-12 margin-top-13">
-				<div class="col-6">
-				    <p class="grey-text">{{ 'messages.eskakizun_mota_zehaztu' | trans | capitalize }}</p>
-				    <div class="md-form form-group form-sm form-inline">
-					{{ form_widget(eskakizunaForm.eskakizunMota) }}
-					{{ form_errors(eskakizunaForm.eskakizunMota) }}
-				    </div>
-				</div>
-				<div class="col-6">
-				    <p class="grey-text">{{ 'messages.jatorria' | trans | capitalize }}</p>
-				    <div class="md-form form-group form-sm form-inline">
-					{{ form_widget(eskakizunaForm.jatorria) }}
-					{{ form_errors(eskakizunaForm.jatorria) }}
-				    </div>
 				</div>
 			    </div>
 			    <div class="container row chat_box_wrapper">
@@ -184,8 +145,52 @@
 					</div>
 				    {% endif %}
 				</div>
-
-				<div class="row col-12 md-form form-group form-sm margin-top-13">
+			    </div>
+			    <div class="row col-12 margin-top-13">
+				<div class="col-6">
+				    <p class="grey-text">{{ 'messages.eskakizun_mota_zehaztu' | trans | capitalize }}</p>
+				    <div class="md-form form-group form-sm form-inline">
+					{{ form_widget(eskakizunaForm.eskakizunMota) }}
+					{{ form_errors(eskakizunaForm.eskakizunMota) }}
+				    </div>
+				</div>
+				<div class="col-6">
+				    <p class="grey-text">{{ 'messages.jatorria' | trans | capitalize }}</p>
+				    <div class="md-form form-group form-sm form-inline">
+					{{ form_widget(eskakizunaForm.jatorria) }}
+					{{ form_errors(eskakizunaForm.jatorria) }}
+				    </div>
+				</div>
+			    </div>
+			    <div class="col-lg-12 row margin-top-13">
+				<div class="col-lg-6 col-md-6 md-form form-group form-sm">
+					<div class="col md-form form-group form-sm">
+					    <i class="fa fa-compass prefix"></i>
+					    <label for="kalea">{{ 'messages.kalea' | trans | capitalize }}</label>
+					    {{ form_widget(eskakizunaForm.kalea, { 'attr': { 'class' : 'form-control' } }) }}
+					    {{ form_errors(eskakizunaForm.kalea) }}
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-6 md-form form-group form-sm">
+				    <button id="buscar" class="col-4 btn btn-primary form-control" type="button"><i class="fa fa-compass"></i>{{"messages.bilatu" | trans | capitalize}}</button>
+				</div>
+			    </div>
+			    <div class="row container margin-top-13">
+				<div id="map-container" class="col z-depth-1" style="height: 300px"></div>
+			    </div>
+			    <div class="col md-form form-group form-sm">
+				<div class="col-lg-6 col-md-6 md-form form-group form-sm">
+				    <i class="fa fa-picture-o prefix"></i>
+				    {{ form_widget(eskakizunaForm.argazkia, { 'attr': { 'class' : 'form-control js-argazkia' } }) }}
+				    {{ form_errors(eskakizunaForm.argazkia) }}
+				{% if ( eskakizunaForm.vars.value.argazkia != null ) %}
+				    <img id="argazkia-preview" src="{{ images_uploads_url }}/{{ eskakizunaForm.vars.value.argazkia }}" alt=""/>
+				{% else %}
+				    <img id="argazkia-preview" src="" alt=""/>
+				{% endif %}
+				</div>
+			    </div>
+			    <div class="row col-12 md-form form-group form-sm margin-top-13">
                                 {% if (gordeBotoia == true) %}
                                     <button class="col-3 btn btn-primary form-control" type="submit" formnovalidate><i class="fa fa-save left"></i>{{"messages.gorde" | trans | capitalize}}</button>
                                 {% endif %}
