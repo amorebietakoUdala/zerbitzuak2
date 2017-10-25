@@ -365,6 +365,10 @@ select::-ms-expand {
 #botonera {
     margin-top: 1rem;
 }
+
+#goiko-botoiak {
+    font-size: 1.4rem;
+}
 /* FIN administrar enpresa */
 
 .chart {
