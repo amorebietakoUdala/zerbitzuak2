@@ -37,8 +37,6 @@ $(function() {
 	}
     });
 
-    
-
     $("label[for], input[type='text']").click( function (e) {
         $(this).addClass("active");
         $(this).siblings("input[type='text']").addClass("active").focus();
@@ -59,7 +57,45 @@ $(function() {
 		window.location.href=url;
 	    }
 	}).catch(function (arg) {
-		console.log('Canceled!');
+		console.log('Cancelado!');
+	});
+    });
+    
+    $(document).on('click','.js-itxi_botoia' ,function (e) {
+	e.preventDefault();
+	var url = $(e.currentTarget).data('url');
+	swal({
+	    title: locale === 'eu' ? 'Itxi?' : 'Cerrar?',
+	    text: locale === 'eu' ? 'Konfirmatu mesedez' : 'Confirme por favor',
+	    confirmButtonText: locale === 'eu' ? 'Bai' : 'Sí',
+	    cancelButtonText: locale === 'eu' ? 'Ez' : 'No',
+	    showCancelButton: true,
+	    showLoaderOnConfirm: true,
+	    preConfirm: function () {
+		console.log(url);
+		window.location.href=url;
+	    }
+	}).catch(function (arg) {
+		console.log('Cancelado!');
+	});
+    });
+
+    $(document).on('click','.js-erreklamatu_botoia' ,function (e) {
+	e.preventDefault();
+	var url = $(e.currentTarget).data('url');
+	swal({
+	    title: locale === 'eu' ? 'Erreklamatu?' : 'Reclamar?',
+	    text: locale === 'eu' ? 'Konfirmatu mesedez' : 'Confirme por favor',
+	    confirmButtonText: locale === 'eu' ? 'Bai' : 'Sí',
+	    cancelButtonText: locale === 'eu' ? 'Ez' : 'No',
+	    showCancelButton: true,
+	    showLoaderOnConfirm: true,
+	    preConfirm: function () {
+		console.log(url);
+		window.location.href=url;
+	    }
+	}).catch(function (arg) {
+		console.log('Cancelado!');
 	});
     });
 

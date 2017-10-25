@@ -35,6 +35,30 @@ class ErabiltzaileaController extends Controller {
 	if ( $form->isSubmitted() && $form->isValid() ) {
 	    $erabiltzailea = $form->getData();
 	    $em = $this->getDoctrine()->getManager();
+	    $aurkitutako_erabiltzailea = $em->getRepository(Erabiltzailea::class)->findOneBy([
+		'username' => $erabiltzailea->getUsername(),
+	    ]);
+
+	    if ($aurkitutako_erabiltzailea) {
+		$this->addFlash('error', 'messages.erabiltzailea_hori_sortuta_dago_jadanik');
+		return $this->render('admin/erabiltzailea/new.html.twig', [
+		    'erabiltzaileaForm' => $form->createView(),
+		    'profile' => false
+		]);
+	    }
+
+	    $aurkitutako_erabiltzailea = $em->getRepository(Erabiltzailea::class)->findOneBy([
+		'email' => $erabiltzailea->getEmail(), 
+	    ]);
+	    if ($aurkitutako_erabiltzailea) {
+		$this->addFlash('error', 'messages.erabiltzailea_hori_sortuta_dago_jadanik');
+		
+		return $this->render('admin/erabiltzailea/new.html.twig', [
+		    'erabiltzaileaForm' => $form->createView(),
+		    'profile' => false
+		]);
+	    }
+
 	    $em->persist($erabiltzailea);
 	    $em->flush();
 	    

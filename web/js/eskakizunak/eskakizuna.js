@@ -200,6 +200,11 @@ $(document).ready(function(){
 
     google.maps.event.addDomListener(window, 'load', init_map(latitudea, longitudea));
 
+    $(".js-gorde_botoia, .js-erantzun_botoia").click(function(e) {
+	$("#eskakizunaForm").submit();
+    });
+
+
 });    
 
 function readURL(input) {

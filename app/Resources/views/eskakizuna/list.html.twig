@@ -57,7 +57,8 @@
 		    <tr>
 			<th data-sortable="true">{{"messages.egoera" | trans | capitalize}}</th>
 			<th data-sortable="true">{{"messages.id" | trans | capitalize}}</th>
-			<th data-sortable="true">{{"messages.lep" | trans | capitalize}}</th>
+			<th data-sortable="true" data-visible="false">{{"messages.lep" | trans | capitalize}}</th>
+			<th data-field="kalea" data-sortable="true">{{"messages.kalea" | trans | capitalize}}</th>
 			<th data-sortable="true">{{"messages.mamia" | trans | capitalize}}</th>
 			{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ARDURADUNA') or is_granted('ROLE_INFORMATZAILEA') %}
 			    <th data-sortable="true">{{"messages.eskatzailea" | trans | capitalize}}</th>
@@ -86,6 +87,7 @@
 			    </td>
 			<td>{{eskakizuna.id }}</td>
 			<td>{{eskakizuna.lep }}</td>
+			<td>{{eskakizuna.kalea }}</td>
 			<td>{{eskakizuna.mamia | raw }}</td>
 			{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ARDURADUNA') or is_granted('ROLE_INFORMATZAILEA') %}
 			    <td>{{eskakizuna.eskatzailea }}</td>

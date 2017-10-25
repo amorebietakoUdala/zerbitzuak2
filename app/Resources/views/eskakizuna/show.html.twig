@@ -8,6 +8,7 @@
 	<link href="{{ asset('css/chat.css') }}" rel="stylesheet" type="text/css">
 	<link href="{{ asset('css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('bower_components/jquery-ui/themes/base/jquery-ui.css') }}" rel="stylesheet" type="text/css">
+	<link href="{{ asset('bower_components/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet" type="text/css">
 {% endblock %}
 
 {% block edukia %}
@@ -30,7 +31,7 @@
     </script>
     <script type="text/javascript" src="{{ asset('bower_components/tinymce/tinymce.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bower_components/jquery-ui/jquery-ui.min.js') }}"></script>
-    <!--Google Maps-->
+    <script type="text/javascript" src="{{ asset('bower_components/sweetalert2/dist/sweetalert2.min.js') }}"></script>    <!--Google Maps-->
     <script type="text/javascript" src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
     {% if app.request.locale == 'es' %}
 	<script type="text/javascript" src="{{ asset('js/locales/bootstrap-datetimepicker.es.js') }}"></script>
@@ -38,5 +39,6 @@
         <script type="text/javascript" src="{{ asset('js/locales/bootstrap-datetimepicker.eu.js') }}"></script>
     {% endif %}
     <script type="text/javascript" src="{{ asset('js/eskakizunak/eskakizuna.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/orokorra.js') }}"></script>
     <script type="text/javascript" src="{{ asset('https://maps.googleapis.com/maps/api/js?key=AIzaSyCn-GGZ6dxYSUHErqsyVHzKHwReuUz4XPY') }}"></script>
 {% endblock%}

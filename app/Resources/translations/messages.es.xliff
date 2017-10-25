@@ -529,7 +529,10 @@
                 <source>messages.erantzuna_gehitu</source>
                 <target>Añadir respuesta</target>
             </trans-unit>
-
+            <trans-unit id="messages.erabiltzaile_hori_sortuta_dago_jadanik">
+                <source>messages.erabiltzailea_hori_sortuta_dago_jadanik</source>
+                <target>No se puede crear el usuario porque ya existe</target>
+            </trans-unit>
 	    <!-- Amaiera Entitateak -->
 	</body>
     </file>

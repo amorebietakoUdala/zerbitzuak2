@@ -529,6 +529,10 @@
                 <source>messages.erantzuna_gehitu</source>
                 <target>Erantzuna gehitu</target>
             </trans-unit>
+            <trans-unit id="messages.erabiltzaile_hori_sortuta_dago_jadanik">
+                <source>messages.erabiltzailea_hori_sortuta_dago_jadanik</source>
+                <target>Ezin da erabiltzailea sortu jadanik existitzen delako</target>
+            </trans-unit>
 	    <!-- Amaiera Entitateak -->
 	</body>
     </file>
