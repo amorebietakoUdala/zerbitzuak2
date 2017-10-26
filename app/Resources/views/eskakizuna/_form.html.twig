@@ -85,8 +85,8 @@
                                 {% if (erantzun == true) %}
 				    &nbsp; <a class="js-erantzun_botoia" title="{{"messages.erantzun" | trans | capitalize}}"><i class="fa fa-reply left"></i></a>
                                 {% endif %}
-				    &nbsp;<a id="atzera" class="js-atzera_botoia" title="{{"messages.atzera" | trans | capitalize}}"><i class="fa fa-arrow-circle-left left"></i></a>
-				{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ARDURADUNA') or is_granted('ROLE_INFORMATZAILEA') %}
+				    &nbsp;<a class="js-atzera-botoia" title="{{"messages.atzera" | trans | capitalize}}"><i class="fa fa-arrow-circle-left left"></i></a>
+				{% if (is_granted('ROLE_ADMIN') or is_granted('ROLE_ARDURADUNA') or is_granted('ROLE_INFORMATZAILEA')) and editatzen == true %}
 				    &nbsp;<a class="js-ezabatu_botoia" title="{{"messages.ezabatu" | trans | capitalize}}" data-url="{{ path ('admin_eskakizuna_delete', {'id': eskakizunaForm.vars.value.id }) }}" href="#"><i class="fa fa-trash prefix" title="{{"messages.ezabatu" | trans | capitalize}}"></i></a>
 				    &nbsp;<a class="js-itxi_botoia" title="{{"messages.itxi" | trans | capitalize}}" data-url="{{ path ('admin_eskakizuna_close', {'id': eskakizunaForm.vars.value.id }) }}" href="#"><i class="fa fa-window-close prefix" title="{{"messages.itxi" | trans | capitalize}}"></i></a>
 				    &nbsp;<a class="js-erreklamatu_botoia" title="{{"messages.erreklamatu" | trans | capitalize}}" data-url="{{ path ('admin_eskakizuna_resend', {'id': eskakizunaForm.vars.value.id }) }}" href="#"><i class="fa fa-forward" title="{{"messages.erreklamatu" | trans | capitalize}}"></i></a>
@@ -212,8 +212,8 @@
                                 {% if (erantzun == true) %}
                                     <button class="col-2 btn btn-primary form-control" type="submit" formnovalidate><i class="fa fa-reply left"></i>{{"messages.erantzun" | trans | capitalize}}</button>
                                 {% endif %}
-                                <button id="atzera" class="col-2 btn btn-primary form-control" type="button"><i class="fa fa-arrow-circle-left left"></i>{{"messages.utzi" | trans | capitalize}}</button>
-				{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ARDURADUNA') or is_granted('ROLE_INFORMATZAILEA') %}
+                                <button class="col-2 btn btn-primary form-control js-atzera-botoia" type="button"><i class="fa fa-arrow-circle-left left"></i>{{"messages.utzi" | trans | capitalize}}</button>
+				{% if (is_granted('ROLE_ADMIN') or is_granted('ROLE_ARDURADUNA') or is_granted('ROLE_INFORMATZAILEA')) and editatzen == true %}
 				    <button id="js-ezabatu_botoia_azpikoa" class="col-2 btn btn-primary form-control js-ezabatu_botoia" type="button" data-url="{{ path ('admin_eskakizuna_delete', {'id': eskakizunaForm.vars.value.id }) }}"><i class="fa fa-trash left"></i>{{"messages.ezabatu" | trans | capitalize}}</button>
 				    <button id="js-itxi_botoia_azpikoa" class="col-2 btn btn-primary form-control js-itxi_botoia" type="button" data-url="{{ path ('admin_eskakizuna_close', {'id': eskakizunaForm.vars.value.id }) }}"><i class="fa fa-window-close left"></i>{{"messages.itxi" | trans | capitalize}}</button>
 				    <button id="js-erreklamatu_botoia_azpikoa" class="col-2 btn btn-primary form-control js-erreklamatu_botoia" type="button" data-url="{{ path ('admin_eskakizuna_resend', {'id': eskakizunaForm.vars.value.id }) }}"><i class="fa fa-forward left"></i>{{"messages.erreklamatu" | trans | capitalize}}</button>

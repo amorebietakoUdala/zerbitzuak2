@@ -24,7 +24,7 @@
     {{ parent() }}
     <script type="text/javascript" language="javascript">
 	$(document).ready(function(){
-	    $("#atzera").click(function() {
+	    $(".js-atzera-botoia").click(function() {
 		window.location.href=Routing.generate('admin_eskakizuna_list',{'_locale': $("html").attr("lang") });
 	    });
 	});    
