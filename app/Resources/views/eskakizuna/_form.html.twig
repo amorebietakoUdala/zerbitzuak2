@@ -117,9 +117,11 @@
 			    </div>
 			    <div class="row col-12">
 				<div class="col-12 md-form form-group form-sm">
-				    <p class="grey-text">{{ 'messages.mamia' | trans | capitalize }} 
+				    <p class="grey-text">{{ 'messages.mamia' | trans | capitalize }}
 					{% if eskakizunaForm.vars.value.norkInformatua is defined and eskakizunaForm.vars.value.norkInformatua != null %}
-					    :<b>{{ eskakizunaForm.vars.value.norkInformatua.izena }}</b> <span class="text-muted">({{ eskakizunaForm.vars.value.noiz | date('Y-m-d H:i') }})</span>
+					    {% if (is_granted('ROLE_ADMIN') or is_granted('ROLE_ARDURADUNA') or is_granted('ROLE_INFORMATZAILEA')) %}
+						:<b>{{ eskakizunaForm.vars.value.norkInformatua.izena }}</b> <span class="text-muted">({{ eskakizunaForm.vars.value.noiz | date('Y-m-d H:i') }})</span>
+					    {% endif %}
 					{% endif %}
 				    </p>
 					    {{ form_widget(eskakizunaForm.mamia, { 'attr': { 'class' : 'js-mamia tinymce' } }) }}
