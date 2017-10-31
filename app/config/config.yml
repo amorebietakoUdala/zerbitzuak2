@@ -98,3 +98,15 @@ fos_user:
             type: AppBundle\Controller\Web\Admin\ErabiltzaileaFormType
     resetting:
         token_ttl: 7200
+
+vich_uploader:
+    db_driver: orm
+    
+    mappings:
+        argazkia:
+            uri_prefix: %images_uploads_url%
+            upload_destination: %images_uploads_directory%
+            namer: vich_uploader.namer_uniqid
+            inject_on_load:     false
+            delete_on_update:   true
+            delete_on_remove:   true

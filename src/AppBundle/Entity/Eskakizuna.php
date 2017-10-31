@@ -15,12 +15,14 @@ namespace AppBundle\Entity;
  * @author ibilbao
  */
 
+use AppBundle\Entity\Argazkia;
 use AppBundle\Entity\Erantzuna;
+use AppBundle\Repository\EskakizunaRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
 * @ORM\Entity(repositoryClass="AppBundle\Repository\EskakizunaRepository")
@@ -157,6 +159,13 @@ class Eskakizuna {
     private $erantzunak;
 
     /**
+    * @var \Doctrine\Common\Collections\Collection
+    * @ORM\OneToMany (targetEntity="AppBundle\Entity\Argazkia", mappedBy="eskakizuna", cascade={"persist", "remove"}, orphanRemoval=true)
+    * @ORM\JoinColumn(nullable=true);
+    */
+    private $argazkiak;
+
+    /**
     * Eskakizun askok informatzailea bat daukate
     * @ORM\ManyToOne (targetEntity="Erabiltzailea")
     * @ORM\JoinColumn(nullable=true);
@@ -165,6 +174,7 @@ class Eskakizuna {
 
     public function __construct() {
 	$this->erantzunak = new ArrayCollection();
+	$this->argazkiak = new ArrayCollection();
     }
 
     public function getId() {
@@ -213,7 +223,7 @@ class Eskakizuna {
 
     /**
     * 
-    * @return ArrayCollection|Erantzunak[]
+    * @return ArrayCollection|AppBundle\Entity\Erantzuna[]
     */
     public function getErantzunak() {
 	return $this->erantzunak;
@@ -221,7 +231,7 @@ class Eskakizuna {
     
     public function addErantzunak(Erantzuna $erantzuna)
     {
-        $erantzuna->setNoiz(new \DateTime());
+        $erantzuna->setNoiz(new DateTime());
         $erantzuna->setEskakizuna($this);
         $this->erantzunak->add($erantzuna);
     }
@@ -229,6 +239,25 @@ class Eskakizuna {
     public function removeErantzunak(Erantzuna $erantzuna)
     {
         $this->erantzunak->removeElement($erantzuna);
+    }
+
+    /**
+    * 
+    * @return ArrayCollection|AppBundle\Entity\Argazkia[]
+    */
+    public function getArgazkiak() {
+	return $this->argazkiak;
+    }
+    
+    public function addArgazkia(Argazkia $argazkia)
+    {
+	$argazkia->setEskakizuna($this);
+        $this->argazkiak->add($argazkia);
+    }
+
+    public function removeArgazkia(Argazkia $argazkia)
+    {
+        $this->argazkiak->removeElement($argazkia);
     }
 
     public function getNorkInformatua() {

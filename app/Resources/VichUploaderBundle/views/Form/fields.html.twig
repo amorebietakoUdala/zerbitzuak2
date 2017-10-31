@@ -1,0 +1,44 @@
+{% block vich_file_row -%}
+    {% set force_error = true %}
+    {{- block('form_row') }}
+{%- endblock %}
+
+{% block vich_file_widget %}
+    {% spaceless %}
+        <div class="vich-file">
+            {{ form_widget(form.file) }}
+            {% if form.delete is defined %}
+                {{ form_row(form.delete) }}
+            {% endif %}
+
+            {% if download_uri %}
+                <a href="{{ download_uri }}">{{ translation_domain is same as(false) ? download_label : download_label|trans({}, translation_domain) }}</a>
+            {% endif %}
+        </div>
+    {% endspaceless %}
+{% endblock %}
+
+{% block vich_image_row -%}
+    {% set force_error = true %}
+    {{- block('form_row') }}
+{%- endblock %}
+
+{% block vich_image_widget %}
+    {% spaceless %}
+	    <span class="col-3">
+	    {{ form_widget(form.file) }}
+	    </span>
+	    <span class="col-1">
+	    {% if form.delete is defined %}
+		<a href="#" class="js-argazkia-ezabatu"><i class="fa fa-close"></i></a>
+	    {% endif %}
+	    </span>
+            {% if image_uri %}
+                <a href="{{ image_uri }}"><img src="{{ image_uri }}" alt="" /></a>
+            {% endif %}
+
+            {% if download_uri %}
+                <a href="{{ download_uri }}">{{ translation_domain is same as(false) ? download_label : download_label|trans({}, translation_domain) }}</a>
+            {% endif %}
+    {% endspaceless %}
+{% endblock %}

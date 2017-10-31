@@ -134,6 +134,49 @@ $(document).ready(function(){
     
     /* FIN Erantzunak*/
     
+    /* INICIO Argazkiak */
+    $('#add-another-argazkia').click(function(e) {
+	e.preventDefault();
+
+	var argazkiakList = $('#js-argazkiak-list');
+	var argazkiakCount = $('#js-argazkiak-list li').length;
+
+	var newWidget = argazkiakList.attr('data-prototype');
+	
+	newWidget = newWidget.replace(/__name__/g, argazkiakCount);
+	argazkiakCount++;
+
+	// create a new list element and add it to the list
+	var newLi = $('<li></li>').html(newWidget);
+	newLi.appendTo(argazkiakList);
+    });
+/*
+    // Borratzeko 
+    var $argazkiakList = $('#js-argazkiak-list');
+    
+    $argazkiakList.find('li').each(function() {
+        addArgazkiakFormDeleteLink($(this));
+    });
+
+    function addArgazkiakFormDeleteLink ($tagFormLi) {
+        var $removeFormA = $('<a href="#"><i class="fa fa-close prefix active"></i></a>');
+	$tagFormLi.append($removeFormA);
+        $removeFormA.on('click', function(e) {
+	    console.log('Remove clicked!!!');
+	    // prevent the link from creating a "#" on the URL
+	    e.preventDefault();
+	    // remove the li for the tag form
+	    $tagFormLi.remove();
+	});
+    }
+*/
+
+        $('.js-argazkia-ezabatu').on('click', function(e) {
+	    $(e.currentTarget).parents('li').remove();
+	});
+
+    /* FIN Argazkiak */
+    
     tinymce.init({ selector:'textarea',
             menubar: false,
             resize: false,

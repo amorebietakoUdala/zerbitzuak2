@@ -54,8 +54,8 @@ class EskakizunaController extends Controller {
 	    $em = $this->getDoctrine()->getManager();
 
 	    /* @var data \AppBundle\Entity\Eskakizuna */
-            $eskakizuna = $form->getData();
-            $this->eskatzailea = $eskakizuna->getEskatzailea();
+            $this->eskakizuna = $form->getData();
+            $this->eskatzailea = $this->eskakizuna->getEskatzailea();
 	    if ( $this->eskatzailea->getId() !== null ) {
                 $this->eskatzailea = $em->getRepository(Eskatzailea::class)->find($this->eskatzailea->getId());
             } else {
@@ -63,10 +63,10 @@ class EskakizunaController extends Controller {
             }
             
             $this->_parseEskatzailea($form);
-	    $this->eskakizuna = new Eskakizuna();
-	    $this->_parseEskakizuna($form);
+//	    $this->eskakizuna = new Eskakizuna();
+//	    $this->_parseEskakizuna($form);
 	    $this->eskakizuna->setEskatzailea($this->eskatzailea);
-	    $georeferentziazioa = $eskakizuna->getGeoreferentziazioa();
+	    $georeferentziazioa = $form->getData()->getGeoreferentziazioa();
 	    if ( $georeferentziazioa->getLongitudea() !== null && $georeferentziazioa->getLatitudea() !== null ) {
 		$this->eskakizuna->setGeoreferentziazioa($georeferentziazioa);
 		$em->persist($georeferentziazioa);
@@ -77,8 +77,9 @@ class EskakizunaController extends Controller {
 		$this->eskakizuna->setEnpresa($zerbitzua->getEnpresa());
 		$zerbitzua_hautatua = true;
 	    }
+	    $this->_argazkia_gorde_multi();
 	    $this->_argazkia_gorde();
-            if ( $eskakizuna->getZerbitzua() != null ) {
+            if ( $this->eskakizuna->getZerbitzua() != null ) {
                 $egoera = $em->getRepository(Egoera::class)->find(Egoera::EGOERA_BIDALIA);
                 $this->eskakizuna->setEgoera($egoera);
 		$this->eskakizuna->setNoizBidalia(new \DateTime());
@@ -218,11 +219,19 @@ class EskakizunaController extends Controller {
 	$zerbitzuaAldatuAurretik = $eskakizuna->getZerbitzua();
 	
 	$erantzunak = $eskakizuna->getErantzunak();
+	
+	$argazkiakAldatuAurretik = new ArrayCollection();
+
+	foreach ($eskakizuna->getArgazkiak() as $argazkia) {
+	    $argazkiakAldatuAurretik->add($argazkia);
+	}
 
 	$form->handleRequest($request);
 	if ( $form->isSubmitted() && $form->isValid() ) {
 	    $em = $this->getDoctrine()->getManager();
 	    $this->eskakizuna = $form->getData();
+//	    dump($eskakizuna,$form->getData(),$this->eskakizuna);die;
+
 	    $geo = $this->eskakizuna->getGeoreferentziazioa();
 
 	    if ( $geo !== null && $geo->getId() !== null ) {
@@ -255,6 +264,7 @@ class EskakizunaController extends Controller {
 		    $egoera = $em->getRepository(Egoera::class)->find(Egoera::EGOERA_BIDALI_GABE);
 		    $this->eskakizuna->setEgoera($egoera);
 	    }
+	    $this->_argazkia_gorde_multi($argazkiakAldatuAurretik);
 	    $this->_argazkia_gorde();
 	    
             $form_erantzunak = $this->eskakizuna->getErantzunak();
@@ -485,6 +495,29 @@ class EskakizunaController extends Controller {
 	    $image->writeImage($argazkien_direktorioa.'/'.'thumb-'.$argazkiaren_izena);
 
 	    $this->eskakizuna->setArgazkia($argazkiaren_izena);
+	}
+    }
+
+    private function _argazkia_gorde_multi($argazkiakAldatuAurretik = null) {
+	$em = $this->getDoctrine()->getManager();
+//	dump($argazkiakAldatuAurretik,$this->eskakizuna->getArgazkiak());die;
+	if ($argazkiakAldatuAurretik !== null) {
+	    foreach ($argazkiakAldatuAurretik as $aurrekoArgazkia ) {
+		if (false === $this->eskakizuna->getArgazkiak()->contains($aurrekoArgazkia)) {
+		    $aurrekoArgazkia->setEskakizuna(null);
+		    $em->remove($aurrekoArgazkia);
+		    // if you wanted to delete the Tag entirely, you can also do that
+		    // $em->remove($tag);
+		}
+	    }
+	}
+	
+	$argazkiak = $this->eskakizuna->getArgazkiak();
+	if (!$argazkiak->isEmpty()) {
+	    foreach($argazkiak as $argaz) {
+		$argaz->setEskakizuna($this->eskakizuna);
+		$em->persist($argaz);
+	    }
 	}
     }
 

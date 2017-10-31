@@ -90,6 +90,12 @@ class EskakizunaFormType extends AbstractType {
 		}
 	    ])
 	    ->add('georeferentziazioa', GeoreferentziazioaFormType::class)
+	    ->add('argazkiak', CollectionType::class, [
+		'entry_type' => ArgazkiaFormType::class,
+//		'entry_options' => ['label' => 'messages.ezabatu' ],
+		'allow_add' => true,
+		'allow_delete' => true,
+	    ])
 	    ;
 	    if ( $options['editatzen'] === false ) {
 		$builder->add('mamia', TextareaType::class,[
