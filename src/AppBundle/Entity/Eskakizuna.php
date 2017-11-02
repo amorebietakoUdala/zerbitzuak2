@@ -104,6 +104,12 @@ class Eskakizuna {
     * @ORM\Column(type="datetime", nullable=true)
     * @JMS\Expose(true)     
     */
+    private $noizInformatua;
+
+    /**
+    * @ORM\Column(type="datetime", nullable=true)
+    * @JMS\Expose(true)     
+    */
     private $noizBidalia;
 
     /**
@@ -326,8 +332,16 @@ class Eskakizuna {
     public function setNorkErreklamatua(Erabiltzailea $norkErreklamatua) {
 	$this->norkErreklamatua = $norkErreklamatua;
     }
+    
+    public function getNoizInformatua() {
+	return $this->noizInformatua;
+    }
 
-    public function __toString() {
+    public function setNoizInformatua($noizInformatua) {
+	$this->noizInformatua = $noizInformatua;
+    }
+
+        public function __toString() {
 	return strval($this->getId());
     }
 }

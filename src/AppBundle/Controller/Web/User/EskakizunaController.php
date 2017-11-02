@@ -88,6 +88,7 @@ class EskakizunaController extends Controller {
             }
 
 	    $this->eskakizuna->setNorkInformatua($user);
+	    $this->eskakizuna->setNoizInformatua(new \DateTime());
 	    
 	    $em->persist($this->eskatzailea);
 	    $em->persist($this->eskakizuna);
