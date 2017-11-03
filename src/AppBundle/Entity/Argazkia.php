@@ -22,8 +22,6 @@ class Argazkia {
      */
     private $id;
 
-    // ..... other fields
-
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * @Assert\File(maxSize="4096k",mimeTypes={"image/png", "image/jpeg", "image/pjpeg"})
@@ -43,7 +41,7 @@ class Argazkia {
      /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * @Assert\File(maxSize="4096k",mimeTypes={"image/png", "image/jpeg", "image/pjpeg"})
-     * @Vich\UploadableField(mapping="argazkia", fileNameProperty="imageThumbnail", size="imageThumbnailSize")
+     * @Vich\UploadableField(mapping="thumbnail", fileNameProperty="imageThumbnail", size="imageThumbnailSize")
      * 
      * @var File
      */
@@ -105,8 +103,6 @@ class Argazkia {
             $this->updatedAt = new \DateTimeImmutable();
 	    $this->imageSize = $this->imageFile->getSize();
 	    $this->imageName = $this->imageFile->getFilename();
-	    $this->imageThumbnail = 'thumb-'.$this->imageFile->getFilename();
-//	    $this->imageThumbnailSize = 'thumb-'.$this->imageThumbnailFile->getSize();
         }
         
         return $this;
@@ -196,8 +192,22 @@ class Argazkia {
 	return $this->imageThumbnailSize;
     }
 
+     /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the  update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $imageThumbnailFile
+     *
+     * @return File
+     */
     public function setImageThumbnailFile(File $imageThumbnailFile) {
 	$this->imageThumbnailFile = $imageThumbnailFile;
+	$this->imageThumbnail = 'thumb-'.$this->imageFile->getFilename();
+	$this->imageThumbnailSize = $this->imageThumbnailFile->getSize();
+	return $this;
     }
 
     public function setImageThumbnailSize($imageThumbnailSize) {

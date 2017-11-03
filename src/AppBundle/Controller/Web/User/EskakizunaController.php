@@ -479,8 +479,8 @@ class EskakizunaController extends Controller {
 	    $imageFile = new File($argazkien_direktorioa.'/'.$argazkiaren_izena);
 	    $argazkia->setImageFile($imageFile);
 	    $image->thumbnailImage($argazkien_thumb_zabalera,0);
-	    $image->writeImage($argazkien_direktorioa.'/'.$argazkia->getImageThumbnail());
-	    $imageThumbnailFile = new File($argazkien_direktorioa.'/'.$argazkia->getImageThumbnail());
+	    $image->writeImage($argazkien_direktorioa.'/'.'thumb-'.$argazkiaren_izena);
+	    $imageThumbnailFile = new File($argazkien_direktorioa.'/'.'thumb-'.$argazkiaren_izena);
 	    $argazkia->setImageThumbnailFile($imageThumbnailFile);
 	    $argazkia->setImageThumbnailSize($imageThumbnailFile->getSize());
 	}
@@ -536,7 +536,6 @@ class EskakizunaController extends Controller {
 		$argaz->setEskakizuna($this->eskakizuna);
 	    }
 	}
-//	dump($argazkiak);die;
     }
 
     private function _mezuaBidaliArduradunei ($title, $eskakizuna) {

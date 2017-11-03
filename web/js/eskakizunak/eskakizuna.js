@@ -149,6 +149,7 @@ $(document).ready(function(){
 	// create a new list element and add it to the list
 	var newLi = $('<li></li>').html(newWidget);
 	newLi.appendTo(argazkiakList);
+	$(newLi).show();
 	$(newLi).find('.js-file').show();
     });
 /*
@@ -170,11 +171,11 @@ $(document).ready(function(){
 	    $tagFormLi.remove();
 	});
     }
-*/
 
         $('.js-argazkia-ezabatu').on('click', function(e) {
 	    $(e.currentTarget).parents('li').remove();
 	});
+*/
 
     /* FIN Argazkiak */
     
@@ -219,9 +220,9 @@ $(document).ready(function(){
 	fontAwesome: true
     }).attr('type','text'); // Honekin chromen ez da testua agertzen
 
-     $(".js-argazkia").change(function(){
+     $('#js-argazkiak-list').on('change','.js-file', function (){
 	console.log(locale);
-        var ok = readURL(this,$('argazkia-preview'));
+        var ok = readURL(this,$('#argazkia-preview'));
 	if (!ok) {
 	    if (locale === 'eu')
 		alert("Fitxategia handiegia da. Hautatu beste bat mesedez.");
@@ -242,12 +243,11 @@ $(document).ready(function(){
             }
     });            
 
-    google.maps.event.addDomListener(window, 'load', init_map(latitudea, longitudea));
-
     $(".js-gorde_botoia, .js-erantzun_botoia").click(function(e) {
 	$("#eskakizunaForm").submit();
     });
-
+    
+    google.maps.event.addDomListener(window, 'load', init_map(latitudea, longitudea));
 
 });    
 
