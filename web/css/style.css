@@ -376,9 +376,8 @@ select::-ms-expand {
   min-height: 450px;
 }
 
-.js-file label {
-    position: relative;
-    top: 0rem;
+.js-file {
+    display: none;
 }
 
 @media screen and (max-width: 699px) {

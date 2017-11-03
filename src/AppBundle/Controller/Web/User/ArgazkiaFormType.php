@@ -26,18 +26,18 @@ class ArgazkiaFormType extends AbstractType {
 	    ->add('imageFile', VichImageType::class,[
 		'required' => false,
 		'by_reference' => false,
-		'allow_delete' => true,
-//		'download_uri' => true,
+		'allow_delete' => false,
+		'download_uri' => false,
 //		'download_label' => 'download_file',
 //		'image_uri' => true,
-		'attr' => ['class' => ''],
+		'attr' => ['class' => 'js-file'],
 		'constraints' => [
 //		    new NotBlank(),
 		    ],
 	    ])
-	    ->add('imageName',null,[
-		'attr' => ['readonly' => true ],
-	    ])
+//	    ->add('imageName',null,[
+//		'attr' => ['readonly' => true ],
+//	    ])
 	;
     }
 

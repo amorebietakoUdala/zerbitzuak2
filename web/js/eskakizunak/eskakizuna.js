@@ -149,6 +149,7 @@ $(document).ready(function(){
 	// create a new list element and add it to the list
 	var newLi = $('<li></li>').html(newWidget);
 	newLi.appendTo(argazkiakList);
+	$(newLi).find('.js-file').show();
     });
 /*
     // Borratzeko 

@@ -40,6 +40,29 @@ class Argazkia {
      */
     private $imageName;
 
+     /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * @Assert\File(maxSize="4096k",mimeTypes={"image/png", "image/jpeg", "image/pjpeg"})
+     * @Vich\UploadableField(mapping="argazkia", fileNameProperty="imageThumbnail", size="imageThumbnailSize")
+     * 
+     * @var File
+     */
+    private $imageThumbnailFile;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     *
+     * @var string
+     */
+    private $imageThumbnail;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     *
+     * @var integer
+     */
+    private $imageThumbnailSize;
+
     /**
      * @ORM\Column(type="integer")
      *
@@ -82,6 +105,8 @@ class Argazkia {
             $this->updatedAt = new \DateTimeImmutable();
 	    $this->imageSize = $this->imageFile->getSize();
 	    $this->imageName = $this->imageFile->getFilename();
+	    $this->imageThumbnail = 'thumb-'.$this->imageFile->getFilename();
+//	    $this->imageThumbnailSize = 'thumb-'.$this->imageThumbnailFile->getSize();
         }
         
         return $this;
@@ -153,6 +178,30 @@ class Argazkia {
 
     public function setEskakizuna(Eskakizuna $eskakizuna = null) {
 	$this->eskakizuna = $eskakizuna;
+    }
+
+    public function getImageThumbnail() {
+	return $this->imageThumbnail;
+    }
+
+    public function setImageThumbnail($imageThumbnail) {
+	$this->imageThumbnail = $imageThumbnail;
+    }
+
+    public function getImageThumbnailFile() {
+	return $this->imageThumbnailFile;
+    }
+
+    public function getImageThumbnailSize() {
+	return $this->imageThumbnailSize;
+    }
+
+    public function setImageThumbnailFile(File $imageThumbnailFile) {
+	$this->imageThumbnailFile = $imageThumbnailFile;
+    }
+
+    public function setImageThumbnailSize($imageThumbnailSize) {
+	$this->imageThumbnailSize = $imageThumbnailSize;
     }
 
     public function _toString() {

@@ -16,7 +16,9 @@ use AppBundle\Entity\Eskakizuna;
 use AppBundle\Entity\Eskatzailea;
 use AppBundle\Entity\Erantzuna;
 use AppBundle\Entity\Georeferentziazioa;
+use AppBundle\Entity\Argazkia;
 use AppBundle\Controller\Web\User\EskakizunaBilatzaileaFormType;
+use Symfony\Component\HttpFoundation\File\File;
 use Imagick;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -221,16 +223,19 @@ class EskakizunaController extends Controller {
 	$erantzunak = $eskakizuna->getErantzunak();
 	
 	$argazkiakAldatuAurretik = new ArrayCollection();
+	
+	$aurrekoArgazkia = $eskakizuna->getArgazkia();
 
 	foreach ($eskakizuna->getArgazkiak() as $argazkia) {
 	    $argazkiakAldatuAurretik->add($argazkia);
 	}
+	
+//	dump($eskakizuna);die;
 
 	$form->handleRequest($request);
 	if ( $form->isSubmitted() && $form->isValid() ) {
 	    $em = $this->getDoctrine()->getManager();
 	    $this->eskakizuna = $form->getData();
-//	    dump($eskakizuna,$form->getData(),$this->eskakizuna);die;
 
 	    $geo = $this->eskakizuna->getGeoreferentziazioa();
 
@@ -264,8 +269,9 @@ class EskakizunaController extends Controller {
 		    $egoera = $em->getRepository(Egoera::class)->find(Egoera::EGOERA_BIDALI_GABE);
 		    $this->eskakizuna->setEgoera($egoera);
 	    }
+	    
+	    $this->_argazkia_gorde($aurrekoArgazkia);
 	    $this->_argazkia_gorde_multi($argazkiakAldatuAurretik);
-	    $this->_argazkia_gorde();
 	    
             $form_erantzunak = $this->eskakizuna->getErantzunak();
 	    $erantzunak_count =  $form_erantzunak->count();
@@ -458,21 +464,30 @@ class EskakizunaController extends Controller {
 	$this->eskatzailea->setPostaKodea($eskatzailea->getPostaKodea());
     }
     
-    private function _parseEskakizuna($form){
-	$data = $form->getData();
-	$this->eskakizuna->setLep($data->getLep());
-	$this->eskakizuna->setNoiz($data->getNoiz());
-	$this->eskakizuna->setKalea($data->getKalea());
-	$this->eskakizuna->setArgazkia($data->getArgazkia());
-	$this->eskakizuna->setEskakizunMota($data->getEskakizunMota());
-	$this->eskakizuna->setJatorria($data->getJatorria());
-	$this->eskakizuna->setMamia($data->getMamia());
-	if ( $data->getZerbitzua() !== null ) {
-	    $this->eskakizuna->setZerbitzua($data->getZerbitzua());
+    private function _argazkia_kudeatu(Argazkia $argazkia) {
+	$argazkien_direktorioa = $this->getParameter('images_uploads_directory');
+	$argazkien_zabalera = $this->getParameter('images_width');
+	$argazkien_thumb_zabalera = $this->getParameter('images_thumb_width');
+	$argazkiaren_izena = $argazkia->getImageName();
+
+
+	if ( $argazkia !== null ) {
+	    /* Honek funtzionatzen du baina agian zuzenean txikituta gorde daiteke */
+	    $image = new \Imagick($argazkien_direktorioa.'/'.$argazkiaren_izena);
+	    $image->thumbnailImage($argazkien_zabalera,0);
+	    $image->writeImage($argazkien_direktorioa.'/'.$argazkiaren_izena);
+	    $imageFile = new File($argazkien_direktorioa.'/'.$argazkiaren_izena);
+	    $argazkia->setImageFile($imageFile);
+	    $image->thumbnailImage($argazkien_thumb_zabalera,0);
+	    $image->writeImage($argazkien_direktorioa.'/'.$argazkia->getImageThumbnail());
+	    $imageThumbnailFile = new File($argazkien_direktorioa.'/'.$argazkia->getImageThumbnail());
+	    $argazkia->setImageThumbnailFile($imageThumbnailFile);
+	    $argazkia->setImageThumbnailSize($imageThumbnailFile->getSize());
 	}
     }
 
-    private function _argazkia_gorde() {
+    private function _argazkia_gorde($aurrekoArgazkia = null) {
+//	dump($this->eskakizuna, $this->eskakizuna->getArgazkia(), $aurrekoArgazkia);die;
 	$argazkia = $this->eskakizuna->getArgazkia();
 	if ( $argazkia !== null ) {
 	    // Generate a unique name for the file before saving it
@@ -496,6 +511,9 @@ class EskakizunaController extends Controller {
 
 	    $this->eskakizuna->setArgazkia($argazkiaren_izena);
 	}
+	else {
+	    $this->eskakizuna->setArgazkia($aurrekoArgazkia);
+	}
     }
 
     private function _argazkia_gorde_multi($argazkiakAldatuAurretik = null) {
@@ -505,9 +523,7 @@ class EskakizunaController extends Controller {
 	    foreach ($argazkiakAldatuAurretik as $aurrekoArgazkia ) {
 		if (false === $this->eskakizuna->getArgazkiak()->contains($aurrekoArgazkia)) {
 		    $aurrekoArgazkia->setEskakizuna(null);
-		    $em->remove($aurrekoArgazkia);
-		    // if you wanted to delete the Tag entirely, you can also do that
-		    // $em->remove($tag);
+		    $em->persist($aurrekoArgazkia);
 		}
 	    }
 	}
@@ -515,10 +531,12 @@ class EskakizunaController extends Controller {
 	$argazkiak = $this->eskakizuna->getArgazkiak();
 	if (!$argazkiak->isEmpty()) {
 	    foreach($argazkiak as $argaz) {
-		$argaz->setEskakizuna($this->eskakizuna);
 		$em->persist($argaz);
+		$this->_argazkia_kudeatu($argaz);
+		$argaz->setEskakizuna($this->eskakizuna);
 	    }
 	}
+//	dump($argazkiak);die;
     }
 
     private function _mezuaBidaliArduradunei ($title, $eskakizuna) {

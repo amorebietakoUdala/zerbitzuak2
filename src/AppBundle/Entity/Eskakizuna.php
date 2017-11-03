@@ -23,6 +23,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
 * @ORM\Entity(repositoryClass="AppBundle\Repository\EskakizunaRepository")
@@ -101,6 +102,12 @@ class Eskakizuna {
      * @JMS\Expose(true)     
     */
     private $noiz;
+
+    /**
+    * @ORM\Column(type="datetime", nullable=true)
+    * @JMS\Expose(true)     
+    */
+    private $noizInformatua;
 
     /**
     * @ORM\Column(type="datetime", nullable=true)
@@ -354,6 +361,14 @@ class Eskakizuna {
 
     public function setNorkErreklamatua(Erabiltzailea $norkErreklamatua) {
 	$this->norkErreklamatua = $norkErreklamatua;
+    }
+
+    public function getNoizInformatua() {
+	return $this->noizInformatua;
+    }
+
+    public function setNoizInformatua($noizInformatua) {
+	$this->noizInformatua = $noizInformatua;
     }
 
     public function __toString() {
