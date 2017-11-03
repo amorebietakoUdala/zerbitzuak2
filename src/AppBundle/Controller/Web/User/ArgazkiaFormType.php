@@ -15,7 +15,7 @@ use Vich\UploaderBundle\Form\Type\VichImageType;
 
 
 /**
- * Description of ErantzunaFormType
+ * Description of ArgazkiaFormType
  *
  * @author ibilbao
  */
@@ -26,7 +26,7 @@ class ArgazkiaFormType extends AbstractType {
 	    ->add('imageFile', VichImageType::class,[
 		'required' => false,
 		'by_reference' => false,
-		'allow_delete' => false,
+		'allow_delete' => true,
 		'download_uri' => false,
 //		'download_label' => 'download_file',
 //		'image_uri' => true,

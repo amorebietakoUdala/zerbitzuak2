@@ -376,6 +376,14 @@ select::-ms-expand {
   min-height: 450px;
 }
 
+#js-argazkiak-list li {
+    display: none;
+}
+
+#eskakizuna_form_argazkia {
+    display:none;
+}
+
 .js-file {
     display: none;
 }

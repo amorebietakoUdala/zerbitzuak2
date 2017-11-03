@@ -204,7 +204,7 @@
 			    <div class="row container margin-top-13">
 				<div id="map-container" class="col z-depth-1" style="height: 300px"></div>
 			    </div>
-			    <div class="col md-form form-group form-sm">
+{#			    <div class="row col md-form form-group form-sm">
 				<div class="col-lg-6 col-md-6 md-form form-group form-sm">
 				    <i class="fa fa-picture-o prefix"></i>
 				    {{ form_widget(eskakizunaForm.argazkia, { 'attr': { 'class' : 'form-control js-argazkia' } }) }}
@@ -216,22 +216,42 @@
 				{% endif %}
 				</div>
 			    </div>
-			    <div class="col md-form form-group form-sm margin-top-13">
+#}
+			    <div class="row col margin-top-13">
+				<div id="karrusela" class="carousel slide" data-ride="carousel">
+				  <div class="carousel-inner">
+				      {% set active="true"%}
+				      {% for argazki in eskakizunaForm.argazkiak %}
+					<div class="carousel-item{%if active == "true"%} active{%endif%}">
+					    <img class="d-block img-fluid" src="{{ images_uploads_url }}/{{argazki.vars.value.imageName }}">
+					</div>
+				      {% set active="false"%}
+				      {% endfor %}
+				      <a class="carousel-control-prev" href="#karrusela" data-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="sr-only">Previous</span>
+				      </a>
+				      <a class="carousel-control-next" href="#karrusela" data-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="sr-only">Next</span>
+				      </a>
+				  </div>
+				</div>
+			    </div>
+			    <div class="row col md-form form-group form-sm margin-top-13">
 				<div class="form-group form-sm">
+				<a id="add-another-argazkia" href="#" class="add_tag_link">Argazkia gehitu</a>
 				<ul id="js-argazkiak-list" class="argazkiak" data-prototype="{{ form_widget(eskakizunaForm.argazkiak.vars.prototype)|e('html_attr') }}">
 				    {% for argazki in eskakizunaForm.argazkiak %}
-{#					{{ dump(argazki.vars.value.imageName) }}
-#}					<li>{{ form_widget(argazki.imageFile) }}
+					<li>{{ form_widget(argazki.imageFile) }}
 					    {{ form_errors(argazki.imageFile) }}
 					</li>
 				    {% endfor %}
 				</ul>
+				<img id="argazkia-preview" src="" alt=""/>
 				</div>
 			    </div>
-{#
-<img src="{{ vich_uploader_asset(argazki.vars.value, 'imageFile', 'AppBundle\\Entity\\Argazkia') }}" />
-#}
-			    <a id="add-another-argazkia" href="#" class="add_tag_link">Argazkia gehitu</a>
+
 			    <div id="beheko-botoiak" class="row col-12 md-form form-group form-sm margin-top-13">
                                 {% if (gordeBotoia == true) %}
                                     <button class="col-2 btn btn-primary form-control" type="submit" formnovalidate><i class="fa fa-save left"></i>{{"messages.gorde" | trans | capitalize}}</button>
@@ -252,5 +272,4 @@
 		</div>
 	    </div>
 	</div>
-    </div>
-{{ form_end(eskakizunaForm,{'render_rest': false}) }}
+{{ form_end(eskakizunaForm,{'render_rest': true}) }}
