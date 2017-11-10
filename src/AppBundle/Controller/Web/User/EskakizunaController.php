@@ -46,6 +46,7 @@ class EskakizunaController extends Controller {
 	$form = $this->createForm(EskakizunaFormType::class, new Eskakizuna(), [
 	    'editatzen' => false,
 	    'role' => $user->getRoles(),
+    	    'locale' => $request->getLocale(),
 	]);
 	
 	// Only handles data on POST request
@@ -214,6 +215,7 @@ class EskakizunaController extends Controller {
 	$form = $this->createForm(EskakizunaFormType::class, $eskakizuna, [
 	    'editatzen' => true,
    	    'role' => $user->getRoles(),
+	    'locale' => $request->getLocale(),
 	]);
 
 	$zerbitzuaAldatuAurretik = $eskakizuna->getZerbitzua();
@@ -330,6 +332,7 @@ class EskakizunaController extends Controller {
 	    'editatzen' => false,
 	    'readonly' => true,
 	    'role' => $user->getRoles(),
+	    'locale' => $request->getLocale(),
 	    ]);
 
 	$erantzunak = $eskakizuna->getErantzunak();
