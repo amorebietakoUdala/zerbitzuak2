@@ -179,10 +179,12 @@ class EskakizunaController extends Controller {
 	
 	$em = $this->getDoctrine()->getManager();
 	if ( $authorization_checker->isGranted('ROLE_KANPOKO_TEKNIKARIA') ) {
-	    $eskakizunak = $em->getRepository(Eskakizuna::class)->findBy([
-		    'enpresa' => $user->getEnpresa()
-		    ]
-	    );
+	    $criteria = [
+		'enpresa' => $user->getEnpresa()
+	    ];
+	    $eskakizunak = $this->getDoctrine()
+		    ->getRepository(Eskakizuna::class)
+		    ->findAllOpen($criteria, null, null);
 	} else {
 	    $criteria = $request->query->all();
 	    $from = array_key_exists( 'noiztik', $criteria ) ? $criteria['noiztik'] : null;
