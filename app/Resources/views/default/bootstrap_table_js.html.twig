@@ -9,6 +9,13 @@
     {% endif %}
 
     <script type="text/javascript" src="{{ asset('bower_components/tableexport.jquery.plugin/tableExport.min.js') }}"></script>
+    {% if app.session.get('pageSize') == null %}
+	{% set pageSize = 10 %}
+    {% else %}
+	{% set pageSize = app.session.get('pageSize') %}
+    {% endif %}
+
+    <script type="text/javascript" src="{{ asset('bower_components/urijs/src/URI.min.js') }}"></script>
 
     <script type="text/javascript">
     $(document).ready(function(){
@@ -27,7 +34,7 @@
 		search: true,
 		striped: true,
 		sortStable: true,
-		pageSize: 10,
+		pageSize: {{ pageSize }},
 		pageList: [10,25,50,100],
 		sortable: true,
 		locale: 'es_{{ app.request.getLocale() | upper }}'
@@ -39,6 +46,11 @@
 		    exportDataType: $(this).val(),
 		});
 	    });
+	});
+        $('li[role="menuitem"] a').on('click',function () {
+	    var uri = new URI(document.location.href);
+	    var newUrl = uri.setQuery('pageSize', $(this).text());
+	    document.location.href = newUrl;
 	});
     });
     </script>
