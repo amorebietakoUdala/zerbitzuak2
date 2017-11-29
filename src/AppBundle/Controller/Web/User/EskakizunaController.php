@@ -21,6 +21,7 @@ use Imagick;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Doctrine\Common\Collections\ArrayCollection;
 use \Swift_Message;
 use \DateTime;
@@ -143,6 +144,17 @@ class EskakizunaController extends Controller {
     public function listAction (Request $request){
         $user = $this->get('security.token_storage')->getToken()->getUser();
 	$authorization_checker = $this->get('security.authorization_checker');
+	$session = $request->getSession();
+	if ( $request->query->get('pageSize') != null ) {
+	    $pageSize = $request->query->get('pageSize');
+	    $request->query->remove('pageSize');
+	    $session->set('pageSize', $pageSize);
+	} else {
+	    if ( $session->get('pageSize') == null ) {
+		$session->set('pageSize', 10);
+	    }
+	}
+	
 	$bilatzaileaForm = $this->createForm(EskakizunaBilatzaileaFormType::class,[
 	    'role' => $user->getRoles(),
 	    'enpresa' => $user->getEnpresa(),
