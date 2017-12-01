@@ -23,7 +23,7 @@
     "tableexport.jquery.plugin": "^1.9.4",
     "tinymce": "^4.6.5",
     "core.js": "^2.5.1",
-    "urijs": "uri.js#^1.19.0"
+    "urijs": "uri.js#^1.19.0",
   },
   "devDependencies": {},
   "description": "Prototipo Zerbitzuak",
