@@ -4,6 +4,7 @@ $(document).ready(function(){
     var latitudea = 43.2206664;
     var longitudea = -2.733066600000029;
     var locale = $('html').attr('lang');
+    var role = $('html').attr('role');
 
     if ($("#eskakizuna_form_georeferentziazioa_longitudea").val() !== '' && $("#eskakizuna_form_georeferentziazioa_latitudea").val() !== '') {
 	latitudea = $("#eskakizuna_form_georeferentziazioa_latitudea").val();
@@ -134,11 +135,19 @@ $(document).ready(function(){
     
     /* FIN Erantzunak*/
     
-    tinymce.init({ selector:'textarea',
-            menubar: false,
-            resize: false,
-            statusbar: false,
-	    theme: 'modern',
+    tinymce.init({ 
+	selector:'textarea',
+        menubar: false,
+        resize: false,
+        statusbar: false,
+	theme: 'modern',
+    	init_instance_callback : function(editor) {
+	  if (editor.id === 'eskakizuna_form_mamia' ) {
+	    if (role === "KANPOKO_TEKNIKARIA") {
+		editor.setMode('readonly');
+	    }
+	  }
+	}
     });
     
 
