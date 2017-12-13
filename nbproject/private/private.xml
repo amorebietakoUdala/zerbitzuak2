@@ -3,9 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Netbeans/Zerbitzua2_mantenimendua/zerbitzuak2/src/AppBundle/Controller/Web/User/EskakizunaFormType.php</file>
-            <file>file:/C:/Netbeans/Zerbitzua2_mantenimendua/zerbitzuak2/src/AppBundle/Controller/Web/User/EskakizunaBilatzaileaFormType.php</file>
-            <file>file:/C:/Netbeans/Zerbitzua2_mantenimendua/zerbitzuak2/app/Resources/views/eskakizuna/edit.html.twig</file>
+            <file>file:/C:/Netbeans/zerbitzuak2_mantenimendua/app/Resources/views/default/header.html.twig</file>
+            <file>file:/C:/Netbeans/zerbitzuak2_mantenimendua/app/Resources/views/eskakizuna/edit.html.twig</file>
+            <file>file:/C:/Netbeans/zerbitzuak2_mantenimendua/src/AppBundle/Controller/API/ApiController.php</file>
+            <file>file:/C:/Netbeans/zerbitzuak2_mantenimendua/app/Resources/views/base.html.twig</file>
         </group>
     </open-files>
 </project-private>
