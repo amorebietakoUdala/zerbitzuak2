@@ -44,7 +44,7 @@ class EskakizunaRepository extends EntityRepository {
                     ->setParameter($eremua, '%'.$filtroa.'%');
             }
         }
-	$qb->orderBy('e.noiz', 'DESC');
+	$qb->orderBy('e.noizInformatua', 'DESC');
         return $qb;
     }
 
@@ -58,11 +58,11 @@ class EskakizunaRepository extends EntityRepository {
     {
 	$qb = $this->createQueryBuilder('e');
 	if ($from !== null) {
-	    $qb->andWhere('e.noiz >= :from')
+	    $qb->andWhere('e.noizInformatua >= :from')
 		->setParameter('from', $from);
 	}
 	if ($to !== null) {
-	    $qb->andWhere('e.noiz <= :to')
+	    $qb->andWhere('e.noizInformatua <= :to')
 	    ->setParameter('to', $to);
 	}
 	if ( $criteriaAnd )
@@ -79,7 +79,7 @@ class EskakizunaRepository extends EntityRepository {
                     ->setParameter($eremua, '%'.$filtroa.'%');
             }
         }
-	$qb->orderBy('e.noiz', 'DESC');
+	$qb->orderBy('e.noizInformatua', 'DESC');
         return $qb;
     }
 
@@ -117,7 +117,7 @@ class EskakizunaRepository extends EntityRepository {
 	$qb = $this->findAllFromToQB($criteriaAnd, $criteriaLike, $from, $to);
 	$qb->andWhere('e.egoera != :egoera')
 	    ->setParameter('egoera', [Egoera::EGOERA_ITXIA]);
-	$qb->orderBy('e.noiz', 'DESC');
+	$qb->orderBy('e.noizInformatua', 'DESC');
 	return $qb;
     }
 
