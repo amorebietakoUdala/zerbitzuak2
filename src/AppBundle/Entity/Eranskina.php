@@ -53,7 +53,7 @@ class Eranskina {
     private $updatedAt;
 
     /**
-    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Eskakizuna", inversedBy="eranskinak" , cascade={"persist", "remove"} )
+    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Eskakizuna", inversedBy="eranskinak" , cascade={"persist", "merge", "remove"} )
     * @ORM\JoinColumn(nullable=false)
     */
     private $eskakizuna;

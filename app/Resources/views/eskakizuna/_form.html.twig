@@ -186,11 +186,11 @@
 				    </div>
 				</div>
 			    </div>
-			    <div class="row container">
-				<div class="col md-form form-group form-sm margin-top-13">
+			    <div class="row container margin-top-13">
+				<div class="col md-form form-group form-sm margin-top-08">
 				    <div class="form-group form-sm">
 				    <a id="add-another-eranskina" href="#" class="add_tag_link">{{ 'messages.eranskina-gehitu' | trans }}</a>
-				    <ul id="js-eranskinak-list" class="eranskinak" data-prototype="{{ form_widget(eskakizunaForm.eranskinak.vars.prototype)|e('html_attr') }}">
+				    <ul id="js-eranskinak-list" class="eranskinak margin-top-13" data-prototype="{{ form_widget(eskakizunaForm.eranskinak.vars.prototype)|e('html_attr') }}">
 					{% for eranskina in eskakizunaForm.eranskinak %}
 					    <li>{{ form_widget(eranskina.eranskinaFile) }}
 						{{ form_errors(eranskina.eranskinaFile) }}
@@ -265,10 +265,10 @@
 #}
 			    <div id="beheko-botoiak" class="row col-12 md-form form-group form-sm margin-top-13">
                                 {% if (gordeBotoia == true) %}
-                                    <button class="col-2 btn btn-primary form-control" type="submit" formnovalidate><i class="fa fa-save left"></i>{{"messages.gorde" | trans | capitalize}}</button>
+                                    <button class="col-2 btn btn-primary form-control js-gorde_botoia" type="button" formnovalidate><i class="fa fa-save left"></i>{{"messages.gorde" | trans | capitalize}}</button>
                                 {% endif %}
                                 {% if (erantzun == true) %}
-                                    <button class="col-2 btn btn-primary form-control" type="submit" formnovalidate><i class="fa fa-reply left"></i>{{"messages.erantzun" | trans | capitalize}}</button>
+                                    <button class="col-2 btn btn-primary form-control js-erantzun_botoia" type="button" formnovalidate><i class="fa fa-reply left"></i>{{"messages.erantzun" | trans | capitalize}}</button>
                                 {% endif %}
                                 <button class="col-2 btn btn-primary form-control js-atzera-botoia" type="button"><i class="fa fa-arrow-circle-left left"></i>{{"messages.utzi" | trans | capitalize}}</button>
 				{% if (is_granted('ROLE_ADMIN') or is_granted('ROLE_ARDURADUNA') or is_granted('ROLE_INFORMATZAILEA')) and editatzen == true %}
