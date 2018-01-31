@@ -186,6 +186,20 @@
 				    </div>
 				</div>
 			    </div>
+			    <div class="row container">
+				<div class="col md-form form-group form-sm margin-top-13">
+				    <div class="form-group form-sm">
+				    <a id="add-another-eranskina" href="#" class="add_tag_link">{{ 'messages.eranskina-gehitu' | trans }}</a>
+				    <ul id="js-eranskinak-list" class="eranskinak" data-prototype="{{ form_widget(eskakizunaForm.eranskinak.vars.prototype)|e('html_attr') }}">
+					{% for eranskina in eskakizunaForm.eranskinak %}
+					    <li>{{ form_widget(eranskina.eranskinaFile) }}
+						{{ form_errors(eranskina.eranskinaFile) }}
+					    </li>
+					{% endfor %}
+				    </ul>
+				    </div>
+				</div>
+			    </div>
 			    <div class="col-lg-12 row margin-top-13">
 				<div class="col-lg-6 col-md-6 md-form form-group form-sm">
 					<div class="col md-form form-group form-sm">
@@ -214,6 +228,41 @@
 				{% endif %}
 				</div>
 			    </div>
+{#			    <div class="row col margin-top-13">
+				<div id="karrusela" class="carousel slide" data-ride="carousel">
+				  <div class="carousel-inner">
+				      {% set active="true"%}
+				      {% for argazki in eskakizunaForm.argazkiak %}
+					<div class="carousel-item{%if active == "true"%} active{%endif%}">
+					    <img class="d-block img-fluid" src="{{ images_uploads_url }}/{{argazki.vars.value.imageName }}">
+					</div>
+				      {% set active="false"%}
+				      {% endfor %}
+				      <a class="carousel-control-prev" href="#karrusela" data-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="sr-only">Previous</span>
+				      </a>
+				      <a class="carousel-control-next" href="#karrusela" data-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="sr-only">Next</span>
+				      </a>
+				  </div>
+				</div>
+			    </div>
+			    <div class="row col md-form form-group form-sm margin-top-13">
+				<div class="form-group form-sm">
+				<a id="add-another-argazkia" href="#" class="add_tag_link">Argazkia gehitu</a>
+				<ul id="js-argazkiak-list" class="argazkiak" data-prototype="{{ form_widget(eskakizunaForm.argazkiak.vars.prototype)|e('html_attr') }}">
+				    {% for argazki in eskakizunaForm.argazkiak %}
+					<li>{{ form_widget(argazki.imageFile) }}
+					    {{ form_errors(argazki.imageFile) }}
+					</li>
+				    {% endfor %}
+				</ul>
+				<img id="argazkia-preview" src="" alt=""/>
+				</div>
+			    </div>
+#}
 			    <div id="beheko-botoiak" class="row col-12 md-form form-group form-sm margin-top-13">
                                 {% if (gordeBotoia == true) %}
                                     <button class="col-2 btn btn-primary form-control" type="submit" formnovalidate><i class="fa fa-save left"></i>{{"messages.gorde" | trans | capitalize}}</button>

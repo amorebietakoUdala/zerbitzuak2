@@ -533,6 +533,10 @@
                 <source>messages.erabiltzailea_hori_sortuta_dago_jadanik</source>
                 <target>Ezin da erabiltzailea sortu jadanik existitzen delako</target>
             </trans-unit>
+            <trans-unit id="messages.eranskina-gehitu">
+                <source>messages.eranskina-gehitu</source>
+                <target>Eranskina edo LEPa gehitu</target>
+            </trans-unit>
 	    <!-- Amaiera Entitateak -->
 	</body>
     </file>

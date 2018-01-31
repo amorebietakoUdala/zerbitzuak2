@@ -22,6 +22,7 @@ class AppKernel extends Kernel
 //	    new FOS\RestBundle\FOSRestBundle(),
 	    new FOS\UserBundle\FOSUserBundle(),
     	    new SaadTazi\GChartBundle\SaadTaziGChartBundle(),
+	    new Vich\UploaderBundle\VichUploaderBundle(),
             new AppBundle\AppBundle(),
         ];
 
