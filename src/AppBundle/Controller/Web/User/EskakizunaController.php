@@ -23,6 +23,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Doctrine\Common\Collections\ArrayCollection;
+use AppBundle\Entity\Eranskina;
+use Symfony\Component\HttpFoundation\File\File;
 use \Swift_Message;
 use \DateTime;
 
@@ -49,26 +51,24 @@ class EskakizunaController extends Controller {
 	    'role' => $user->getRoles(),
     	    'locale' => $request->getLocale(),
 	]);
-	
 	// Only handles data on POST request
 	$form->handleRequest($request);
 	if ( $form->isSubmitted() && $form->isValid() ) {
 	    $em = $this->getDoctrine()->getManager();
 
 	    /* @var data \AppBundle\Entity\Eskakizuna */
-            $eskakizuna = $form->getData();
-            $this->eskatzailea = $eskakizuna->getEskatzailea();
+//	    dump($form->getData());die;
+            $this->eskakizuna = $form->getData();
+            $this->eskatzailea = $this->eskakizuna->getEskatzailea();
 	    if ( $this->eskatzailea->getId() !== null ) {
                 $this->eskatzailea = $em->getRepository(Eskatzailea::class)->find($this->eskatzailea->getId());
             } else {
                 $this->eskatzailea = new Eskatzailea();
             }
-            
+	    
             $this->_parseEskatzailea($form);
-	    $this->eskakizuna = new Eskakizuna();
-	    $this->_parseEskakizuna($form);
 	    $this->eskakizuna->setEskatzailea($this->eskatzailea);
-	    $georeferentziazioa = $eskakizuna->getGeoreferentziazioa();
+	    $georeferentziazioa = $form->getData()->getGeoreferentziazioa();
 	    if ( $georeferentziazioa->getLongitudea() !== null && $georeferentziazioa->getLatitudea() !== null ) {
 		$this->eskakizuna->setGeoreferentziazioa($georeferentziazioa);
 		$em->persist($georeferentziazioa);
@@ -79,8 +79,10 @@ class EskakizunaController extends Controller {
 		$this->eskakizuna->setEnpresa($zerbitzua->getEnpresa());
 		$zerbitzua_hautatua = true;
 	    }
+//	    dump($this->eskakizuna);die;
 	    $this->_argazkia_gorde();
-            if ( $eskakizuna->getZerbitzua() != null ) {
+	    $this->_eranskinak_gorde_multi();
+            if ( $this->eskakizuna->getZerbitzua() != null ) {
                 $egoera = $em->getRepository(Egoera::class)->find(Egoera::EGOERA_BIDALIA);
                 $this->eskakizuna->setEgoera($egoera);
 		$this->eskakizuna->setNoizBidalia(new \DateTime());
@@ -233,9 +235,13 @@ class EskakizunaController extends Controller {
 	]);
 
 	$zerbitzuaAldatuAurretik = $eskakizuna->getZerbitzua();
-	
 	$erantzunak = $eskakizuna->getErantzunak();
-
+	$eranskinakAldatuAurretik = new ArrayCollection();
+	
+	foreach ($eskakizuna->getEranskinak() as $eranskina) {
+	    $eranskinakAldatuAurretik->add($eranskina);
+	}
+	
 	$form->handleRequest($request);
 	if ( $form->isSubmitted() && $form->isValid() ) {
 	    $em = $this->getDoctrine()->getManager();
@@ -273,6 +279,8 @@ class EskakizunaController extends Controller {
 		    $this->eskakizuna->setEgoera($egoera);
 	    }
 	    $this->_argazkia_gorde();
+//	    dump($eranskinakAldatuAurretik,$this->eskakizuna);die;
+	    $this->_eranskinak_gorde_multi($eranskinakAldatuAurretik);
 	    
             $form_erantzunak = $this->eskakizuna->getErantzunak();
 	    $erantzunak_count =  $form_erantzunak->count();
@@ -571,4 +579,62 @@ class EskakizunaController extends Controller {
 	}
 	return $new_criteria;
     }
+    
+        private function _argazkia_gorde_multi($argazkiakAldatuAurretik = null) {
+	$em = $this->getDoctrine()->getManager();
+//	dump($argazkiakAldatuAurretik,$this->eskakizuna->getArgazkiak());die;
+	if ($argazkiakAldatuAurretik !== null) {
+	    foreach ($argazkiakAldatuAurretik as $aurrekoArgazkia ) {
+		if (false === $this->eskakizuna->getArgazkiak()->contains($aurrekoArgazkia)) {
+		    $aurrekoArgazkia->setEskakizuna(null);
+		    $em->persist($aurrekoArgazkia);
+		}
+	    }
+	}
+	
+	$argazkiak = $this->eskakizuna->getArgazkiak();
+	if (!$argazkiak->isEmpty()) {
+	    foreach($argazkiak as $argaz) {
+		$em->persist($argaz);
+		$this->_argazkia_kudeatu($argaz);
+		$argaz->setEskakizuna($this->eskakizuna);
+	    }
+	}
+    }
+
+    private function _eranskinak_gorde_multi($eranskinakAldatuAurretik = null) {
+	$em = $this->getDoctrine()->getManager();
+//	dump($argazkiakAldatuAurretik,$this->eskakizuna->getArgazkiak());die;
+	if ($eranskinakAldatuAurretik !== null) {
+	    foreach ($eranskinakAldatuAurretik as $aurrekoEranskina ) {
+		if (false === $this->eskakizuna->getEranskinak()->contains($aurrekoEranskina)) {
+		    $this->eskakizuna->removeEranskinak($aurrekoEranskina);
+		    $em->remove($aurrekoEranskina);
+		}
+	    }
+	}
+	
+	$eranskinak = $this->eskakizuna->getEranskinak();
+//	dump($eranskinakAldatuAurretik,$eranskinak);die;
+	if (!$eranskinak->isEmpty()) {
+	    foreach($eranskinak as $erans) {
+		$em->persist($erans);
+		$this->_eranskina_kudeatu($erans);
+		$erans->setEskakizuna($this->eskakizuna);
+	    }
+	}
+    }
+
+    private function _eranskina_kudeatu(Eranskina $eranskina) {
+	$eranskinen_direktorioa = $this->getParameter('eranskinak_uploads_directory');
+	$eranskinaren_izena = $eranskina->getEranskinaName();
+
+	if ( $eranskina !== null ) {
+	    /* Honek funtzionatzen du baina agian zuzenean txikituta gorde daiteke */
+	    $eranskinaFile = new File($eranskinen_direktorioa.'/'.$eranskinaren_izena);
+	    $eranskina->setEranskinaFile($eranskinaFile);
+	    $eranskina->setEranskinaSize($eranskinaFile->getSize());
+	}
+    }
+
 }
