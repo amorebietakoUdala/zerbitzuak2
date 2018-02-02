@@ -3,21 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Netbeans/zerbitzuak2_mantenimendua/src/AppBundle/Entity/Erabiltzailea.php</file>
-            <file>file:/C:/Netbeans/zerbitzuak2_mantenimendua/src/AppBundle/Controller/Web/User/EskakizunaController.php</file>
-            <file>file:/C:/Netbeans/zerbitzuak2_mantenimendua/src/AppBundle/Controller/Web/User/EskakizunaFormType.php</file>
-            <file>file:/C:/Netbeans/zerbitzuak2_mantenimendua/src/AppBundle/Entity/Eskakizuna.php</file>
-            <file>file:/C:/Netbeans/zerbitzuak2_mantenimendua/src/AppBundle/Controller/Web/User/EranskinaFormType.php</file>
-            <file>file:/C:/Netbeans/zerbitzuak2_mantenimendua/src/AppBundle/Entity/Eskatzailea.php</file>
-            <file>file:/C:/Netbeans/zerbitzuak2_mantenimendua/src/AppBundle/Entity/EskakizunMota.php</file>
-            <file>file:/C:/Netbeans/zerbitzuak2_mantenimendua/src/AppBundle/Entity/Erantzuna.php</file>
-            <file>file:/C:/Netbeans/zerbitzuak2_mantenimendua/src/AppBundle/Entity/Egoera.php</file>
-            <file>file:/C:/Netbeans/zerbitzuak2_mantenimendua/src/AppBundle/Entity/Estatistika.php</file>
-            <file>file:/C:/Netbeans/zerbitzuak2_mantenimendua/src/AppBundle/Entity/Jatorria.php</file>
-            <file>file:/C:/Netbeans/zerbitzuak2_mantenimendua/src/AppBundle/Entity/Zerbitzua.php</file>
-            <file>file:/C:/Netbeans/zerbitzuak2_mantenimendua/app/Resources/views/eskakizuna/_form.html.twig</file>
-            <file>file:/C:/Netbeans/zerbitzuak2_mantenimendua/src/AppBundle/Entity/Enpresa.php</file>
-            <file>file:/C:/Netbeans/zerbitzuak2_mantenimendua/src/AppBundle/Entity/Georeferentziazioa.php</file>
+            <file>file:/C:/Netbeans/zerbitzuak2_new_features/app/Resources/VichUploaderBundle/views/Form/fields.html.twig</file>
+            <file>file:/C:/Netbeans/zerbitzuak2_new_features/src/AppBundle/Controller/Web/User/ArgazkiaFormType.php</file>
+            <file>file:/C:/Netbeans/zerbitzuak2_new_features/src/AppBundle/Entity/Argazkia.php</file>
+            <file>file:/C:/Netbeans/zerbitzuak2_new_features/app/Resources/views/eskakizuna/_form.html.twig</file>
+            <file>file:/C:/Netbeans/zerbitzuak2_new_features/composer.json</file>
         </group>
     </open-files>
 </project-private>

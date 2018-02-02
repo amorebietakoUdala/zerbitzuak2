@@ -137,10 +137,10 @@ $(document).ready(function(){
     
     tinymce.init({ 
 	selector:'textarea',
-        menubar: false,
-        resize: false,
-        statusbar: false,
-	theme: 'modern',
+            menubar: false,
+            resize: false,
+            statusbar: false,
+	    theme: 'modern',
     	init_instance_callback : function(editor) {
 	  if (editor.id === 'eskakizuna_form_mamia' ) {
 	    if (role === "KANPOKO_TEKNIKARIA") {
@@ -185,14 +185,13 @@ $(document).ready(function(){
     }).attr('type','text'); // Honekin chromen ez da testua agertzen
 
      $(".js-argazkia").change(function(){
-	console.log(locale);
         var ok = readURL(this,$('argazkia-preview'));
-	if (!ok) {
-	    if (locale === 'eu')
-		alert("Fitxategia handiegia da. Hautatu beste bat mesedez. 2Mb. baino txikiagoa");
-	    else 
-		alert("El fichero es demasiado grande elija uno más pequeño. Menos de 2Mb.");
-	}
+//	if (!ok) {
+//	    if (locale === 'eu')
+//		alert("Fitxategia handiegia da. Hautatu beste bat mesedez. 2Mb. baino txikiagoa");
+//	    else 
+//		alert("El fichero es demasiado grande elija uno más pequeño. Menos de 2Mb.");
+//	}
     });
     
 
@@ -229,9 +228,9 @@ $(document).ready(function(){
 	    $('#eskakizunaForm').submit();
 	}
     });
-
+    
     $('.btn-file').hide();
-    addEventToCheckSize(locale);
+    addEventToCheckSize(locale,'.btn-file');
 
     /* INICIO Eranskinak */
     $('#add-another-eranskina').click(function(e) {
@@ -250,8 +249,8 @@ $(document).ready(function(){
 	newLi.appendTo(eranskinakList);
 	$(newLi).show();
 	$(newLi).find('.js-file').show();
-	addEventToCheckSize(locale);
-    });
+	addEventToCheckSize(locale,'.btn-file');
+});    
 
     // Borratzeko 
     var $eranskinakList = $('#js-eranskinak-list');
@@ -283,6 +282,7 @@ $(document).ready(function(){
 	newLi.appendTo(argazkiakList);
 	$(newLi).show();
 	$(newLi).find('.js-file').show();
+	addEventToCheckSize(locale,'.js-file');
     });
 /*
     // Borratzeko 
@@ -313,15 +313,15 @@ $(document).ready(function(){
 
 });
 
-function addEranskinakFormDeleteLink ($tagFormLi) {
-    var $removeFormA = $('<a href="#"><i class="fa fa-close"></i></a>');
-    $tagFormLi.append($removeFormA);
-    $removeFormA.on('click', function(e) {
-	e.preventDefault();
-	// remove the li for the tag form
-	$tagFormLi.remove();
-    });
-}
+//function addEranskinakFormDeleteLink ($tagFormLi) {
+//    var $removeFormA = $('<a href="#"><i class="fa fa-close"></i></a>');
+//    $tagFormLi.append($removeFormA);
+//    $removeFormA.on('click', function(e) {
+//	e.preventDefault();
+//	// remove the li for the tag form
+//	$tagFormLi.remove();
+//    });
+//}
 
 function checkSize(input) {
     if (input.files && input.files[0]) {
@@ -335,11 +335,11 @@ function checkSize(input) {
 	return true;
 }
 
-function addEventToCheckSize(locale) {
-    var files = $('.btn-file');
+function addEventToCheckSize(locale, selector) {
+    var files = $(selector);
     $(files).off('change');
     for (i=0;i < files.length; i++) {
-	var file=$('.btn-file')[i];
+	var file=$(selector)[i];
 	$(file).on('change', function(){
 	    var ok = checkSize(file);
 	    if (!ok) 
@@ -468,7 +468,7 @@ function swal_alert ( locale, title_es, text_es, title_eu, text_eu) {
 	text: locale === 'eu' ? text_eu : text_es,
 	confirmButtonText: locale === 'eu' ? 'Onartu' : 'Aceptar',
 	showLoaderOnConfirm: false,
-    });
+});
 }
 
 });

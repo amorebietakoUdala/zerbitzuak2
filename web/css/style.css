@@ -376,6 +376,18 @@ select::-ms-expand {
   min-height: 450px;
 }
 
+#js-argazkiak-list li {
+    display: none;
+}
+
+#eskakizuna_form_argazkia {
+    display:none;
+}
+
+.js-file {
+    display: none;
+}
+
 @media screen and (max-width: 699px) {
     h1 {
         font-size: 2.0rem;

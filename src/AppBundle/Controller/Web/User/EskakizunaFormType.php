@@ -105,6 +105,13 @@ class EskakizunaFormType extends AbstractType {
 		'allow_delete' => true,
 		'by_reference' => false,
 	    ])
+    	    ->add('argazkiak', CollectionType::class, [
+		'entry_type' => ArgazkiaFormType::class,
+//		'entry_options' => ['label' => 'messages.ezabatu' ],
+		'allow_add' => true,
+		'allow_delete' => true,
+		'by_reference' => false,
+	    ])
 	    ;
 	    if ( $options['editatzen'] === false ) {
 		$builder->add('mamia', TextareaType::class,[

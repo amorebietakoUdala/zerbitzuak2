@@ -16,6 +16,8 @@ use AppBundle\Entity\Eskakizuna;
 use AppBundle\Entity\Eskatzailea;
 use AppBundle\Entity\Erantzuna;
 use AppBundle\Entity\Georeferentziazioa;
+use AppBundle\Entity\Eranskina;
+use AppBundle\Entity\Argazkia;
 use AppBundle\Controller\Web\User\EskakizunaBilatzaileaFormType;
 use Imagick;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -23,7 +25,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Doctrine\Common\Collections\ArrayCollection;
-use AppBundle\Entity\Eranskina;
 use Symfony\Component\HttpFoundation\File\File;
 use \Swift_Message;
 use \DateTime;
@@ -80,7 +81,7 @@ class EskakizunaController extends Controller {
 		$zerbitzua_hautatua = true;
 	    }
 //	    dump($this->eskakizuna);die;
-	    $this->_argazkia_gorde();
+	    $this->_argazkia_gorde_multi();
 	    $this->_eranskinak_gorde_multi();
             if ( $this->eskakizuna->getZerbitzua() != null ) {
                 $egoera = $em->getRepository(Egoera::class)->find(Egoera::EGOERA_BIDALIA);
@@ -241,6 +242,13 @@ class EskakizunaController extends Controller {
 	foreach ($eskakizuna->getEranskinak() as $eranskina) {
 	    $eranskinakAldatuAurretik->add($eranskina);
 	}
+
+  $argazkiakAldatuAurretik = new ArrayCollection();
+	
+	$aurrekoArgazkia = $eskakizuna->getArgazkia();
+	foreach ($eskakizuna->getArgazkiak() as $argazkia) {
+	    $argazkiakAldatuAurretik->add($argazkia);
+	}
 	
 	$form->handleRequest($request);
 	if ( $form->isSubmitted() && $form->isValid() ) {
@@ -278,8 +286,7 @@ class EskakizunaController extends Controller {
 		    $egoera = $em->getRepository(Egoera::class)->find(Egoera::EGOERA_BIDALI_GABE);
 		    $this->eskakizuna->setEgoera($egoera);
 	    }
-	    $this->_argazkia_gorde();
-//	    dump($eranskinakAldatuAurretik,$this->eskakizuna);die;
+	    $this->_argazkia_gorde_multi($argazkiakAldatuAurretik);
 	    $this->_eranskinak_gorde_multi($eranskinakAldatuAurretik);
 	    
             $form_erantzunak = $this->eskakizuna->getErantzunak();
@@ -474,20 +481,40 @@ class EskakizunaController extends Controller {
 	$this->eskatzailea->setPostaKodea($eskatzailea->getPostaKodea());
     }
     
-    private function _parseEskakizuna($form){
-	$data = $form->getData();
-	$this->eskakizuna->setLep($data->getLep());
-	$this->eskakizuna->setNoiz($data->getNoiz());
-	$this->eskakizuna->setKalea($data->getKalea());
-	$this->eskakizuna->setArgazkia($data->getArgazkia());
-	$this->eskakizuna->setEskakizunMota($data->getEskakizunMota());
-	$this->eskakizuna->setJatorria($data->getJatorria());
-	$this->eskakizuna->setMamia($data->getMamia());
-	if ( $data->getZerbitzua() !== null ) {
-	    $this->eskakizuna->setZerbitzua($data->getZerbitzua());
+//    private function _parseEskakizuna($form){
+//	$data = $form->getData();
+//	$this->eskakizuna->setLep($data->getLep());
+//	$this->eskakizuna->setNoiz($data->getNoiz());
+//	$this->eskakizuna->setKalea($data->getKalea());
+//	$this->eskakizuna->setArgazkia($data->getArgazkia());
+//	$this->eskakizuna->setEskakizunMota($data->getEskakizunMota());
+//	$this->eskakizuna->setJatorria($data->getJatorria());
+//	$this->eskakizuna->setMamia($data->getMamia());
+//	if ( $data->getZerbitzua() !== null ) {
+//	    $this->eskakizuna->setZerbitzua($data->getZerbitzua());
+//	}
+//    }
+
+    private function _argazkia_kudeatu(Argazkia $argazkia) {
+	$argazkien_direktorioa = $this->getParameter('images_uploads_directory');
+	$argazkien_zabalera = $this->getParameter('images_width');
+	$argazkien_thumb_zabalera = $this->getParameter('images_thumb_width');
+	$argazkiaren_izena = $argazkia->getImageName();
+	if ( $argazkia !== null ) {
+	    /* Honek funtzionatzen du baina agian zuzenean txikituta gorde daiteke */
+	    $image = new \Imagick($argazkien_direktorioa.'/'.$argazkiaren_izena);
+	    $image->thumbnailImage($argazkien_zabalera,0);
+	    $image->writeImage($argazkien_direktorioa.'/'.$argazkiaren_izena);
+	    $imageFile = new File($argazkien_direktorioa.'/'.$argazkiaren_izena);
+	    $argazkia->setImageFile($imageFile);
+	    $image->thumbnailImage($argazkien_thumb_zabalera,0);
+	    $image->writeImage($argazkien_direktorioa.'/'.'thumb-'.$argazkiaren_izena);
+	    $imageThumbnailFile = new File($argazkien_direktorioa.'/'.'thumb-'.$argazkiaren_izena);
+	    $argazkia->setImageThumbnailFile($imageThumbnailFile);
+	    $argazkia->setImageThumbnailSize($imageThumbnailFile->getSize());
 	}
     }
-
+    
     private function _argazkia_gorde() {
 	$argazkia = $this->eskakizuna->getArgazkia();
 	if ( $argazkia !== null ) {

@@ -120,14 +120,14 @@
 				    <p class="grey-text">{{ 'messages.mamia' | trans | capitalize }}
 					{% if eskakizunaForm.vars.value.norkInformatua is defined and eskakizunaForm.vars.value.norkInformatua != null %}
 					    {% if (is_granted('ROLE_ADMIN') or is_granted('ROLE_ARDURADUNA') or is_granted('ROLE_INFORMATZAILEA')) %}
-						:<b>{{ eskakizunaForm.vars.value.norkInformatua.izena }}</b>
-						<span class="text-muted">
-							(
-							{% if eskakizunaForm.vars.value.noizInformatua is defined and eskakizunaForm.vars.value.noizInformatua != null %}
-							    {{ eskakizunaForm.vars.value.noizInformatua | date('Y-m-d H:i') }}
-							{% endif %}
-							)
-						</span>
+                :<b>{{ eskakizunaForm.vars.value.norkInformatua.izena }}</b>
+                <span class="text-muted">
+                  (
+                  {% if eskakizunaForm.vars.value.noizInformatua is defined and eskakizunaForm.vars.value.noizInformatua != null %}
+                      {{ eskakizunaForm.vars.value.noizInformatua | date('Y-m-d H:i') }}
+                  {% endif %}
+                  )
+                </span>
 					    {% endif %}
 					{% endif %}
 				    </p>
@@ -216,7 +216,7 @@
 			    <div class="row container margin-top-13">
 				<div id="map-container" class="col z-depth-1" style="height: 300px"></div>
 			    </div>
-			    <div class="col md-form form-group form-sm">
+{#			    <div class="row col md-form form-group form-sm">
 				<div class="col-lg-6 col-md-6 md-form form-group form-sm">
 				    <i class="fa fa-picture-o prefix"></i>
 				    {{ form_widget(eskakizunaForm.argazkia, { 'attr': { 'class' : 'form-control js-argazkia' } }) }}
@@ -228,7 +228,8 @@
 				{% endif %}
 				</div>
 			    </div>
-{#			    <div class="row col margin-top-13">
+#}
+			    <div class="row col margin-top-13">
 				<div id="karrusela" class="carousel slide" data-ride="carousel">
 				  <div class="carousel-inner">
 				      {% set active="true"%}
@@ -251,7 +252,7 @@
 			    </div>
 			    <div class="row col md-form form-group form-sm margin-top-13">
 				<div class="form-group form-sm">
-				<a id="add-another-argazkia" href="#" class="add_tag_link">Argazkia gehitu</a>
+				<a id="add-another-argazkia" href="#" class="add_tag_link">{{ 'messages.argazkia_gehitu' | trans | capitalize }}</a>
 				<ul id="js-argazkiak-list" class="argazkiak" data-prototype="{{ form_widget(eskakizunaForm.argazkiak.vars.prototype)|e('html_attr') }}">
 				    {% for argazki in eskakizunaForm.argazkiak %}
 					<li>{{ form_widget(argazki.imageFile) }}
@@ -262,7 +263,6 @@
 				<img id="argazkia-preview" src="" alt=""/>
 				</div>
 			    </div>
-#}
 			    <div id="beheko-botoiak" class="row col-12 md-form form-group form-sm margin-top-13">
                                 {% if (gordeBotoia == true) %}
                                     <button class="col-2 btn btn-primary form-control js-gorde_botoia" type="button" formnovalidate><i class="fa fa-save left"></i>{{"messages.gorde" | trans | capitalize}}</button>
@@ -283,5 +283,4 @@
 		</div>
 	    </div>
 	</div>
-    </div>
-{{ form_end(eskakizunaForm) }}
+{{ form_end(eskakizunaForm,{'render_rest': true}) }}

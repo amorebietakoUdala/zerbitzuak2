@@ -541,6 +541,10 @@
                 <source>messages.zabaldu</source>
                 <target>Abrir en nueva ventana</target>
             </trans-unit>
+            <trans-unit id="messages.argazkia_gehitu">
+                <source>messages.argazkia_gehitu</source>
+                <target>Argazkia gehitu</target>
+            </trans-unit>
 	    <!-- Amaiera Entitateak -->
 	</body>
     </file>

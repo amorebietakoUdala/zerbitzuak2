@@ -176,9 +176,17 @@ class Eskakizuna {
     */
     private $eranskinak;
 
+    /**
+    * @var \Doctrine\Common\Collections\Collection
+    * @ORM\OneToMany (targetEntity="Argazkia", mappedBy="eskakizuna", cascade={"persist", "remove"})
+    * @ORM\JoinColumn(nullable=true);
+    */
+    private $argazkiak;
+
     public function __construct() {
 	$this->erantzunak = new ArrayCollection();
 	$this->eranskinak = new ArrayCollection();
+	$this->argazkiak = new ArrayCollection();
     }
 
     public function getId() {
@@ -362,6 +370,21 @@ class Eskakizuna {
 
     public function getEranskinak() {
 	return $this->eranskinak;
+    }
+
+    public function addArgazkiak(Argazkia $argazkia)
+    {
+	$argazkia->setEskakizuna($this);
+        $this->argazkiak->add($argazkia);
+    }
+
+    public function removeArgazkiak(Argazkia $argazkia)
+    {
+        $this->argazkiak->removeElement($argazkia);
+    }
+
+    public function getArgazkiak() {
+	return $this->argazkiak;
     }
 
     public function __toString() {
