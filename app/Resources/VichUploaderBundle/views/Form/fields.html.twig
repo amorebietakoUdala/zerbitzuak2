@@ -6,13 +6,12 @@
 {% block vich_file_widget %}
     {% spaceless %}
         <div class="vich-file">
-            {{ form_widget(form.file) }}
-            {% if form.delete is defined %}
-                {{ form_row(form.delete) }}
-            {% endif %}
-
+            {{ form_widget(form.file,{ 'attr': { 'class': 'btn-file' }}) }}
             {% if download_uri %}
-                <a href="{{ download_uri }}">{{ translation_domain is same as(false) ? download_label : download_label|trans({}, translation_domain) }}</a>
+                <a href="{{ download_uri }}" target="_blank" title="{{ 'messages.zabaldu'|trans }}">{{ translation_domain is same as(false) ? download_label : download_label|trans({}, translation_domain) }}</a>
+            {% endif %}
+	    {% if form.delete is defined %}
+		<span class="col-1 margin-top-08"><a href="#" class="js-eranskina-ezabatu" title="ezabatu"><i class="fa fa-close"></i></a></span>
             {% endif %}
         </div>
     {% endspaceless %}

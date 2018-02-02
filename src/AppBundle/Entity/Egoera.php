@@ -18,7 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
-* @ORM\Entity(repositoryClass="AppBundle\Repository\EgoeraRepository")
+* @ORM\Entity(repositoryClass="AppBundle\Repository\EgoeraRepository", readOnly=true)
 * @ORM\Table(name="egoerak")
 * 
 */

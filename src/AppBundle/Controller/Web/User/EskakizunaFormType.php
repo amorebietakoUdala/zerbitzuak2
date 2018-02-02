@@ -37,6 +37,7 @@ class EskakizunaFormType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
 	$readonly = $options['readonly'];
+	$locale = $options['locale'];
 	$builder
             ->add('lep', null, [
 		'disabled' => $readonly
@@ -56,6 +57,13 @@ class EskakizunaFormType extends AbstractType {
 		'placeholder'=> 'messages.hautatu_zerbitzua',
 		'class' => Zerbitzua::class,
                 'group_by' => 'enpresa',
+		'choice_label' => function ($zerbitzua) use ($locale) {
+		if ($locale === 'es') {
+		    return $zerbitzua->getIzenaEs();
+		} else {
+		    return $zerbitzua->getIzenaEu();
+		}
+		},		
 		'query_builder' => function (ZerbitzuaRepository $repo) {
 			return $repo->createOrderedQueryBuilder();
 		    }
@@ -90,11 +98,19 @@ class EskakizunaFormType extends AbstractType {
 		}
 	    ])
 	    ->add('georeferentziazioa', GeoreferentziazioaFormType::class)
-	    ->add('argazkiak', CollectionType::class, [
+    	    ->add('eranskinak', CollectionType::class, [
+		'entry_type' => EranskinaFormType::class,
+//		'entry_options' => ['label' => 'messages.ezabatu' ],
+		'allow_add' => true,
+		'allow_delete' => true,
+		'by_reference' => false,
+	    ])
+    	    ->add('argazkiak', CollectionType::class, [
 		'entry_type' => ArgazkiaFormType::class,
 //		'entry_options' => ['label' => 'messages.ezabatu' ],
 		'allow_add' => true,
 		'allow_delete' => true,
+		'by_reference' => false,
 	    ])
 	    ;
 	    if ( $options['editatzen'] === false ) {
@@ -138,7 +154,8 @@ class EskakizunaFormType extends AbstractType {
 	$resolver->setDefaults([
 	    'csrf_protection' => false,
 	    'readonly' => false,
-	    'role' => []
+	    'role' => [],
+	    'locale' => 'es',
 	]);
     }
 

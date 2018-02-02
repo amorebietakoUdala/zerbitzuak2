@@ -66,13 +66,13 @@ doctrine:
         user: '%database_user%'
         password: '%database_password%'
         charset: UTF8
-        schema_filter: ~^(?!view_)~
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
         #     e.g. database_path: "%kernel.root_dir%/../var/data/data.sqlite"
         #   2. Uncomment database_path in parameters.yml.dist
         #   3. Uncomment next line:
         #path: '%database_path%'
+        schema_filter: ~^(?!view_)~
 
     orm:
         auto_generate_proxy_classes: '%kernel.debug%'
@@ -104,6 +104,13 @@ vich_uploader:
     db_driver: orm
     
     mappings:
+        eranskina:
+            uri_prefix: /%eranskinak_uploads_url%
+            upload_destination: %eranskinak_uploads_directory%
+            namer: vich_uploader.namer_origname
+            inject_on_load:     false
+            delete_on_update:   true
+            delete_on_remove:   true
         argazkia:
             uri_prefix: %images_uploads_url%
             upload_destination: %images_uploads_directory%

@@ -1,5 +1,16 @@
 <!DOCTYPE html>
-<html lang="{{ app.request.locale|split('_')[0] }}">
+ {% if is_granted('ROLE_KANPOKO_TEKNIKARIA') %}
+      {% set role="KANPOKO_TEKNIKARIA" %}
+ {% elseif  is_granted('ROLE_INFORMATZAILEA') %}
+     {% set role="INFORMATZAILEA" %}
+ {% elseif  is_granted('ROLE_ARDURADUNA') %}
+     {% set role="ARDURADUNA" %}
+ {% elseif  is_granted('ROLE_ADMIN') %}
+     {% set role="ADMINISTRARIA" %}
+ {% else %}
+     {% set role="ANONYMOUS" %}
+ {% endif %}
+<html lang="{{ app.request.locale|split('_')[0] }}" role="{{ role }}">
     {% set lang = app.request.locale|split('_')[0] %}
     <head>
 	<meta charset="UTF-8" />

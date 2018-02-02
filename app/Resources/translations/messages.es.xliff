@@ -533,6 +533,18 @@
                 <source>messages.erabiltzailea_hori_sortuta_dago_jadanik</source>
                 <target>No se puede crear el usuario porque ya existe</target>
             </trans-unit>
+            <trans-unit id="messages.eranskina-gehitu">
+                <source>messages.eranskina-gehitu</source>
+                <target>Adjuntar anexo o PPI</target>
+            </trans-unit>
+            <trans-unit id="messages.zabaldu">
+                <source>messages.zabaldu</source>
+                <target>Abrir en nueva ventana</target>
+            </trans-unit>
+            <trans-unit id="messages.argazkia_gehitu">
+                <source>messages.argazkia_gehitu</source>
+                <target>Añadir imagen</target>
+            </trans-unit>
 	    <!-- Amaiera Entitateak -->
 	</body>
     </file>
