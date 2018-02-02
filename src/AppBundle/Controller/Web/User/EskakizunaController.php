@@ -243,7 +243,7 @@ class EskakizunaController extends Controller {
 	    $eranskinakAldatuAurretik->add($eranskina);
 	}
 
-	$argazkiakAldatuAurretik = new ArrayCollection();
+  $argazkiakAldatuAurretik = new ArrayCollection();
 	
 	$aurrekoArgazkia = $eskakizuna->getArgazkia();
 	foreach ($eskakizuna->getArgazkiak() as $argazkia) {
@@ -286,7 +286,6 @@ class EskakizunaController extends Controller {
 		    $egoera = $em->getRepository(Egoera::class)->find(Egoera::EGOERA_BIDALI_GABE);
 		    $this->eskakizuna->setEgoera($egoera);
 	    }
-//	    dump($eranskinakAldatuAurretik,$this->eskakizuna);die;
 	    $this->_argazkia_gorde_multi($argazkiakAldatuAurretik);
 	    $this->_eranskinak_gorde_multi($eranskinakAldatuAurretik);
 	    

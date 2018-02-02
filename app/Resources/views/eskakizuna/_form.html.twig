@@ -120,15 +120,15 @@
 				    <p class="grey-text">{{ 'messages.mamia' | trans | capitalize }}
 					{% if eskakizunaForm.vars.value.norkInformatua is defined and eskakizunaForm.vars.value.norkInformatua != null %}
 					    {% if (is_granted('ROLE_ADMIN') or is_granted('ROLE_ARDURADUNA') or is_granted('ROLE_INFORMATZAILEA')) %}
-						:<b>{{ eskakizunaForm.vars.value.norkInformatua.izena }}</b>
-						<span class="text-muted">
-							(
-							{% if eskakizunaForm.vars.value.noizInformatua is defined and eskakizunaForm.vars.value.noizInformatua != null %}
-							    {{ eskakizunaForm.vars.value.noizInformatua | date('Y-m-d H:i') }}
+                :<b>{{ eskakizunaForm.vars.value.norkInformatua.izena }}</b>
+                <span class="text-muted">
+                  (
+                  {% if eskakizunaForm.vars.value.noizInformatua is defined and eskakizunaForm.vars.value.noizInformatua != null %}
+                      {{ eskakizunaForm.vars.value.noizInformatua | date('Y-m-d H:i') }}
+                  {% endif %}
+                  )
+                </span>
 					    {% endif %}
-							)
-						</span>
-					{% endif %}
 					{% endif %}
 				    </p>
 					    {{ form_widget(eskakizunaForm.mamia, { 'attr': { 'class' : 'js-mamia tinymce' } }) }}
@@ -263,13 +263,12 @@
 				<img id="argazkia-preview" src="" alt=""/>
 				</div>
 			    </div>
-
 			    <div id="beheko-botoiak" class="row col-12 md-form form-group form-sm margin-top-13">
                                 {% if (gordeBotoia == true) %}
-                                    <button class="col-2 btn btn-primary form-control" type="submit" formnovalidate><i class="fa fa-save left"></i>{{"messages.gorde" | trans | capitalize}}</button>
+                                    <button class="col-2 btn btn-primary form-control js-gorde_botoia" type="button" formnovalidate><i class="fa fa-save left"></i>{{"messages.gorde" | trans | capitalize}}</button>
                                 {% endif %}
                                 {% if (erantzun == true) %}
-                                    <button class="col-2 btn btn-primary form-control" type="submit" formnovalidate><i class="fa fa-reply left"></i>{{"messages.erantzun" | trans | capitalize}}</button>
+                                    <button class="col-2 btn btn-primary form-control js-erantzun_botoia" type="button" formnovalidate><i class="fa fa-reply left"></i>{{"messages.erantzun" | trans | capitalize}}</button>
                                 {% endif %}
                                 <button class="col-2 btn btn-primary form-control js-atzera-botoia" type="button"><i class="fa fa-arrow-circle-left left"></i>{{"messages.utzi" | trans | capitalize}}</button>
 				{% if (is_granted('ROLE_ADMIN') or is_granted('ROLE_ARDURADUNA') or is_granted('ROLE_INFORMATZAILEA')) and editatzen == true %}

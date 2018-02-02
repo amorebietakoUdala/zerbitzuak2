@@ -34,8 +34,8 @@
 		search: true,
 		striped: true,
 		sortStable: true,
-		pageSize: 10,
-		pageList: [10,25,50,75,100],
+		pageSize: {{ pageSize }},
+		pageList: [10,25,50,100],
 		sortable: true,
 		locale: 'es_{{ app.request.getLocale() | upper }}'
 	});
