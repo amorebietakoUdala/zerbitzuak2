@@ -243,7 +243,7 @@ class EskakizunaController extends Controller {
 	    $eranskinakAldatuAurretik->add($eranskina);
 	}
 
-  $argazkiakAldatuAurretik = new ArrayCollection();
+	$argazkiakAldatuAurretik = new ArrayCollection();
 	
 	$aurrekoArgazkia = $eskakizuna->getArgazkia();
 	foreach ($eskakizuna->getArgazkiak() as $argazkia) {
@@ -286,10 +286,8 @@ class EskakizunaController extends Controller {
 		    $egoera = $em->getRepository(Egoera::class)->find(Egoera::EGOERA_BIDALI_GABE);
 		    $this->eskakizuna->setEgoera($egoera);
 	    }
-	    $this->_argazkia_gorde_multi($argazkiakAldatuAurretik);
-	    $this->_eranskinak_gorde_multi($eranskinakAldatuAurretik);
-	    
-            $form_erantzunak = $this->eskakizuna->getErantzunak();
+
+	    $form_erantzunak = $this->eskakizuna->getErantzunak();
 	    $erantzunak_count =  $form_erantzunak->count();
 	    $erantzun_berria = $form_erantzunak["erantzuna"];
 	    unset($form_erantzunak["erantzuna"]);
@@ -308,6 +306,29 @@ class EskakizunaController extends Controller {
 		$egoera = $em->getRepository(Egoera::class)->find(Egoera::EGOERA_ERANTZUNDA);
 		$this->eskakizuna->setEgoera($egoera);
 	    }
+
+	    $form_erantzunak = $this->eskakizuna->getErantzunak();
+	    $erantzunak_count =  $form_erantzunak->count();
+	    $erantzun_berria = $form_erantzunak["erantzuna"];
+	    unset($form_erantzunak["erantzuna"]);
+	    if ($erantzun_berria !== null ) {
+		$erantzuna = new Erantzuna();
+		$erantzuna->setErantzulea($user);
+		$erantzuna->setEskakizuna($this->eskakizuna);
+		$erantzuna->setErantzuna($erantzun_berria);
+		$erantzuna->setNoiz(new \DateTime());
+		$em->persist($erantzuna);
+		$erantzunak = $form_erantzunak->getValues();
+		array_push($erantzunak,$erantzuna);
+	    }
+
+	    if ($erantzunak_count > 0) {
+		$egoera = $em->getRepository(Egoera::class)->find(Egoera::EGOERA_ERANTZUNDA);
+		$this->eskakizuna->setEgoera($egoera);
+	    }
+
+	    $this->_argazkia_gorde_multi($argazkiakAldatuAurretik);
+	    $this->_eranskinak_gorde_multi($eranskinakAldatuAurretik);
 	    
 	    $em->persist($this->eskakizuna);
 	    $em->flush();
