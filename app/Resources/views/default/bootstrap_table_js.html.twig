@@ -47,7 +47,7 @@
 		});
 	    });
 	});
-        $(document).find('li[role="menuitem"] a').on('click',function (e) {
+        $(document).find('div.pagination-detail > span.page-list > span.dropup > ul > li[role="menuitem"] a').on('click',function (e) {
 	    e.preventDefault();
 	    var uri = new URI(document.location.href);
 	    var span = $(document).find('span .page-size');
