@@ -66,7 +66,7 @@
 			<th data-sortable="true">{{"messages.enpresa" | trans | capitalize}}</th>
 			<th data-sortable="true">{{"messages.zerbitzua" | trans | capitalize}}</th>
 			<th data-sortable="true">{{"messages.noiz" | trans | capitalize}}</th>
-			<th data-field="erantzunak" data-sortable="true" data-visible="false">{{"messages.erantzunak" | trans | capitalize}}</th>
+			<th data-field="erantzunak" data-sortable="true" data-visible="true">{{"messages.erantzunak" | trans | capitalize}}</th>
 			<th data-sortable="true">{{"messages.egun" | trans | capitalize}}</th>
 			<th data-field="aukerak">{{"messages.aukerak" | trans | capitalize}}</th>
 		    </tr>
@@ -100,18 +100,20 @@
 			{% endif %}
                         <td class="white-space-nowrap">{{eskakizuna.noizInformatua | date('Y-m-d H:i') }}</td>
 			<td>
-			    {% set egun = "" %}
+			    {% set lehen_erantzuna = "" %}
 			    {% for erantzuna in eskakizuna.erantzunak %}
 				{% if loop.first %}
-				    {% set erantzun_data = erantzuna.noiz %}
-				    {% set tartea = date(erantzun_data).diff(date(eskakizuna.noizInformatua)) %}
-				    {% set egun = tartea.days %}
+				    {% set lehen_erantzuna = erantzuna %}
 				{% endif %}
 				{{ erantzuna.erantzuna| raw }}<br/>
 			    {% endfor %}
 			</td>
-                        <td>{% if egun != "" %}
-				{{ egun }}
+                        <td>
+			    {% if lehen_erantzuna != "" %}
+				    {% set erantzun_data = lehen_erantzuna.noiz | date('Y-m-d H:i') %}
+				    {% set tartea = date(erantzun_data).diff(date(eskakizuna.noizInformatua)) %}
+				    {% set egun = tartea.days %}
+				    {{ egun }}
 			    {% else %}
 				{{ (date().diff(date(eskakizuna.noizInformatua))).days }}
 			    {% endif %}
