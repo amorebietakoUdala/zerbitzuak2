@@ -26,6 +26,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use \Swift_Message;
 use \DateTime;
 
@@ -242,6 +243,8 @@ class EskakizunaController extends Controller {
 	foreach ($eskakizuna->getEranskinak() as $eranskina) {
 	    $eranskinakAldatuAurretik->add($eranskina);
 	}
+	
+//	dump($eranskinakAldatuAurretik);
 
 	$argazkiakAldatuAurretik = new ArrayCollection();
 	
@@ -328,6 +331,7 @@ class EskakizunaController extends Controller {
 	    }
 
 	    $this->_argazkia_gorde_multi($argazkiakAldatuAurretik);
+//	    dump($eranskinakAldatuAurretik);die;
 	    $this->_eranskinak_gorde_multi($eranskinakAldatuAurretik);
 	    
 	    $em->persist($this->eskakizuna);
@@ -652,8 +656,8 @@ class EskakizunaController extends Controller {
 
     private function _eranskinak_gorde_multi($eranskinakAldatuAurretik = null) {
 	$em = $this->getDoctrine()->getManager();
-//	dump($argazkiakAldatuAurretik,$this->eskakizuna->getArgazkiak());die;
-	if ($eranskinakAldatuAurretik !== null) {
+	/* Zaharretatik borratu direnak borratu */
+	if (!$eranskinakAldatuAurretik->isEmpty()) {
 	    foreach ($eranskinakAldatuAurretik as $aurrekoEranskina ) {
 		if (false === $this->eskakizuna->getEranskinak()->contains($aurrekoEranskina)) {
 		    $this->eskakizuna->removeEranskinak($aurrekoEranskina);
@@ -661,27 +665,13 @@ class EskakizunaController extends Controller {
 		}
 	    }
 	}
-	
+	/* Eranskin berriak edo aldatutakoak gorde */
 	$eranskinak = $this->eskakizuna->getEranskinak();
-//	dump($eranskinakAldatuAurretik,$eranskinak);die;
 	if (!$eranskinak->isEmpty()) {
 	    foreach($eranskinak as $erans) {
 		$em->persist($erans);
-		$this->_eranskina_kudeatu($erans);
 		$erans->setEskakizuna($this->eskakizuna);
 	    }
-	}
-    }
-
-    private function _eranskina_kudeatu(Eranskina $eranskina) {
-	$eranskinen_direktorioa = $this->getParameter('eranskinak_uploads_directory');
-	$eranskinaren_izena = $eranskina->getEranskinaName();
-
-	if ( $eranskina !== null ) {
-	    /* Honek funtzionatzen du baina agian zuzenean txikituta gorde daiteke */
-	    $eranskinaFile = new File($eranskinen_direktorioa.'/'.$eranskinaren_izena);
-	    $eranskina->setEranskinaFile($eranskinaFile);
-	    $eranskina->setEranskinaSize($eranskinaFile->getSize());
 	}
     }
 
