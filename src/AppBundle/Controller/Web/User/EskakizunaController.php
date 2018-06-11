@@ -53,6 +53,7 @@ class EskakizunaController extends Controller {
 	    'role' => $user->getRoles(),
     	    'locale' => $request->getLocale(),
 	]);
+	$returnPage = $this->getReturnPage($request);
 	// Only handles data on POST request
 	$form->handleRequest($request);
 	if ( $form->isSubmitted() && $form->isValid() ) {
@@ -114,7 +115,8 @@ class EskakizunaController extends Controller {
 	    'argazkia' => null,
 // 'erantzunak' => [],
 	    'erantzun' => false,
-	    'editatzen' => false
+	    'editatzen' => false,
+	    'returnPage' => $returnPage,
 	]);
     }
 
@@ -692,7 +694,7 @@ class EskakizunaController extends Controller {
     private function _eranskinak_gorde_multi($eranskinakAldatuAurretik = null) {
 	$em = $this->getDoctrine()->getManager();
 	/* Zaharretatik borratu direnak borratu */
-	if (!$eranskinakAldatuAurretik->isEmpty()) {
+	if ($eranskinakAldatuAurretik != null && !$eranskinakAldatuAurretik->isEmpty()) {
 	    foreach ($eranskinakAldatuAurretik as $aurrekoEranskina ) {
 		if (false === $this->eskakizuna->getEranskinak()->contains($aurrekoEranskina)) {
 		    $this->eskakizuna->removeEranskinak($aurrekoEranskina);
