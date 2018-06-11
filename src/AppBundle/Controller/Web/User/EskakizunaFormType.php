@@ -65,7 +65,7 @@ class EskakizunaFormType extends AbstractType {
 		}
 		},		
 		'query_builder' => function (ZerbitzuaRepository $repo) {
-			return $repo->createOrderedQueryBuilder();
+			return $repo->createZerbitzuAktiboakQueryBuilder();
 		    }
 	        ])
 	    ->add('argazkia', FileType::class,[

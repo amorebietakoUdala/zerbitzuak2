@@ -53,7 +53,15 @@ $(function() {
 	    showCancelButton: true,
 	    showLoaderOnConfirm: true,
 	    preConfirm: function () {
-		console.log(url);
+		$table = $('.taula');
+		if ( ( typeof $table.bootstrapTable ) != 'undefined' ) {
+		    var options = $table.bootstrapTable('getOptions');
+		    var pageNumber = options.pageNumber;
+		    uri = new URI(url);
+		    var uri = new URI(url);
+		    uri.addQuery("returnPage",pageNumber);
+		    url = uri.toString();
+		}
 		window.location.href=url;
 	    }
 	}).catch(function (arg) {
@@ -72,7 +80,14 @@ $(function() {
 	    showCancelButton: true,
 	    showLoaderOnConfirm: true,
 	    preConfirm: function () {
-		console.log(url);
+		$table = $('.taula');
+		if ( ( typeof $table.bootstrapTable ) != 'undefined' ) {
+		    var options = $table.bootstrapTable('getOptions');
+		    var pageNumber = options.pageNumber;
+		    var uri = new URI(url);
+		    uri.addQuery("returnPage",pageNumber);
+		    url = uri.toString();
+		}
 		window.location.href=url;
 	    }
 	}).catch(function (arg) {
@@ -91,12 +106,41 @@ $(function() {
 	    showCancelButton: true,
 	    showLoaderOnConfirm: true,
 	    preConfirm: function () {
-		console.log(url);
+		$table = $('.taula');
+		if ( ( typeof $table.bootstrapTable ) != 'undefined' ) {
+		    var options = $table.bootstrapTable('getOptions');
+		    var pageNumber = options.pageNumber;
+		    var uri = new URI(url);
+		    uri.addQuery("returnPage",pageNumber);
+		    url = uri.toString();
+		}
 		window.location.href=url;
 	    }
 	}).catch(function (arg) {
 		console.log('Cancelado!');
 	});
+    });
+
+    $(document).on('click','.js-erakutsi_botoia' ,function (e) {
+	e.preventDefault();
+	var url = $(e.currentTarget).data('url');
+	$table = $('.taula');
+	var options = $table.bootstrapTable('getOptions');
+	var pageNumber = options.pageNumber;
+	uri = new URI(url);
+	uri.addQuery("returnPage",pageNumber);
+	window.location.href=uri;
+    });
+
+    $(document).on('click','.js-editatu_botoia' ,function (e) {
+	e.preventDefault();
+	var url = $(e.currentTarget).data('url');
+	$table = $('.taula');
+	var options = $table.bootstrapTable('getOptions');
+	var pageNumber = options.pageNumber;
+	uri = new URI(url);
+	uri.addQuery("returnPage",pageNumber);
+	window.location.href=uri;
     });
 
 });

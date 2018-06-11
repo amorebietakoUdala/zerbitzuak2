@@ -1,5 +1,12 @@
 $(function() {
 
+function getUrlParameter(name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    var results = regex.exec(location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+};
+
 $(document).ready(function(){
     var locale = $('html').attr('lang');
 
@@ -52,6 +59,22 @@ $(document).ready(function(){
 	fontAwesome: true
     }).attr('type','text'); // Honekin chromen ez da testua agertzen
 
+    $table = $('.taula');
+    var options = $table.bootstrapTable('getOptions');
+
+    //Get the page number
+    var pageNumber = options.pageNumber;
+    
+    var returnPage = getUrlParameter('returnPage');
+    if ( !returnPage ) {
+	returnPage = 1;
+    }
+    
+    if ( returnPage > options.totalPages ) {
+	returnPage = options.totalPages;
+    }
+
+    $table.bootstrapTable('selectPage',returnPage);
 });    
 
 });

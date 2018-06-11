@@ -3,7 +3,7 @@
     <type>org.netbeans.modules.php.project</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/php-project/1">
-            <name>zerbitzuak2_new_features</name>
+            <name>zerbitzuak2_produccion</name>
         </data>
         <libraries xmlns="http://www.netbeans.org/ns/cdnjs-libraries/1">
             <library name="bootstrap-datepicker" version="1.7.0-RC3">

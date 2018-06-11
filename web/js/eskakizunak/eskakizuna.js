@@ -1,5 +1,12 @@
 $(function() {
 
+function getUrlParameter(url,name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    var results = regex.exec(url);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+};
+
 $(document).ready(function(){
     var latitudea = 43.2206664;
     var longitudea = -2.733066600000029;
@@ -253,7 +260,7 @@ $(document).ready(function(){
 });    
 
     // Borratzeko 
-    var $eranskinakList = $('#js-eranskinak-list');
+//    var $eranskinakList = $('#js-eranskinak-list');
     
 //    $eranskinakList.find('li').each(function() {
 //        addEranskinakFormDeleteLink($(this));
@@ -284,6 +291,21 @@ $(document).ready(function(){
 	$(newLi).find('.js-file').show();
 	addEventToCheckSize(locale,'.js-file');
     });
+    
+    $(document).on('click','.js-atzera-botoia' ,function (e) {
+	e.preventDefault();
+	var url = $(e.currentTarget).data('url');
+	var uri = new URI(url);
+
+	var returnPage = getUrlParameter(url,'returnPage');
+	if ( !returnPage ) {
+	    returnPage = 1;
+	}
+	uri.addQuery("returnPage",returnPage);
+	url = uri.toString();
+	window.location.href=url;
+    });
+
 /*
     // Borratzeko 
     var $argazkiakList = $('#js-argazkiak-list');

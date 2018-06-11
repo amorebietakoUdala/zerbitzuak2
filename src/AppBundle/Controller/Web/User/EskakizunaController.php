@@ -158,6 +158,8 @@ class EskakizunaController extends Controller {
 		$session->set('pageSize', 10);
 	    }
 	}
+
+	$returnPage = $this->getReturnPage($request);
 	
 	$bilatzaileaForm = $this->createForm(EskakizunaBilatzaileaFormType::class,[
 	    'role' => $user->getRoles(),
@@ -190,10 +192,11 @@ class EskakizunaController extends Controller {
 	    return $this->render('/eskakizuna/list.html.twig', [
 		'bilatzaileaForm' => $bilatzaileaForm->createView(),
 		'eskakizunak' => $eskakizunak,
+		'returnPage' => $returnPage,
 	    ]);
 	}
 	
-	$em = $this->getDoctrine()->getManager();
+//	$em = $this->getDoctrine()->getManager();
 	if ( $authorization_checker->isGranted('ROLE_KANPOKO_TEKNIKARIA') ) {
 	    $criteria = [
 		'enpresa' => $user->getEnpresa()
@@ -221,6 +224,7 @@ class EskakizunaController extends Controller {
 	return $this->render('/eskakizuna/list.html.twig', [
 	    'bilatzaileaForm' => $bilatzaileaForm->createView(),
 	    'eskakizunak' => $eskakizunak,
+	    'returnPage' => $returnPage,
 	]);
     }
 
@@ -235,6 +239,8 @@ class EskakizunaController extends Controller {
    	    'role' => $user->getRoles(),
 	    'locale' => $request->getLocale(),
 	]);
+
+	$returnPage = $this->getReturnPage($request);
 
 	$zerbitzuaAldatuAurretik = $eskakizuna->getZerbitzua();
 	$erantzunak = $eskakizuna->getErantzunak();
@@ -339,14 +345,17 @@ class EskakizunaController extends Controller {
 	    
 	    $this->addFlash('success', 'messages.eskakizuna_gordea');
 	    
-	    return $this->redirectToRoute('admin_eskakizuna_list');
+	    return $this->redirectToRoute('admin_eskakizuna_list',[
+		'returnPage' => $returnPage
+	    ]);
 	}
 	
 	return $this->render('/eskakizuna/edit.html.twig', [
 	    'eskakizunaForm' => $form->createView(),
 	    'erantzunak' => $erantzunak,
 	    'editatzen' => true,
-	    'erantzun' => false
+	    'erantzun' => false,
+	    'returnPage' => $returnPage,
 	]);
 		
     }
@@ -363,13 +372,17 @@ class EskakizunaController extends Controller {
 	    $this->addFlash('error', 'messages.eskakizuna_ez_da_existitzen');
 	    return $this->listAction();
 	}
-	
+
+	$returnPage = $this->getReturnPage($request);
+//	dump($returnPage);die;
 	$em->remove($eskakizuna);
 	$em->flush();
 	
 	$this->addFlash('success', 'messages.eskakizuna_ezabatua');
 	
-	return $this->redirectToRoute('admin_eskakizuna_list');
+	return $this->redirectToRoute('admin_eskakizuna_list', [
+	    'returnPage' => $returnPage,
+	]);
 		
     }
 
@@ -381,6 +394,8 @@ class EskakizunaController extends Controller {
 	$user = $this->get('security.token_storage')->getToken()->getUser();
 	$this->get('logger')->debug('Show. Eskakizun zenbakia: '.$eskakizuna->getId());
 	$argazkien_direktorioa = $this->getParameter('images_uploads_url');
+
+	$returnPage = $this->getReturnPage($request);
 
 	$eskakizunaForm = $this->createForm(EskakizunaFormType::class, $eskakizuna, [
 	    'editatzen' => false,
@@ -432,7 +447,8 @@ class EskakizunaController extends Controller {
 		'erantzunak' => $erantzunak,
 		'argazkia' => $argazkien_direktorioa.'/'.$eskakizuna->getArgazkia(),
 		'editatzen' => false,
-		'erantzun' => true
+		'erantzun' => true,
+		'returnPage' => $returnPage,
 	    ]);
 	}
 
@@ -441,7 +457,8 @@ class EskakizunaController extends Controller {
 	    'erantzunak' => $erantzunak,
 	    'argazkia' => $argazkien_direktorioa.'/'.$eskakizuna->getArgazkia(),
 	    'editatzen' => false,
-	    'erantzun' => true
+	    'erantzun' => true,
+	    'returnPage' => $returnPage,
 	]);
     }
 
@@ -454,6 +471,8 @@ class EskakizunaController extends Controller {
 	    return $this->listAction();
 	}
 	
+	$returnPage = $this->getReturnPage($request);
+
 	$em = $this->getDoctrine()->getManager();
 	$eskakizuna->setItxieraData(new \DateTime());
 	$egoera = $em->getRepository(Egoera::class)->find(Egoera::EGOERA_ITXIA);
@@ -464,7 +483,9 @@ class EskakizunaController extends Controller {
 	
 	$this->addFlash('success', 'messages.eskakizuna_itxia');
 	
-	return $this->redirectToRoute('admin_eskakizuna_list');
+	return $this->redirectToRoute('admin_eskakizuna_list',[
+	    'returnPage' => $returnPage,
+	]);
 		
     }
 
@@ -477,7 +498,9 @@ class EskakizunaController extends Controller {
 	    $this->addFlash('error', 'messages.eskakizuna_ez_da_existitzen');
 	    return $this->listAction();
 	}
-	
+
+	$returnPage = $this->getReturnPage($request);
+
 	$em = $this->getDoctrine()->getManager();
 	$eskakizuna->setNoizErreklamatua(new \DateTime());
 	$eskakizuna->setNorkErreklamatua($user);
@@ -489,10 +512,22 @@ class EskakizunaController extends Controller {
 	
 	$this->addFlash('success', 'messages.eskakizuna_erreklamatua');
 	
-	return $this->redirectToRoute('admin_eskakizuna_list');
+	return $this->redirectToRoute('admin_eskakizuna_list',[
+	    'returnPage' => $returnPage,
+	]);
 		
     }
 
+    public function getReturnPage(Request $request) {
+	if ( $request->query->get('returnPage') != null ) {
+	    $returnPage=$request->query->get('returnPage');
+	    $request->query->remove('returnPage');
+	} else {
+	    $returnPage = 1;
+	}	
+	return $returnPage;
+    }
+    
     private function _parseEskatzailea($form){
         $data = $form->getData();
 	$eskatzailea = $data->getEskatzailea();
