@@ -266,7 +266,7 @@
 			    </div>
 			    <div id="beheko-botoiak" class="row col-12 md-form form-group form-sm margin-top-13">
                                 {% if (gordeBotoia == true) %}
-                                    <button class="col-2 btn btn-primary form-control js-gorde_botoia" type="button" {{ path ('admin_eskakizuna_delete', {'id': eskakizunaForm.vars.value.id, 'returnPage': returnPage }) }} formnovalidate ><i class="fa fa-save left"></i>{{"messages.gorde" | trans | capitalize}}</button>
+                                    <button class="col-2 btn btn-primary form-control js-gorde_botoia" type="button" formnovalidate ><i class="fa fa-save left"></i>{{"messages.gorde" | trans | capitalize}}</button>
                                 {% endif %}
                                 {% if (erantzun == true) %}
                                     <button class="col-2 btn btn-primary form-control js-erantzun_botoia" type="button" formnovalidate><i class="fa fa-reply left"></i>{{"messages.erantzun" | trans | capitalize}}</button>
