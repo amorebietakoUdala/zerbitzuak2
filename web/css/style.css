@@ -388,6 +388,11 @@ select::-ms-expand {
     display: none;
 }
 
+.list-icon {
+    color: #0275d8;
+}
+
+
 @media screen and (max-width: 699px) {
     h1 {
         font-size: 2.0rem;
