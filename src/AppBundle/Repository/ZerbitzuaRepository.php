@@ -56,9 +56,22 @@ class ZerbitzuaRepository extends EntityRepository {
         return $qb;
     }
     
-    public function createZerbitzuAktiboakQueryBuilder()
+    public function createZerbitzuAktiboakQueryBuilder($enpresa = null)
     {
 	$criteria = ['aktibatua' => true ];
+	if ( $enpresa != null ) {
+	    $criteria ['enpresa'] = $enpresa;
+	}
+	$qb = $this->createOrderedQueryBuilder($criteria);
+        return $qb;
+    }
+
+    public function createZerbitzuakQueryBuilder($enpresa = null)
+    {
+	$criteria = null;
+	if ( $enpresa != null ) {
+	    $criteria ['enpresa'] = $enpresa;
+	}
 	$qb = $this->createOrderedQueryBuilder($criteria);
         return $qb;
     }
