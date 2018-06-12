@@ -157,9 +157,12 @@ class EskakizunaController extends Controller {
 
 	// Azken bilaketa berreskuratu saioan badago. Horrela bilaketa berriro egin dezakegu.
 	$azkenBilaketa = $this->_getAzkenBilaketa($request);
-	
+	$azkenBilaketa['role'] = $user->getRoles();
+	$from = null;
+	$to = null;
+//	dump($azkenBilaketa);die;
 	$bilatzaileaForm = $this->createForm(EskakizunaBilatzaileaFormType::class,$azkenBilaketa);
-	
+//	dump($bilatzaileaForm);die;
 	$bilatzaileaForm->handleRequest($request);
 	if ( $bilatzaileaForm->isSubmitted() && $bilatzaileaForm->isValid() ) {
 	    $azkenBilaketa = $bilatzaileaForm->getData();
@@ -196,6 +199,7 @@ class EskakizunaController extends Controller {
 	    unset($criteria['locale']);
 	    $criteria_without_blanks = $this->_remove_noiztik_nora($criteria);
 	}
+//	dump($criteria_without_blanks);die;
 
 	if ( array_key_exists('egoera', $criteria_without_blanks) ) {
 	    $eskakizunak = $this->getDoctrine()
@@ -711,8 +715,10 @@ class EskakizunaController extends Controller {
 	    if (array_key_exists('enpresa', $azkenBilaketa) && $azkenBilaketa['enpresa'] != null ) {
 		$azkenBilaketa['enpresa'] = $em->getRepository(Enpresa::class)->find($azkenBilaketa['enpresa']);
 	    }
+	} else {
+	    $azkenBilaketa['locale'] = $request->getLocale();
 	}
-	return $azkenBilaketa;
+	return $this->_remove_blank_filters($azkenBilaketa);
     }
     
     private function _setPageSize(Request $request) {

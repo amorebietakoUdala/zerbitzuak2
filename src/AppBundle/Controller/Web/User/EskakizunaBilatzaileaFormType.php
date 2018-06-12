@@ -86,7 +86,11 @@ class EskakizunaBilatzaileaFormType extends AbstractType {
 		    'placeholder'=> 'messages.hautatu_zerbitzua',
 		    'class' => Zerbitzua::class,
 		    'query_builder' => function (ZerbitzuaRepository $repo) use ($options) {
-			return $repo->createOrderedQueryBuilder($options['data']);
+			$enpresa = null;
+			if (array_key_exists('enpresa', $options['data'])) {
+			    $enpresa = $options['data']['enpresa'];
+			}
+			return $repo->createZerbitzuakQueryBuilder($enpresa);
 		}]);
 	    }
     }
