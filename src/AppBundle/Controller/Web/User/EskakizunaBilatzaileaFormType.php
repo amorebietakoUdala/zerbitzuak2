@@ -11,6 +11,7 @@ namespace AppBundle\Controller\Web\User;
 use AppBundle\Entity\Egoera;
 use AppBundle\Entity\Enpresa;
 use AppBundle\Entity\Zerbitzua;
+use AppBundle\Entity\Eskakizuna;
 use AppBundle\Repository\EgoeraRepository;
 use AppBundle\Repository\EnpresaRepository;
 use AppBundle\Repository\ZerbitzuaRepository;
@@ -93,6 +94,7 @@ class EskakizunaBilatzaileaFormType extends AbstractType {
     public function configureOptions(OptionsResolver $resolver) {
 	$resolver->setDefaults([
 	    'csrf_protection' => true,
+	    'data_class' => null,
 	]);
     }
 }

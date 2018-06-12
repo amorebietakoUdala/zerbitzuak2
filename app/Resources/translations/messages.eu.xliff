@@ -545,6 +545,10 @@
                 <source>messages.argazkia_gehitu</source>
                 <target>Argazkia gehitu</target>
             </trans-unit>
+            <trans-unit id="messages.garbitu">
+                <source>messages.garbitu</source>
+                <target>Garbitu</target>
+            </trans-unit>
 	    <!-- Amaiera Entitateak -->
 	</body>
     </file>

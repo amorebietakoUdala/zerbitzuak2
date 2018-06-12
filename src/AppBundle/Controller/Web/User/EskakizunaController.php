@@ -17,6 +17,7 @@ use AppBundle\Entity\Eskatzailea;
 use AppBundle\Entity\Erantzuna;
 use AppBundle\Entity\Georeferentziazioa;
 use AppBundle\Entity\Eranskina;
+use AppBundle\Entity\Zerbitzua;
 use AppBundle\Entity\Argazkia;
 use AppBundle\Controller\Web\User\EskakizunaBilatzaileaFormType;
 use Imagick;
@@ -53,7 +54,7 @@ class EskakizunaController extends Controller {
 	    'role' => $user->getRoles(),
     	    'locale' => $request->getLocale(),
 	]);
-	$returnPage = $this->getReturnPage($request);
+	$returnPage = $this->_getReturnPage($request);
 	// Only handles data on POST request
 	$form->handleRequest($request);
 	if ( $form->isSubmitted() && $form->isValid() ) {
@@ -151,26 +152,18 @@ class EskakizunaController extends Controller {
         $user = $this->get('security.token_storage')->getToken()->getUser();
 	$authorization_checker = $this->get('security.authorization_checker');
 	$session = $request->getSession();
-	if ( $request->query->get('pageSize') != null ) {
-	    $pageSize = $request->query->get('pageSize');
-	    $request->query->remove('pageSize');
-	    $session->set('pageSize', $pageSize);
-	} else {
-	    if ( $session->get('pageSize') == null ) {
-		$session->set('pageSize', 10);
-	    }
-	}
+	$this->_setPageSize($request);
+	$returnPage = $this->_getReturnPage($request);
 
-	$returnPage = $this->getReturnPage($request);
+	// Azken bilaketa berreskuratu saioan badago. Horrela bilaketa berriro egin dezakegu.
+	$azkenBilaketa = $this->_getAzkenBilaketa($request);
 	
-	$bilatzaileaForm = $this->createForm(EskakizunaBilatzaileaFormType::class,[
-	    'role' => $user->getRoles(),
-	    'enpresa' => $user->getEnpresa(),
-	    'locale' => $request->getLocale(),
-	]);
+	$bilatzaileaForm = $this->createForm(EskakizunaBilatzaileaFormType::class,$azkenBilaketa);
 	
 	$bilatzaileaForm->handleRequest($request);
 	if ( $bilatzaileaForm->isSubmitted() && $bilatzaileaForm->isValid() ) {
+	    $azkenBilaketa = $bilatzaileaForm->getData();
+	    $session->set('azkenBilaketa',$azkenBilaketa);
 	    $criteria = $bilatzaileaForm->getData();
 	    $criteria['role'] = null;
 	    $criteria['locale'] = null;
@@ -180,32 +173,14 @@ class EskakizunaController extends Controller {
 	    $from = array_key_exists( 'noiztik', $criteria ) ? $criteria['noiztik'] : null;
 	    $to = array_key_exists( 'nora', $criteria ) ? $criteria['nora'] : null;
 	    $criteria_without_blanks = $this->_remove_noiztik_nora($criteria);
-
-	    
-	    if ( array_key_exists('egoera', $criteria_without_blanks) ) {
-		$eskakizunak = $this->getDoctrine()
-		    ->getRepository(Eskakizuna::class)
-		    ->findAllFromTo($criteria_without_blanks,$from,$to);
-	    } else { 
-		$eskakizunak = $this->getDoctrine()
-		    ->getRepository(Eskakizuna::class)
-		    ->findAllOpen($criteria_without_blanks,$from,$to);
-	    }
-	    return $this->render('/eskakizuna/list.html.twig', [
-		'bilatzaileaForm' => $bilatzaileaForm->createView(),
-		'eskakizunak' => $eskakizunak,
-		'returnPage' => $returnPage,
-	    ]);
 	}
 	
-//	$em = $this->getDoctrine()->getManager();
 	if ( $authorization_checker->isGranted('ROLE_KANPOKO_TEKNIKARIA') ) {
-	    $criteria = [
-		'enpresa' => $user->getEnpresa()
-	    ];
-	    $eskakizunak = $this->getDoctrine()
-		    ->getRepository(Eskakizuna::class)
-		    ->findAllOpen($criteria, null, null);
+	    $criteria['enpresa'] = $user->getEnpresa();
+	    $criteria = array_merge($azkenBilaketa,$criteria);
+	    unset($criteria['role']);
+	    unset($criteria['locale']);
+	    $criteria_without_blanks = $this->_remove_blank_filters($criteria);
 	} else {
 	    $criteria = $request->query->all();
 	    $from = array_key_exists( 'noiztik', $criteria ) ? $criteria['noiztik'] : null;
@@ -216,12 +191,21 @@ class EskakizunaController extends Controller {
 	    if ( $to !== null ) {
 		$bilatzaileaForm->get('nora')->setData(new DateTime($to));
 	    }
+    	    $criteria = array_merge($azkenBilaketa,$criteria);
+    	    unset($criteria['role']);
+	    unset($criteria['locale']);
 	    $criteria_without_blanks = $this->_remove_noiztik_nora($criteria);
-	    $eskakizunak = $this->getDoctrine()
-		    ->getRepository(Eskakizuna::class)
-		    ->findAllOpen($criteria_without_blanks, $from, $to);
+	}
 
-	    }
+	if ( array_key_exists('egoera', $criteria_without_blanks) ) {
+	    $eskakizunak = $this->getDoctrine()
+		->getRepository(Eskakizuna::class)
+		->findAllFromTo($criteria_without_blanks,$from,$to);
+	} else { 
+	    $eskakizunak = $this->getDoctrine()
+		->getRepository(Eskakizuna::class)
+		->findAllOpen($criteria_without_blanks,$from,$to);
+	}
 	
 	return $this->render('/eskakizuna/list.html.twig', [
 	    'bilatzaileaForm' => $bilatzaileaForm->createView(),
@@ -242,7 +226,7 @@ class EskakizunaController extends Controller {
 	    'locale' => $request->getLocale(),
 	]);
 
-	$returnPage = $this->getReturnPage($request);
+	$returnPage = $this->_getReturnPage($request);
 
 	$zerbitzuaAldatuAurretik = $eskakizuna->getZerbitzua();
 	$erantzunak = $eskakizuna->getErantzunak();
@@ -375,7 +359,7 @@ class EskakizunaController extends Controller {
 	    return $this->listAction();
 	}
 
-	$returnPage = $this->getReturnPage($request);
+	$returnPage = $this->_getReturnPage($request);
 //	dump($returnPage);die;
 	$em->remove($eskakizuna);
 	$em->flush();
@@ -397,7 +381,7 @@ class EskakizunaController extends Controller {
 	$this->get('logger')->debug('Show. Eskakizun zenbakia: '.$eskakizuna->getId());
 	$argazkien_direktorioa = $this->getParameter('images_uploads_url');
 
-	$returnPage = $this->getReturnPage($request);
+	$returnPage = $this->_getReturnPage($request);
 
 	$eskakizunaForm = $this->createForm(EskakizunaFormType::class, $eskakizuna, [
 	    'editatzen' => false,
@@ -473,7 +457,7 @@ class EskakizunaController extends Controller {
 	    return $this->listAction();
 	}
 	
-	$returnPage = $this->getReturnPage($request);
+	$returnPage = $this->_getReturnPage($request);
 
 	$em = $this->getDoctrine()->getManager();
 	$eskakizuna->setItxieraData(new \DateTime());
@@ -501,7 +485,7 @@ class EskakizunaController extends Controller {
 	    return $this->listAction();
 	}
 
-	$returnPage = $this->getReturnPage($request);
+	$returnPage = $this->_getReturnPage($request);
 
 	$em = $this->getDoctrine()->getManager();
 	$eskakizuna->setNoizErreklamatua(new \DateTime());
@@ -520,7 +504,7 @@ class EskakizunaController extends Controller {
 		
     }
 
-    public function getReturnPage(Request $request) {
+    private function _getReturnPage(Request $request) {
 	if ( $request->query->get('returnPage') != null ) {
 	    $returnPage=$request->query->get('returnPage');
 	    $request->query->remove('returnPage');
@@ -712,4 +696,35 @@ class EskakizunaController extends Controller {
 	}
     }
 
+    private function _getAzkenBilaketa(Request $request) {
+	$azkenBilaketa = null;
+	$em = $this->getDoctrine()->getManager();
+	$session = $request->getSession();
+	if ( $session->get('azkenBilaketa') != null ) {
+	    $azkenBilaketa = $session->get('azkenBilaketa');
+	    if (array_key_exists('egoera', $azkenBilaketa) && $azkenBilaketa['egoera'] != null ) {
+		$azkenBilaketa['egoera'] = $em->getRepository(Egoera::class)->find($azkenBilaketa['egoera']);
+	    }
+	    if (array_key_exists('zerbitzua', $azkenBilaketa) && $azkenBilaketa['zerbitzua'] != null ) {
+		$azkenBilaketa['zerbitzua'] = $em->getRepository(Zerbitzua::class)->find($azkenBilaketa['zerbitzua']);
+	    }
+	    if (array_key_exists('enpresa', $azkenBilaketa) && $azkenBilaketa['enpresa'] != null ) {
+		$azkenBilaketa['enpresa'] = $em->getRepository(Enpresa::class)->find($azkenBilaketa['enpresa']);
+	    }
+	}
+	return $azkenBilaketa;
+    }
+    
+    private function _setPageSize(Request $request) {
+	$session = $request->getSession();
+	if ( $request->query->get('pageSize') != null ) {
+	    $pageSize = $request->query->get('pageSize');
+	    $request->query->remove('pageSize');
+	    $session->set('pageSize', $pageSize);
+	} else {
+	    if ( $session->get('pageSize') == null ) {
+		$session->set('pageSize', 10);
+	    }
+	}
+    }
 }

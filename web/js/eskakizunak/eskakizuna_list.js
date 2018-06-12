@@ -28,7 +28,25 @@ $(document).ready(function(){
 	    $('#bilatzailea').hide();
 	    erakutsi = false;
 	}
-    });    
+    });
+    
+    $('#js-btn-bilatu').click(function (e) {
+	e.preventDefault();
+	console.log($('form[name="eskakizuna_bilatzailea_form"]'));
+	var action = location.href;
+	action = new URI(location.href);
+	action.setQuery("returnPage",1);
+	$('form[name="eskakizuna_bilatzailea_form"]').attr('action',action.toString());
+	$('form[name="eskakizuna_bilatzailea_form"]').submit();
+    });
+
+    $('#js-btn-garbitu').click(function (e) {
+	e.preventDefault();
+	$('form[name="eskakizuna_bilatzailea_form"] input').not('input[type="hidden"]').val('');
+	$('form[name="eskakizuna_bilatzailea_form"] input').not('input[type="hidden"]').siblings().removeClass('active');
+	$('form[name="eskakizuna_bilatzailea_form"] select').val('');
+	$('form[name="eskakizuna_bilatzailea_form"] select').siblings().removeClass('active');
+    });
 
     /* AJAX bidez bilatzeko, oraingoz ez dut erabiltzen*/
 //    $("#js-btn-bilatu").click(function() {
