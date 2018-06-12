@@ -160,9 +160,9 @@ class EskakizunaController extends Controller {
 	$azkenBilaketa['role'] = $user->getRoles();
 	$from = null;
 	$to = null;
-//	dump($azkenBilaketa);die;
+
 	$bilatzaileaForm = $this->createForm(EskakizunaBilatzaileaFormType::class,$azkenBilaketa);
-//	dump($bilatzaileaForm);die;
+
 	$bilatzaileaForm->handleRequest($request);
 	if ( $bilatzaileaForm->isSubmitted() && $bilatzaileaForm->isValid() ) {
 	    $azkenBilaketa = $bilatzaileaForm->getData();
