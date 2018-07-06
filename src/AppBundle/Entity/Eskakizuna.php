@@ -75,6 +75,7 @@ class Eskakizuna {
  
     /**
      * @ORM\Column(type="string", nullable=true)
+     * @Assert\NotBlank()
      * @JMS\Expose(true)
      */
     private $kalea;

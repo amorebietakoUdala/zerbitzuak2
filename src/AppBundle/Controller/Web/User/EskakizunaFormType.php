@@ -50,7 +50,8 @@ class EskakizunaFormType extends AbstractType {
 		'constraints' => [new NotBlank(),]
 	    ])
 	    ->add('kalea', null, [
-		'disabled' => $readonly
+		'disabled' => $readonly,
+		'required' => TRUE
 	    ])
 	    ->add('zerbitzua', EntityType::class,[
 		'disabled' => $readonly,
@@ -76,7 +77,6 @@ class EskakizunaFormType extends AbstractType {
 		'disabled' => $readonly,
 		'placeholder'=>'messages.hautatu_eskakizun_mota',
 		'class' => EskakizunMota::class,
-		'constraints' => [new NotBlank(),],
 		'choice_attr' => ['class' => 'form-inline'],
 		'expanded' => true,
 		'multiple' => false,
@@ -89,7 +89,6 @@ class EskakizunaFormType extends AbstractType {
 		'disabled' => $readonly,
 		'placeholder'=>'messages.hautatu_jatorria',
 		'class' => Jatorria::class,
-		'constraints' => [new NotBlank(),],
 		'expanded' => true,
 		'multiple' => false,
 		'choice_translation_domain' => null,
@@ -116,8 +115,6 @@ class EskakizunaFormType extends AbstractType {
 	    if ( $options['editatzen'] === false ) {
 		$builder->add('mamia', TextareaType::class,[
 		    'attr' => ['class' => 'tinymce'],
-		    'constraints' => [new NotBlank(),				    
-				     ],
 		]);
 		if ( $options['readonly'] === true ) {
 		    $builder->add('erantzunak', ErantzunaFormType::class, [
