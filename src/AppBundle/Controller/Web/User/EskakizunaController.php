@@ -155,51 +155,29 @@ class EskakizunaController extends Controller {
 	$this->_setPageSize($request);
 	$returnPage = $this->_getReturnPage($request);
 
-	// Azken bilaketa berreskuratu saioan badago. Horrela bilaketa berriro egin dezakegu.
 	$azkenBilaketa = $this->_getAzkenBilaketa($request);
 	$azkenBilaketa['role'] = $user->getRoles();
-	$from = null;
-	$to = null;
+	$from = array_key_exists( 'noiztik', $azkenBilaketa ) ? $azkenBilaketa['noiztik'] : null;
+	$to = array_key_exists( 'nora', $azkenBilaketa ) ? $azkenBilaketa['nora'] : null;
+	$criteria = [];
+	if ( $authorization_checker->isGranted('ROLE_KANPOKO_TEKNIKARIA') ) {
+	    $azkenBilaketa['enpresa'] = $user->getEnpresa();
+	}
 
 	$bilatzaileaForm = $this->createForm(EskakizunaBilatzaileaFormType::class,$azkenBilaketa);
-
 	$bilatzaileaForm->handleRequest($request);
 	if ( $bilatzaileaForm->isSubmitted() && $bilatzaileaForm->isValid() ) {
-	    $azkenBilaketa = $bilatzaileaForm->getData();
-	    $session->set('azkenBilaketa',$azkenBilaketa);
 	    $criteria = $bilatzaileaForm->getData();
-	    $criteria['role'] = null;
-	    $criteria['locale'] = null;
-	    if ( $authorization_checker->isGranted('ROLE_KANPOKO_TEKNIKARIA') ) {
-		$criteria['enpresa'] = $user->getEnpresa(); 
-	    }
+	    $session->set('azkenBilaketa',$criteria);
 	    $from = array_key_exists( 'noiztik', $criteria ) ? $criteria['noiztik'] : null;
 	    $to = array_key_exists( 'nora', $criteria ) ? $criteria['nora'] : null;
-	    $criteria_without_blanks = $this->_remove_noiztik_nora($criteria);
 	}
-	
-	if ( $authorization_checker->isGranted('ROLE_KANPOKO_TEKNIKARIA') ) {
-	    $criteria['enpresa'] = $user->getEnpresa();
-	    $criteria = array_merge($azkenBilaketa,$criteria);
-	    unset($criteria['role']);
-	    unset($criteria['locale']);
-	    $criteria_without_blanks = $this->_remove_blank_filters($criteria);
-	} else {
-	    $criteria = $request->query->all();
-	    $from = array_key_exists( 'noiztik', $criteria ) ? $criteria['noiztik'] : null;
-	    $to = array_key_exists( 'nora', $criteria ) ? $criteria['nora'] : null;
-	    if ( $from !== null ) {
-		$bilatzaileaForm->get('noiztik')->setData(new DateTime($from));
-	    }
-	    if ( $to !== null ) {
-		$bilatzaileaForm->get('nora')->setData(new DateTime($to));
-	    }
-    	    $criteria = array_merge($azkenBilaketa,$criteria);
-    	    unset($criteria['role']);
-	    unset($criteria['locale']);
-	    $criteria_without_blanks = $this->_remove_noiztik_nora($criteria);
-	}
-//	dump($criteria_without_blanks);die;
+	$criteria = array_merge($azkenBilaketa,$criteria);
+	$criteria_without_blanks = $this->_remove_blank_filters($criteria);
+	unset($criteria_without_blanks['noiztik']);
+	unset($criteria_without_blanks['nora']);
+	unset($criteria_without_blanks['role']);
+	unset($criteria_without_blanks['locale']);
 
 	if ( array_key_exists('egoera', $criteria_without_blanks) ) {
 	    $eskakizunak = $this->getDoctrine()
@@ -210,7 +188,6 @@ class EskakizunaController extends Controller {
 		->getRepository(Eskakizuna::class)
 		->findAllOpen($criteria_without_blanks,$from,$to);
 	}
-	
 	return $this->render('/eskakizuna/list.html.twig', [
 	    'bilatzaileaForm' => $bilatzaileaForm->createView(),
 	    'eskakizunak' => $eskakizunak,
@@ -723,6 +700,7 @@ class EskakizunaController extends Controller {
     
     private function _setPageSize(Request $request) {
 	$session = $request->getSession();
+//	dump($session, $request);die;
 	if ( $request->query->get('pageSize') != null ) {
 	    $pageSize = $request->query->get('pageSize');
 	    $request->query->remove('pageSize');

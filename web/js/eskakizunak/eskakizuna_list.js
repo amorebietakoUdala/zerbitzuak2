@@ -36,6 +36,7 @@ $(document).ready(function(){
 	var action = location.href;
 	action = new URI(location.href);
 	action.setQuery("returnPage",1);
+	action.setQuery("pageSize",$('li[role="menuitem"].active a').text());
 	$('form[name="eskakizuna_bilatzailea_form"]').attr('action',action.toString());
 	$('form[name="eskakizuna_bilatzailea_form"]').submit();
     });
@@ -47,6 +48,7 @@ $(document).ready(function(){
 	$('form[name="eskakizuna_bilatzailea_form"] select').val('');
 	$('form[name="eskakizuna_bilatzailea_form"] select').siblings().removeClass('active');
     });
+    
 
     /* AJAX bidez bilatzeko, oraingoz ez dut erabiltzen*/
 //    $("#js-btn-bilatu").click(function() {
