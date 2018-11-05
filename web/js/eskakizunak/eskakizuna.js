@@ -348,7 +348,7 @@ $(document).ready(function(){
 function checkSize(input) {
     if (input.files && input.files[0]) {
 	var filesize = input.files[0].size;
-	if ( filesize <=  2*1024*1024 ) {
+	if ( filesize <=  3*1024*1024 ) {
 	    return true;
 	} else {
 	    return false;
@@ -366,8 +366,8 @@ function addEventToCheckSize(locale, selector) {
 	    var ok = checkSize(file);
 	    if (!ok) 
 		swal_alert(locale, 
-			    "El fichero es demasiado grande", "Elija uno más pequeño. Menor de 2Mb",
-			    "Fitxategia handiegia da.","Hautatu beste bat mesedez. 2Mb baino txikiago.");
+			    "El fichero es demasiado grande", "Elija uno más pequeño. Menor de 3Mb",
+			    "Fitxategia handiegia da.","Hautatu beste bat mesedez. 3Mb baino txikiago.");
 	});
     }
 }
