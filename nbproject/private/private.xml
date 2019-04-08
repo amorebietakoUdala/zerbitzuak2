@@ -2,20 +2,17 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Netbeans/zerbitzuak2_produccion/src/AppBundle/Controller/Web/User/EskakizunaBilatzaileaFormType.php</file>
-            <file>file:/C:/Netbeans/zerbitzuak2_produccion/src/AppBundle/Entity/Eranskina.php</file>
-            <file>file:/C:/Netbeans/zerbitzuak2_produccion/app/Resources/views/default/bootstrap_table_js.html.twig</file>
-            <file>file:/C:/Netbeans/zerbitzuak2_produccion/app/Resources/views/eskakizuna/edit.html.twig</file>
-            <file>file:/C:/Netbeans/zerbitzuak2_produccion/app/config/config.yml</file>
-            <file>file:/C:/Netbeans/zerbitzuak2_produccion/app/AppKernel.php</file>
-            <file>file:/C:/Netbeans/zerbitzuak2_produccion/app/Resources/views/eskakizuna/list.html.twig</file>
-            <file>file:/C:/Netbeans/zerbitzuak2_produccion/app/Resources/views/base.html.twig</file>
-            <file>file:/C:/Netbeans/zerbitzuak2_produccion/composer.json</file>
-            <file>file:/C:/Netbeans/zerbitzuak2_produccion/src/AppBundle/Controller/Web/User/EskakizunaController.php</file>
+        <group name="Local">
             <file>file:/C:/Netbeans/zerbitzuak2_produccion/src/AppBundle/Controller/Web/User/EskakizunaFormType.php</file>
-            <file>file:/C:/Netbeans/zerbitzuak2_produccion/app/Resources/views/eskakizuna/show.html.twig</file>
-            <file>file:/C:/Netbeans/zerbitzuak2_produccion/app/Resources/views/eskakizuna/_form.html.twig</file>
+            <file>file:/C:/Netbeans/zerbitzuak2_produccion/src/AppBundle/Controller/Web/Admin/ZerbitzuaFormType.php</file>
+            <file>file:/C:/Netbeans/zerbitzuak2_produccion/src/AppBundle/Controller/Web/Admin/EnpresaFormType.php</file>
+            <file>file:/C:/Netbeans/zerbitzuak2_produccion/src/AppBundle/Repository/ZerbitzuaRepository.php</file>
+            <file>file:/C:/Netbeans/zerbitzuak2_produccion/src/AppBundle/Controller/Web/Admin/JatorriaFormType.php</file>
+            <file>file:/C:/Netbeans/zerbitzuak2_produccion/src/AppBundle/Repository/JatorriaRepository.php</file>
+            <file>file:/C:/Netbeans/zerbitzuak2_produccion/src/AppBundle/Controller/Web/Admin/EskakizunMotaFormType.php</file>
+            <file>file:/C:/Netbeans/zerbitzuak2_produccion/src/AppBundle/Controller/Web/Admin/JatorriaController.php</file>
+            <file>file:/C:/Netbeans/zerbitzuak2_produccion/src/AppBundle/Controller/Web/User/EskakizunaController.php</file>
         </group>
+        <group/>
     </open-files>
 </project-private>

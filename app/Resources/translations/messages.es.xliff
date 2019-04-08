@@ -549,7 +549,11 @@
                 <source>messages.garbitu</source>
                 <target>Limpiar</target>
             </trans-unit>
-	    <!-- Amaiera Entitateak -->
+            <trans-unit id="messages.itxi_aukeratutakoak">
+                <source>messages.itxi_aukeratutakoak</source>
+                <target>Cerrar seleccionados</target>
+            </trans-unit>
+			<!-- Amaiera Entitateak -->
 	</body>
     </file>
 </xliff>

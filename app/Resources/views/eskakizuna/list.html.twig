@@ -52,11 +52,22 @@
 	</div>
 	<div class="row">
 	    <div class="margin-top-13">
-		<table class="taula bootstrap-table table-sm table-responsive col-12">
+			<div id="data-menu" class="btn-group dropdown">
+			  <button class="btn btn-default dropdown-toggle" href="https://example.com" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				  <i class="glyphicon glyphicon-align-justify"></i>
+			  </button>
+
+			  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+				<a id="batchclose" class="dropdown-item" href="#">{{ 'messages.itxi_aukeratutakoak' | trans | capitalize }}</a>
+			  </div>
+			</div>
+			
+	<table class="taula bootstrap-table table-sm table-responsive col-12" data-toolbar="#data-menu">
 		<thead>
 		    <tr>
+			<th data-field="state" data-checkbox="true"></th>
+			<th data-field="id" data-visible="false"></th>
 			<th data-sortable="true">{{"messages.egoera" | trans | capitalize}}</th>
-			<th data-sortable="true">{{"messages.id" | trans | capitalize}}</th>
 			<th data-sortable="true" data-visible="false">{{"messages.lep" | trans | capitalize}}</th>
 			<th data-field="kalea" data-sortable="true">{{"messages.kalea" | trans | capitalize}}</th>
 			<th data-sortable="true">{{"messages.mamia" | trans | capitalize}}</th>
@@ -74,6 +85,8 @@
 		<tbody>
 		    {% for eskakizuna in eskakizunak %}
 		    <tr>
+				<td></td>
+			<td>{{eskakizuna.id }}</td>
 			<td>
     				{% if eskakizuna.egoera.id == 1 %}
 				    <p style="display: none">{{lang == 'es' ? eskakizuna.egoera.deskripzioa_es : eskakizuna.egoera.deskripzioa_eu}}</p><i class="fa fa-envelope prefix" title="{{lang == 'es' ? eskakizuna.egoera.deskripzioa_es : eskakizuna.egoera.deskripzioa_eu}}" alt="{{lang == 'es' ? eskakizuna.egoera.deskripzioa_es : eskakizuna.egoera.deskripzioa_eu}}"></i>
@@ -85,7 +98,6 @@
 				    <p style="display: none">{{lang == 'es' ? eskakizuna.egoera.deskripzioa_es : eskakizuna.egoera.deskripzioa_eu}}</p><i class="fa fa-close prefix" title="{{lang == 'es' ? eskakizuna.egoera.deskripzioa_es : eskakizuna.egoera.deskripzioa_eu}}" alt="{{lang == 'es' ? eskakizuna.egoera.deskripzioa_es : eskakizuna.egoera.deskripzioa_eu}}"></i>
 				{% endif %}
 			    </td>
-			<td>{{eskakizuna.id }}</td>
 			<td>{{eskakizuna.lep }}</td>
 			<td>{{eskakizuna.kalea }}</td>
 			<td>{{eskakizuna.mamia | raw }}</td>

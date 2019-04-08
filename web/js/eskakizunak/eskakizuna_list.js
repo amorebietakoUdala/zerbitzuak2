@@ -95,7 +95,32 @@ $(document).ready(function(){
     }
 
     $table.bootstrapTable('selectPage',returnPage);
-});    
+	
+	var $remove = $('#batchclose');
+	$remove.click(function () {
+		var ids = $.map($table.bootstrapTable('getSelections'), function (row) {
+			return row.id;
+		});
+
+		console.log(ids);
+	    $.ajax({
+		  url: "../../api/batchclose",
+		  dataType: "json",
+		  method: "POST",
+		  data: {
+		    ids: JSON.stringify( ids ),
+		  },
+		  success: function (data) {
+			$table.bootstrapTable('remove', {
+				field: 'id',
+				values: ids
+			  });
+		  }
+	   });
+	  
+//		  $remove.prop('disabled', true);
+	});
+});
 
 });
 

@@ -549,6 +549,10 @@
                 <source>messages.garbitu</source>
                 <target>Garbitu</target>
             </trans-unit>
+            <trans-unit id="messages.itxi_aukeratutakoak">
+                <source>messages.itxi_aukeratutakoak</source>
+                <target>Itxi aukeratutakoak</target>
+            </trans-unit>
 	    <!-- Amaiera Entitateak -->
 	</body>
     </file>
