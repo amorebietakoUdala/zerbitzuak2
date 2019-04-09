@@ -60,8 +60,10 @@
 	{% endblock %}
         {% block javascripts %}
 	    <!-- JQuery -->
-	    <script type="text/javascript" src="{{ asset('bower_components/MDBootstrap/js/jquery-2.2.3.min.js') }}"></script>
-	    <!-- Bootstrap tooltips -->
+{#	    <script type="text/javascript" src="{{ asset('bower_components/MDBootstrap/js/jquery-2.2.3.min.js') }}"></script>
+#}	    
+		<script type="text/javascript" src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
+		<!-- Bootstrap tooltips -->
 	    <script type="text/javascript" src="{{ asset('bower_components/MDBootstrap/js/tether.min.js') }}"></script>
 	    <!-- Bootstrap core JavaScript -->
 	    <script type="text/javascript" src="{{ asset('bower_components/MDBootstrap/js/bootstrap.min.js') }}"></script>

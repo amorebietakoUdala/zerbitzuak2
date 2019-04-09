@@ -5,11 +5,9 @@
 {% block stylesheets %}
     {{ parent() }}
 	<link href="{{ asset('bower_components/bootstrap-table/dist/bootstrap-table.css') }}" rel="stylesheet" type="text/css">
-	<link href="{{ asset('css/glyphicon.css') }}" rel="stylesheet" type="text/css">
-	<link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css">
 	<link href="{{ asset('css/bootstrap-table-personalization.css') }}" rel="stylesheet" type="text/css">
 	<link href="{{ asset('bower_components/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet" type="text/css">
-        <link href="{{ asset('bower_components/jquery-ui/themes/base/jquery-ui.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('bower_components/jquery-ui/themes/base/jquery-ui.css') }}" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="{{ asset('css/bootstrap-datetimepicker.min.css') }}">
 {% endblock %}
 
@@ -54,7 +52,7 @@
 	    <div class="margin-top-13">
 			<div id="data-menu" class="btn-group dropdown">
 			  <button class="btn btn-default dropdown-toggle" href="https://example.com" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				  <i class="glyphicon glyphicon-align-justify"></i>
+				  <i class="fa fa-align-justify" aria-hidden="true"></i>
 			  </button>
 
 			  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -62,7 +60,7 @@
 			  </div>
 			</div>
 			
-	<table class="taula bootstrap-table table-sm table-responsive col-12" data-toolbar="#data-menu">
+		<table class="taula bootstrap-table table-sm table-responsive col-12" data-icons-prefix="fa" data-icon-export="fa-file-export" data-toolbar="#data-menu">
 		<thead>
 		    <tr>
 			<th data-field="state" data-checkbox="true"></th>
@@ -110,7 +108,7 @@
 			{% else %}
 			     <td>{% if eskakizuna.zerbitzua is not null %}{{ eskakizuna.zerbitzua.izena_eu }}{% endif %}</td>
 			{% endif %}
-                        <td class="white-space-nowrap">{{eskakizuna.noizInformatua | date('Y-m-d H:i') }}</td>
+            <td class="white-space-nowrap">{{eskakizuna.noizInformatua | date('Y-m-d H:i') }}</td>
 			<td>
 			    {% set lehen_erantzuna = "" %}
 			    {% for erantzuna in eskakizuna.erantzunak %}

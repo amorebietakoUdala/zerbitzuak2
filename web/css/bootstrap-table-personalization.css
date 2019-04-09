@@ -25,3 +25,13 @@
 .fixed-table-container {
     border: 0;
 }
+
+.btn-secondary.dropdown-toggle {
+	background: white none repeat scroll 0 0 !important;
+	color: #06a4d5 !important;
+}
+
+.btn-secondary.dropdown-toggle:hover {
+	background-color: #05a3d5 !important;
+	color: white !important;
+}

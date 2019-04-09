@@ -120,6 +120,9 @@ $(document).ready(function(){
 	  
 //		  $remove.prop('disabled', true);
 	});
+	window.icons = {
+	  export: 'fa fa-file-export'
+	};
 });
 
 });

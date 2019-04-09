@@ -15,7 +15,7 @@
   "dependencies": {
     "MDBootstrap": "4.3.2",
     "fontawesome": "^4.6.0",
-    "bootstrap-table": "^1.11.1",
+    "bootstrap-table": "^1.14.2",
     "moment": "^2.18.1",
     "sweetalert2": "^6.6.6",
     "jquery-ui": "^1.12.1",
