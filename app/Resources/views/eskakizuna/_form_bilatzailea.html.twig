@@ -45,7 +45,7 @@
 		    {{ form_widget(bilatzaileaForm.zerbitzua, { 'attr': { 'class' : 'md-select' } }) }}
 		    {{ form_errors(bilatzaileaForm.zerbitzua) }}
 	    </div>
-	    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_INFORMATZAILEA') or is_granted('ROLE_ARDURADUNA') %}
+	    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ARDURADUNA') %}
 	    <div class="col-lg-4 col-md-4 md-form form-group form-sm">
 		<i class="fa fa-building prefix"></i>
 		    {{ form_widget(bilatzaileaForm.enpresa, { 'attr': { 'class' : 'md-select' } }) }}
