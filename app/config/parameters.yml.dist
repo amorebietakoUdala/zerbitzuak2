@@ -20,3 +20,5 @@ parameters:
     max_upload_image_size: 4M
     erantzundakoan_mezua_bidali: false
     mezuak_bidali: false
+    eranskinak_uploads_url: /zerbitzuak2/web/docs
+    eranskinak_uploads_directory: '%kernel.root_dir%/../web/docs/uploads'
