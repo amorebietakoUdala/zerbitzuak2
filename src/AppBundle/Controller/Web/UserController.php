@@ -4,7 +4,7 @@ namespace AppBundle\Controller\Web;
 
 use AppBundle\Controller\Web\Admin\ErabiltzaileaFormType;
 use AppBundle\Entity\Erabiltzailea;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;

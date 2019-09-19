@@ -1,0 +1,35 @@
+{
+    "composer/ca-bundle": {
+        "version": "1.x-dev"
+    },
+    "fr3d/ldap-bundle": {
+        "version": "v3.0.0"
+    },
+    "kriswallsmith/assetic": {
+        "version": "1.4-dev"
+    },
+    "sensio/distribution-bundle": {
+        "version": "5.0.x-dev"
+    },
+    "sensio/framework-extra-bundle": {
+        "version": "3.0.x-dev"
+    },
+    "sensiolabs/security-checker": {
+        "version": "4.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.0",
+            "ref": "160c9b600564faa1224e8f387d49ef13ceb8b793"
+        },
+        "files": [
+            "config/packages/security_checker.yaml"
+        ]
+    },
+    "symfony/assetic-bundle": {
+        "version": "v2.8.0"
+    },
+    "zendframework/zend-ldap": {
+        "version": "2.11.x-dev"
+    }
+}

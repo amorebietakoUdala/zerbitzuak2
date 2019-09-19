@@ -11,7 +11,7 @@ use AppBundle\Entity\Eskatzailea;
 use AppBundle\Entity\Egoera;
 use DateTime;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use function GuzzleHttp\json_decode;

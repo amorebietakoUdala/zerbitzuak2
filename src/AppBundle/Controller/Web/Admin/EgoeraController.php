@@ -11,7 +11,7 @@ namespace AppBundle\Controller\Web\Admin;
 use AppBundle\Entity\Egoera;
 use AppBundle\Entity\Eskakizuna;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use AppBundle\Controller\Web\Admin\EgoeraFormType;
 use Symfony\Component\HttpFoundation\Request;
 

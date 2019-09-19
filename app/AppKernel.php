@@ -15,22 +15,23 @@ class AppKernel extends Kernel
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-	    new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
-	    new Symfony\Bundle\AsseticBundle\AsseticBundle(),
-	    new JMS\SerializerBundle\JMSSerializerBundle(),
-	    new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+        new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
+//        new Symfony\Bundle\AsseticBundle\AsseticBundle(),
+        new JMS\SerializerBundle\JMSSerializerBundle(),
+        new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
 //	    new FOS\RestBundle\FOSRestBundle(),
-	    new FOS\UserBundle\FOSUserBundle(),
-    	    new SaadTazi\GChartBundle\SaadTaziGChartBundle(),
-	    new Vich\UploaderBundle\VichUploaderBundle(),
+        new FOS\UserBundle\FOSUserBundle(),
+            new SaadTazi\GChartBundle\SaadTaziGChartBundle(),
+        new Vich\UploaderBundle\VichUploaderBundle(),
+            new FR3D\LdapBundle\FR3DLdapBundle(),
             new AppBundle\AppBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
             $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
-	    $bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();
-	    $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
+            $bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();
+            $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
         }
 

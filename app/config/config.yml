@@ -24,7 +24,6 @@ framework:
         engines: ['twig']
     default_locale: '%locale%'
     trusted_hosts: ~
-    trusted_proxies: ~
     session:
         # http://symfony.com/doc/current/reference/configuration/framework.html#handler-id
         handler_id:  session.handler.native_file
@@ -35,17 +34,17 @@ framework:
     php_errors:
         log: true
 
-assetic:
-    debug:          '%kernel.debug%'
-    use_controller: '%kernel.debug%'
-    filters:
-        cssrewrite: ~
-        scssphp:
-            formatter: 'Leafo\ScssPhp\Formatter\Compressed'
-        less:
-            node: "C:\\Program Files\\nodejs\\node.exe"
-            node_paths: ["C:\\Users\\ibilbao\\AppData\\Roaming\\npm\\node_modules"]
-            apply_to: "\\.less$"
+#assetic:
+#    debug:          '%kernel.debug%'
+#    use_controller: '%kernel.debug%'
+#    filters:
+#        cssrewrite: ~
+#        scssphp:
+#            formatter: 'Leafo\ScssPhp\Formatter\Compressed'
+#        less:
+#            node: "C:\\Program Files\\nodejs\\node.exe"
+#            node_paths: ["C:\\Users\\ibilbao\\AppData\\Roaming\\npm\\node_modules"]
+#            apply_to: "\\.less$"
 
 # Twig Configuration
 twig:
@@ -54,7 +53,7 @@ twig:
     form_themes:
         - bootstrap_4_layout.html.twig
     globals:
-        images_uploads_url: "%images_uploads_url%"
+        images_uploads_url: '%images_uploads_url%'
 
 # Doctrine Configuration
 doctrine:
@@ -105,16 +104,35 @@ vich_uploader:
     
     mappings:
         eranskina:
-            uri_prefix: /%eranskinak_uploads_url%
-            upload_destination: %eranskinak_uploads_directory%
+            uri_prefix: '/%eranskinak_uploads_url%'
+            upload_destination: '%eranskinak_uploads_directory%'
             namer: vich_uploader.namer_origname
             inject_on_load:     false
             delete_on_update:   true
             delete_on_remove:   true
         argazkia:
-            uri_prefix: %images_uploads_url%
-            upload_destination: %images_uploads_directory%
+            uri_prefix: '%images_uploads_url%'
+            upload_destination: '%images_uploads_directory%'
             namer: vich_uploader.namer_uniqid
             inject_on_load:     false
             delete_on_update:   true
             delete_on_remove:   true
+            
+fr3d_ldap:
+   driver:
+      host: '%ldap_host%'
+      username: '%ldap_user%'
+      password: '%ldap_password%'
+      accountDomainName: '%ldap_accountDomainName%'
+   user:
+      usernameAttribute: samaccountname
+      baseDn: '%ldap_users_dn%'
+      filter: (&(ObjectClass=Person))
+      attributes:
+         - { ldap_attr: samaccountname,  user_method: setUsername }
+         - { ldap_attr: mail, user_method: setEmail }
+         - { ldap_attr: cn, user_method: setIzena }
+         
+sensio_framework_extra:
+    router:
+        annotations: false

@@ -10,7 +10,7 @@ namespace AppBundle\Controller\Web\Admin;
 
 use AppBundle\Entity\Zerbitzua;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use AppBundle\Controller\Web\Admin\ZerbitzuaFormType;
 use Symfony\Component\HttpFoundation\Request;
 

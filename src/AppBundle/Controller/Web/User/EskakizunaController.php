@@ -17,7 +17,7 @@ use AppBundle\Entity\Erantzuna;
 use AppBundle\Entity\Georeferentziazioa;
 use AppBundle\Entity\Zerbitzua;
 use AppBundle\Entity\Argazkia;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Collections\ArrayCollection;

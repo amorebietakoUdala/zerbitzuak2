@@ -1,12 +1,19 @@
 # To get started with security, check out the documentation:
 # http://symfony.com/doc/current/security.html
 security:
+    erase_credentials: false
 
     encoders:
-        AppBundle\Entity\Erabiltzailea: bcrypt
-
+      AcmeBundle\Acme\User\LdapUser: plaintext
+      FOS\UserBundle\Model\UserInterface: bcrypt
+      
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
+        chain_provider:
+            chain:
+               providers: [fos_userbundle, fr3d_ldapbundle]
+        fr3d_ldapbundle:
+            id: fr3d_ldap.security.user.provider
         fos_userbundle:
             id: fos_user.user_provider.username
 
@@ -17,22 +24,24 @@ security:
             security: false
 
         main:
+            logout_on_user_change: true
             pattern: ^/
-            anonymous: ~
-            
+            provider: chain_provider
+            fr3d_ldap:  ~
+            form_login:
+                login_path: '/%locale%/login'
+                check_path: fos_user_security_check
+                provider: chain_provider
+                csrf_token_generator: security.csrf.token_manager
             logout:
                 path: fos_user_security_logout
+            anonymous:  true
             # activate different ways to authenticate
 
             # http://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
             #http_basic: ~
 
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
-            form_login:
-                login_path: /%locale%/login
-                check_path: fos_user_security_check
-                provider: fos_userbundle
-                csrf_token_generator: security.csrf.token_manager
 
             remember_me:
                 secret: '%secret%'

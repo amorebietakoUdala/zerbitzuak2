@@ -22,3 +22,8 @@ parameters:
     mezuak_bidali: false
     eranskinak_uploads_url: /zerbitzuak2/web/docs
     eranskinak_uploads_directory: '%kernel.root_dir%/../web/docs/uploads'
+    ldap_host: ldap_host
+    ldap_user: ldap_user
+    ldap_password: ldap_password
+    ldap_users_dn: 'OU=Users,DC=domain,DC=com'
+    ldap_accountDomainName: DOMAIN
