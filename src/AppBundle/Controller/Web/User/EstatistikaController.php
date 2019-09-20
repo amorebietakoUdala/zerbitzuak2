@@ -2,11 +2,12 @@
 
 namespace AppBundle\Controller\Web\User;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use SaadTazi\GChartBundle\DataTable;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Estatistika;
+use AppBundle\Forms\EstatistikaFormType;
+use SaadTazi\GChartBundle\DataTable;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/{_locale}/estatistika")

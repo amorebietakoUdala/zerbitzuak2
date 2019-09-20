@@ -6,18 +6,18 @@
  * and open the template in the editor.
  */
 
-namespace AppBundle\Controller\Web\Admin;
+namespace AppBundle\Forms;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Description of JatorriaFormType
+ * Description of EskakizunMotaFormType
  *
  * @author ibilbao
  */
-class JatorriaFormType extends AbstractType {
+class EskakizunMotaFormType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
 	$builder
@@ -28,7 +28,7 @@ class JatorriaFormType extends AbstractType {
 
     public function configureOptions(OptionsResolver $resolver) {
 	$resolver->setDefaults([
-	    'data_class' => '\AppBundle\Entity\Jatorria'
+	    'data_class' => '\AppBundle\Entity\EskakizunMota'
 	]);
     }
 

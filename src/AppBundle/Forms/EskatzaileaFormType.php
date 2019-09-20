@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace AppBundle\Controller\Web\Admin;
+namespace AppBundle\Forms;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;

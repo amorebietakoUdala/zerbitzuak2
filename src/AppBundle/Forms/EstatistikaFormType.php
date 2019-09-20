@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace AppBundle\Controller\Web\User;
+namespace AppBundle\Forms;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;

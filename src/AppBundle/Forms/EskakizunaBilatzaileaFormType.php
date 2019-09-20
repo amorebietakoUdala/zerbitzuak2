@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace AppBundle\Controller\Web\User;
+namespace AppBundle\Forms;
 
 use AppBundle\Entity\Egoera;
 use AppBundle\Entity\Enpresa;

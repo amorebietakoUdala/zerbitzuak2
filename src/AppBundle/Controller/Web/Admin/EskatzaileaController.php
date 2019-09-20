@@ -8,12 +8,13 @@
 
 namespace AppBundle\Controller\Web\Admin;
 
-use AppBundle\Entity\Eskatzailea;
 use AppBundle\Entity\Eskakizuna;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Eskatzailea;
+use AppBundle\Forms\EskatzaileaFormType;
 use Psr\Log\LoggerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Description of EskatzaileaController.

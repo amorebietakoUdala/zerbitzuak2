@@ -10,6 +10,7 @@ namespace AppBundle\Controller\Web\Admin;
 
 use AppBundle\Entity\Egoera;
 use AppBundle\Entity\Eskakizuna;
+use AppBundle\Forms\EgoeraFormType;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;

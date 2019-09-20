@@ -8,22 +8,26 @@
 
 namespace AppBundle\Controller\Web\User;
 
+use AppBundle\Entity\Argazkia;
 use AppBundle\Entity\Egoera;
 use AppBundle\Entity\Enpresa;
 use AppBundle\Entity\Erabiltzailea;
+use AppBundle\Entity\Erantzuna;
 use AppBundle\Entity\Eskakizuna;
 use AppBundle\Entity\Eskatzailea;
-use AppBundle\Entity\Erantzuna;
 use AppBundle\Entity\Georeferentziazioa;
 use AppBundle\Entity\Zerbitzua;
-use AppBundle\Entity\Argazkia;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Forms\EskakizunaBilatzaileaFormType;
+use AppBundle\Forms\EskakizunaFormType;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\HttpFoundation\File\File;
-use Swift_Message;
+use Imagick;
 use Psr\Log\LoggerInterface;
+use Swift_Message;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Description of EskakizunaController.
@@ -85,14 +89,14 @@ class EskakizunaController extends Controller
             if (null != $this->eskakizuna->getZerbitzua()) {
                 $egoera = $em->getRepository(Egoera::class)->find(Egoera::EGOERA_BIDALIA);
                 $this->eskakizuna->setEgoera($egoera);
-                $this->eskakizuna->setNoizBidalia(new \DateTime());
+                $this->eskakizuna->setNoizBidalia(new DateTime());
             } else {
                 $egoera = $em->getRepository(Egoera::class)->find(Egoera::EGOERA_BIDALI_GABE);
                 $this->eskakizuna->setEgoera($egoera);
             }
 
             $this->eskakizuna->setNorkInformatua($user);
-            $this->eskakizuna->setNoizInformatua(new \DateTime());
+            $this->eskakizuna->setNoizInformatua(new DateTime());
 
             $em->persist($this->eskatzailea);
             $em->persist($this->eskakizuna);
@@ -123,7 +127,7 @@ class EskakizunaController extends Controller
      */
     public function listAtzotikAction(Request $request)
     {
-        $gaur = new \DateTime();
+        $gaur = new DateTime();
 
         return $this->redirectToRoute('admin_eskakizuna_list', [
         'nora' => $gaur->format('Y-m-d H:i'),
@@ -136,7 +140,7 @@ class EskakizunaController extends Controller
      */
     public function listAzkenAsteaAction(Request $request)
     {
-        $gaur = new \DateTime();
+        $gaur = new DateTime();
 
         return $this->redirectToRoute('admin_eskakizuna_list', [
         'nora' => $gaur->format('Y-m-d H:i'),
@@ -250,7 +254,7 @@ class EskakizunaController extends Controller
                     $logger->debug('Egoera: Bidali gabe edo zerbitzua aldatua');
                     $egoera = $em->getRepository(Egoera::class)->find(Egoera::EGOERA_BIDALIA);
                     $this->eskakizuna->setEgoera($egoera);
-                    $this->eskakizuna->setNoizBidalia(new \DateTime());
+                    $this->eskakizuna->setNoizBidalia(new DateTime());
                     $title = 'Eskakizuna esleitu egin zaizu. Eskakizun zenbakia:';
                     $mezuak_bidali = $this->getParameter('mezuak_bidali');
                     if ($mezuak_bidali) {
@@ -272,7 +276,7 @@ class EskakizunaController extends Controller
                 $erantzuna->setErantzulea($user);
                 $erantzuna->setEskakizuna($this->eskakizuna);
                 $erantzuna->setErantzuna($erantzun_berria);
-                $erantzuna->setNoiz(new \DateTime());
+                $erantzuna->setNoiz(new DateTime());
                 $em->persist($erantzuna);
                 $erantzunak = $form_erantzunak->getValues();
                 array_push($erantzunak, $erantzuna);
@@ -292,7 +296,7 @@ class EskakizunaController extends Controller
                 $erantzuna->setErantzulea($user);
                 $erantzuna->setEskakizuna($this->eskakizuna);
                 $erantzuna->setErantzuna($erantzun_berria);
-                $erantzuna->setNoiz(new \DateTime());
+                $erantzuna->setNoiz(new DateTime());
                 $em->persist($erantzuna);
                 $erantzunak = $form_erantzunak->getValues();
                 array_push($erantzunak, $erantzuna);
@@ -386,7 +390,7 @@ class EskakizunaController extends Controller
                 $erantzuna->setErantzulea($user);
                 $erantzuna->setEskakizuna($this->eskakizuna);
                 $erantzuna->setErantzuna($erantzun_berria);
-                $erantzuna->setNoiz(new \DateTime());
+                $erantzuna->setNoiz(new DateTime());
                 $em->persist($erantzuna);
                 $erantzunak = $form_erantzunak->getValues();
                 array_push($erantzunak, $erantzuna);
@@ -445,7 +449,7 @@ class EskakizunaController extends Controller
         $returnPage = $this->_getReturnPage($request);
 
         $em = $this->getDoctrine()->getManager();
-        $eskakizuna->setItxieraData(new \DateTime());
+        $eskakizuna->setItxieraData(new DateTime());
         $egoera = $em->getRepository(Egoera::class)->find(Egoera::EGOERA_ITXIA);
         $eskakizuna->setEgoera($egoera);
 
@@ -474,7 +478,7 @@ class EskakizunaController extends Controller
         $returnPage = $this->_getReturnPage($request);
 
         $em = $this->getDoctrine()->getManager();
-        $eskakizuna->setNoizErreklamatua(new \DateTime());
+        $eskakizuna->setNoizErreklamatua(new DateTime());
         $eskakizuna->setNorkErreklamatua($user);
         $title = 'Eskakizuna erreklamatua. Eskakizun zenbakia: ';
         $this->_mezuaBidaliEnpresari($title, $eskakizuna, $eskakizuna->getEnpresa());
@@ -537,7 +541,7 @@ class EskakizunaController extends Controller
         $argazkiaren_izena = $argazkia->getImageName();
         if (null !== $argazkia) {
             /* Honek funtzionatzen du baina agian zuzenean txikituta gorde daiteke */
-            $image = new \Imagick($argazkien_direktorioa.'/'.$argazkiaren_izena);
+            $image = new Imagick($argazkien_direktorioa.'/'.$argazkiaren_izena);
             $image->thumbnailImage($argazkien_zabalera, 0);
             $image->writeImage($argazkien_direktorioa.'/'.$argazkiaren_izena);
             $imageFile = new File($argazkien_direktorioa.'/'.$argazkiaren_izena);
@@ -567,7 +571,7 @@ class EskakizunaController extends Controller
         $argazkiaren_izena
         );
             /* Honek funtzionatzen du baina agian zuzenean txikituta gorde daiteke */
-            $image = new \Imagick($argazkien_direktorioa.'/'.$argazkiaren_izena);
+            $image = new Imagick($argazkien_direktorioa.'/'.$argazkiaren_izena);
             $image->thumbnailImage($argazkien_zabalera, 0);
             $image->writeImage($argazkien_direktorioa.'/'.$argazkiaren_izena);
             $image->thumbnailImage($argazkien_thumb_zabalera, 0);

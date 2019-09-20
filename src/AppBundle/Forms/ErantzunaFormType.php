@@ -6,29 +6,37 @@
  * and open the template in the editor.
  */
 
-namespace AppBundle\Controller\Web\Admin;
+namespace AppBundle\Forms;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
- * Description of EmpresaFormType
+ * Description of ErantzunaFormType
  *
  * @author ibilbao
  */
-class EgoeraFormType extends AbstractType {
+class ErantzunaFormType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
 	$builder
-	    ->add('deskripzioa_es')
-	    ->add('deskripzioa_eu')
+	    ->add('erantzuna', TextareaType::class,[
+		'attr' => ['class' => 'tinymce'],
+		'constraints' => [
+				 ],
+	    ])
 	;
     }
 
     public function configureOptions(OptionsResolver $resolver) {
 	$resolver->setDefaults([
-	    'data_class' => '\AppBundle\Entity\Egoera'
+	    'data_class' => '\AppBundle\Entity\Erantzuna',
+	    'csrf_protection' => false,
 	]);
     }
 

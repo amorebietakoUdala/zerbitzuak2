@@ -6,33 +6,29 @@
  * and open the template in the editor.
  */
 
-namespace AppBundle\Controller\Web\Admin;
+namespace AppBundle\Forms;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
- * Description of EmpresaFormType
+ * Description of JatorriaFormType
  *
  * @author ibilbao
  */
-class EnpresaFormType extends AbstractType {
-    
+class JatorriaFormType extends AbstractType {
+
     public function buildForm(FormBuilderInterface $builder, array $options) {
 	$builder
-	    ->add('izena')
-	    ->add('ordena')
-            ->add('aktibatua', CheckboxType::class,[
-                'data' => true
-            ])
+	    ->add('deskripzioa_es')
+	    ->add('deskripzioa_eu')
 	;
     }
 
     public function configureOptions(OptionsResolver $resolver) {
 	$resolver->setDefaults([
-	    'data_class' => '\AppBundle\Entity\Enpresa'
+	    'data_class' => '\AppBundle\Entity\Jatorria'
 	]);
     }
 

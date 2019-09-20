@@ -2,13 +2,13 @@
 
 namespace AppBundle\Controller\Web;
 
-use AppBundle\Controller\Web\Admin\ErabiltzaileaFormType;
 use AppBundle\Entity\Erabiltzailea;
-use Symfony\Component\Routing\Annotation\Route;
+use AppBundle\Forms\ErabiltzaileaFormType;
+use Psr\Log\LoggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Psr\Log\LoggerInterface;
+use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends Controller
 {

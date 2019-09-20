@@ -8,12 +8,13 @@
 
 namespace AppBundle\Controller\Web\Admin;
 
-use AppBundle\Entity\EskakizunMota;
 use AppBundle\Entity\Eskakizuna;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\EskakizunMota;
+use AppBundle\Forms\EskakizunMotaFormType;
 use Psr\Log\LoggerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Description of EskakizunMotaController.

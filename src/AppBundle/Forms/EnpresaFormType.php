@@ -6,37 +6,33 @@
  * and open the template in the editor.
  */
 
-namespace AppBundle\Controller\Web\User;
+namespace AppBundle\Forms;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
- * Description of ErantzunaFormType
+ * Description of EmpresaFormType
  *
  * @author ibilbao
  */
-class ErantzunaFormType extends AbstractType {
-
+class EnpresaFormType extends AbstractType {
+    
     public function buildForm(FormBuilderInterface $builder, array $options) {
 	$builder
-	    ->add('erantzuna', TextareaType::class,[
-		'attr' => ['class' => 'tinymce'],
-		'constraints' => [
-				 ],
-	    ])
+	    ->add('izena')
+	    ->add('ordena')
+            ->add('aktibatua', CheckboxType::class,[
+                'data' => true
+            ])
 	;
     }
 
     public function configureOptions(OptionsResolver $resolver) {
 	$resolver->setDefaults([
-	    'data_class' => '\AppBundle\Entity\Erantzuna',
-	    'csrf_protection' => false,
+	    'data_class' => '\AppBundle\Entity\Enpresa'
 	]);
     }
 
