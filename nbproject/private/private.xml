@@ -13,6 +13,35 @@
             <file>file:/C:/Netbeans/zerbitzuak2_produccion/src/AppBundle/Controller/Web/Admin/JatorriaController.php</file>
             <file>file:/C:/Netbeans/zerbitzuak2_produccion/src/AppBundle/Controller/Web/User/EskakizunaController.php</file>
         </group>
-        <group/>
+        <group>
+            <file>file://garapenak/Symfony_projects/zerbitzuak2/app/Resources/FOSUserBundle/_config/routing/change_password.xml</file>
+            <file>file://garapenak/Symfony_projects/zerbitzuak2/.env</file>
+            <file>file://garapenak/Symfony_projects/zerbitzuak2/src/AppBundle/Controller/Web/User/ArgazkiaFormType.php</file>
+            <file>file://garapenak/Symfony_projects/zerbitzuak2/app/Resources/VichUploaderBundle/translations/VichUploaderBundle.eu.yml</file>
+            <file>file://garapenak/Symfony_projects/zerbitzuak2/app/config/config_dev.yml</file>
+            <file>file://garapenak/Symfony_projects/zerbitzuak2/app/config/routing.yml</file>
+            <file>file://garapenak/Symfony_projects/zerbitzuak2/src/AppBundle/Entity/Eskakizuna.php</file>
+            <file>file://garapenak/Symfony_projects/zerbitzuak2/src/AppBundle/Entity/Eranskina.php</file>
+            <file>file://garapenak/Symfony_projects/zerbitzuak2/app/config/config_prod.yml</file>
+            <file>file://garapenak/Symfony_projects/zerbitzuak2/app/config/services.yml</file>
+            <file>file://garapenak/Symfony_projects/zerbitzuak2/app/Resources/FOSUserBundle/views/layout.html.twig</file>
+            <file>file://garapenak/Symfony_projects/zerbitzuak2/src/AppBundle/Entity/Argazkia.php</file>
+            <file>file://garapenak/Symfony_projects/zerbitzuak2/app/config/routing_dev.yml</file>
+            <file>file://garapenak/Symfony_projects/zerbitzuak2/app/Resources/VichUploaderBundle/views/Form/fields.html.twig</file>
+            <file>file://garapenak/Symfony_projects/zerbitzuak2/app/config/security.yml</file>
+            <file>file://garapenak/Symfony_projects/zerbitzuak2/app/config/config_test.yml</file>
+            <file>file://garapenak/Symfony_projects/zerbitzuak2/src/AppBundle/Entity/Erabiltzailea.php</file>
+            <file>file://garapenak/Symfony_projects/zerbitzuak2/app/Resources/FOSUserBundle/views/Security/login_content.html.twig</file>
+            <file>file://garapenak/Symfony_projects/zerbitzuak2/app/Resources/FOSUserBundle/_config/routing/security.xml</file>
+            <file>file://garapenak/Symfony_projects/zerbitzuak2/app/config/parameters.yml.dist</file>
+            <file>file://garapenak/Symfony_projects/zerbitzuak2/app/Resources/VichUploaderBundle/translations/VichUploaderBundle.es.yml</file>
+            <file>file://garapenak/Symfony_projects/zerbitzuak2/composer.json</file>
+            <file>file://garapenak/Symfony_projects/zerbitzuak2/src/AppBundle/Controller/DefaultController.php</file>
+            <file>file://garapenak/Symfony_projects/zerbitzuak2/app/config/parameters.yml</file>
+            <file>file://garapenak/Symfony_projects/zerbitzuak2/app/Resources/FOSUserBundle/_config/routing/all.xml</file>
+            <file>file://garapenak/Symfony_projects/zerbitzuak2/src/AppBundle/Controller/Web/User/EskakizunaController.php</file>
+            <file>file://garapenak/Symfony_projects/zerbitzuak2/app/config/config.yml</file>
+            <file>file://garapenak/Symfony_projects/zerbitzuak2/app/AppKernel.php</file>
+        </group>
     </open-files>
 </project-private>

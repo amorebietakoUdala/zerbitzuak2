@@ -23,6 +23,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\File\File;
 use Swift_Message;
+use Psr\Log\LoggerInterface;
 
 /**
  * Description of EskakizunaController.
@@ -198,9 +199,8 @@ class EskakizunaController extends Controller
     /**
      * @Route("/{id}/edit", name="admin_eskakizuna_edit")
      */
-    public function editAction(Request $request, Eskakizuna $eskakizuna)
+    public function editAction(Request $request, Eskakizuna $eskakizuna, LoggerInterface $logger)
     {
-        $logger = $this->get('logger');
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $form = $this->createForm(EskakizunaFormType::class, $eskakizuna, [
         'editatzen' => true,
@@ -357,10 +357,10 @@ class EskakizunaController extends Controller
     /**
      * @Route("/{id}", name="admin_eskakizuna_show")
      */
-    public function showAction(Request $request, Eskakizuna $eskakizuna)
+    public function showAction(Request $request, Eskakizuna $eskakizuna, LoggerInterface $logger)
     {
         $user = $this->get('security.token_storage')->getToken()->getUser();
-        $this->get('logger')->debug('Show. Eskakizun zenbakia: '.$eskakizuna->getId());
+        $logger->debug('Show. Eskakizun zenbakia: '.$eskakizuna->getId());
         $argazkien_direktorioa = $this->getParameter('images_uploads_url');
 
         $returnPage = $this->_getReturnPage($request);

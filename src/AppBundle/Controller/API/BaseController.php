@@ -6,7 +6,6 @@ use AppBundle\Entity\Erabiltzailea;
 use AppBundle\Repository\ApiTokenRepository;
 use JMS\Serializer\SerializationContext;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\User\User;
@@ -16,7 +15,7 @@ abstract class BaseController extends Controller
     /**
      * Is the current user logged in?
      *
-     * @return boolean
+     * @return bool
      */
     public function isUserLoggedIn()
     {
@@ -25,7 +24,7 @@ abstract class BaseController extends Controller
     }
 
     /**
-     * Logs this user into the system
+     * Logs this user into the system.
      *
      * @param User $user
      */
@@ -36,19 +35,11 @@ abstract class BaseController extends Controller
         $this->container->get('security.token_storage')->setToken($token);
     }
 
-    public function addFlash($message, $positiveNotice = true)
-    {
-        /** @var Request $request */
-        $request = $this->container->get('request_stack')->getCurrentRequest();
-        $noticeKey = $positiveNotice ? 'notice_happy' : 'notice_sad';
-
-        $request->getSession()->getFlashbag()->add($noticeKey, $message);
-    }
-
     /**
-     * Used to find the fixtures user - I use it to cheat in the beginning
+     * Used to find the fixtures user - I use it to cheat in the beginning.
      *
      * @param $username
+     *
      * @return User
      */
     public function findUserByUsername($username)
@@ -79,7 +70,7 @@ abstract class BaseController extends Controller
         $json = $this->serialize($data);
 
         return new Response($json, $statusCode, array(
-            'Content-Type' => 'application/json'
+            'Content-Type' => 'application/json',
         ));
     }
 
@@ -87,7 +78,7 @@ abstract class BaseController extends Controller
     {
         $context = new SerializationContext();
         $context->setSerializeNull(true);
-	$context->enableMaxDepthChecks();
+        $context->enableMaxDepthChecks();
 
         return $this->container->get('jms_serializer')
             ->serialize($data, $format, $context);

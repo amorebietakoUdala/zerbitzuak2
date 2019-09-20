@@ -10,7 +10,6 @@ use AppBundle\Entity\Eskakizuna;
 use AppBundle\Entity\Eskatzailea;
 use AppBundle\Entity\Egoera;
 use DateTime;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,8 +21,30 @@ use function GuzzleHttp\json_decode;
 class ApiController extends BaseController
 {
     /**
-     * @Route("/eskatzailea")
-     * @Method("POST")
+     * @Route("/eskatzailea", name="api_eskatzailea_list", options={"expose" = true}, methods={"GET"} )
+     */
+    public function listAction(Request $request)
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+//        $izena = $request->query->get('izena');
+        $criteria = $request->query->all();
+        if ($criteria) {
+            $eskatzaileak = $this->getDoctrine()
+                ->getRepository('AppBundle:Eskatzailea')
+                ->findAllLike($criteria);
+        } else {
+            $eskatzaileak = $this->getDoctrine()
+                ->getRepository('AppBundle:Eskatzailea')
+                ->findAll();
+        }
+
+        $response = $this->createApiResponse(['eskatzaileak' => $eskatzaileak], 200);
+
+        return $response;
+    }
+
+    /**
+     * @Route("/eskatzailea", methods={"POST"})
      */
     public function newAction(Request $request)
     {
@@ -46,8 +67,7 @@ class ApiController extends BaseController
     }
 
     /**
-     * @Route("/eskatzailea/{id}", name="api_eskatzailea_show")
-     * @Method("GET")
+     * @Route("/eskatzailea/{id}", name="api_eskatzailea_show", methods={"GET"})
      */
     public function showAction($id)
     {
@@ -67,33 +87,8 @@ class ApiController extends BaseController
         return $response;
     }
 
-    /**
-     * @Route("/eskatzailea", name="api_eskatzailea_list", options={"expose" = true} )
-     * @Method("GET")
-     */
-    public function listAction(Request $request)
-    {
-        $this->denyAccessUnlessGranted('ROLE_USER');
-//        $izena = $request->query->get('izena');
-        $criteria = $request->query->all();
-        if ($criteria) {
-            $eskatzaileak = $this->getDoctrine()
-                ->getRepository('AppBundle:Eskatzailea')
-                ->findAllLike($criteria);
-        } else {
-            $eskatzaileak = $this->getDoctrine()
-                ->getRepository('AppBundle:Eskatzailea')
-                ->findAll();
-        }
-
-        $response = $this->createApiResponse(['eskatzaileak' => $eskatzaileak], 200);
-
-        return $response;
-    }
-
 //    /**
-//     * @Route("/api/eskatzailea/{id}")
-//     * @Method({"PUT", "PATCH"})
+//     * @Route("/api/eskatzailea/{id}", methods={"PUT", PATCH})
 //     */
 //    public function updateAction($id, Request $request)
 //    {
@@ -121,8 +116,7 @@ class ApiController extends BaseController
 //    }
 //
 //    /**
-//     * @Route("/api/eskatzailea/{nickname}")
-//     * @Method("DELETE")
+//     * @Route("/api/eskatzailea/{nickname}", methods={"DELETE"})
 //     */
 //    public function deleteAction($nickname)
 //    {
@@ -143,7 +137,7 @@ class ApiController extends BaseController
 //    }
 
     /**
-     * @Route("/eskakizuna/{id}/erantzuna/new", name="api_erantzuna_new", options={"expose" = true})
+     * @Route("/eskakizuna/{id}/erantzuna/new", name="api_erantzuna_new", methods={"GET"}, options={"expose" = true})
      */
     public function newErantzunaAction(Request $request, $id)
     {
@@ -186,7 +180,7 @@ class ApiController extends BaseController
     }
 
     /**
-     * @Route("/erantzuna/{$id}", name="api_erantzuna_show", options={"expose" = true})
+     * @Route("/erantzuna/{$id}", name="api_erantzuna_show", methods={"GET"}, options={"expose" = true})
      */
     public function showErantzunaAction(Request $request, $id)
     {
@@ -206,8 +200,7 @@ class ApiController extends BaseController
     }
 
     /**
-     * @Route("/eskakizuna", name="api_eskakizuna_list", options={"expose" = true} )
-     * @Method("GET")
+     * @Route("/eskakizuna", name="api_eskakizuna_list", methods={"GET"}, options={"expose" = true} )
      */
     public function listEskakizunaAction(Request $request)
     {
@@ -262,8 +255,7 @@ class ApiController extends BaseController
     }
 
     /**
-     * @Route("/batchclose", name="api_eskakizuna_batchclose")
-     * @Method("POST")
+     * @Route("/batchclose", name="api_eskakizuna_batchclose", methods={"POST"})
      */
     public function closeAction(Request $request)
     {
