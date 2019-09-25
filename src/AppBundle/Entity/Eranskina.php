@@ -6,7 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
-use AppBundle\Entity\Eskakizuna;
 
 /**
  * @ORM\Entity()
@@ -14,7 +13,8 @@ use AppBundle\Entity\Eskakizuna;
  * @ORM\HasLifecycleCallbacks
  * @Vich\Uploadable
  */
-class Eranskina {
+class Eranskina
+{
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -24,15 +24,16 @@ class Eranskina {
 
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     *
      * @Assert\File(maxSize="4096k",mimeTypes={"application/pdf"})
      * @Vich\UploadableField(mapping="eranskina", fileNameProperty="eranskinaName", size="eranskinaSize")
-     * 
+     *
      * @var File
      */
     private $eranskinaFile;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      *
      * @var string
      */
@@ -46,19 +47,18 @@ class Eranskina {
     private $eranskinaSize;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      *
      * @var \DateTime
      */
     private $updatedAt;
 
     /**
-    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Eskakizuna", inversedBy="eranskinak" , cascade={"persist", "merge", "remove"} )
-    * @ORM\JoinColumn(nullable=false)
-    */
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Eskakizuna", inversedBy="eranskinak" , cascade={"persist", "merge", "remove"} )
+     * @ORM\JoinColumn(nullable=true)
+     */
     private $eskakizuna;
-    
-    
+
     /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
      * of 'UploadedFile' is injected into this setter to trigger the  update. If this
@@ -78,10 +78,10 @@ class Eranskina {
             // It is required that at least one field changes if you are using doctrine
             // otherwise the event listeners won't be called and the file is lost
             $this->updatedAt = new \DateTimeImmutable();
-	    $this->eranskinaSize = $this->eranskinaFile->getSize();
-	    $this->eranskinaName = $this->eranskinaFile->getFilename();
+            $this->eranskinaSize = $this->eranskinaFile->getSize();
+            $this->eranskinaName = $this->eranskinaFile->getFilename();
         }
-        
+
         return $this;
     }
 
@@ -101,7 +101,7 @@ class Eranskina {
     public function setEranskinaName($eranskinaName)
     {
         $this->eranskinaName = $eranskinaName;
-        
+
         return $this;
     }
 
@@ -112,55 +112,61 @@ class Eranskina {
     {
         return $this->eranskinaName;
     }
-    
+
     /**
-     * @param integer $eranskinaSize
+     * @param int $eranskinaSize
      *
      * @return Product
      */
     public function setEranskinaSize($eranskinaSize)
     {
         $this->eranskinaSize = $eranskinaSize;
-        
+
         return $this;
     }
 
-    public function getId() {
-	return $this->id;
+    public function getId()
+    {
+        return $this->id;
     }
 
-        /**
+    /**
      * @return integer|null
      */
     public function getEranskinaSize()
     {
         return $this->eranskinaSize;
     }
-    
-    public function getUpdatedAt() {
-	return $this->updatedAt;
+
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 
-    public function getEskakizuna() {
-	return $this->eskakizuna;
+    public function getEskakizuna()
+    {
+        return $this->eskakizuna;
     }
 
-    public function setUpdatedAt(\DateTime $updatedAt) {
-	$this->updatedAt = $updatedAt;
+    public function setUpdatedAt(\DateTime $updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
     }
 
-    public function addEskakizuna(Eskakizuna $eskakizuna) {
-	if (!$this->eskakizuna->contains($eskakizuna)) {
-	    $this->setEskakizuna($eskakizuna);
-	}
-    }
-    
-    public function setEskakizuna(Eskakizuna $eskakizuna = null) {
-	$this->eskakizuna = $eskakizuna;
+    public function addEskakizuna(Eskakizuna $eskakizuna)
+    {
+        if (!$this->eskakizuna->contains($eskakizuna)) {
+            $this->setEskakizuna($eskakizuna);
+        }
     }
 
-    public function _toString() {
-	return $this->eranskinaName . "(" . $this->eranskinaSize . ")";
+    public function setEskakizuna(Eskakizuna $eskakizuna = null)
+    {
+        $this->eskakizuna = $eskakizuna;
     }
 
+    public function _toString()
+    {
+        return $this->eranskinaName.'('.$this->eranskinaSize.')';
+    }
 }

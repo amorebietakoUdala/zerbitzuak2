@@ -61,7 +61,6 @@ class EskakizunaController extends Controller
             $em = $this->getDoctrine()->getManager();
 
             /* @var data \AppBundle\Entity\Eskakizuna */
-            //	    dump($form->getData());die;
             $this->eskakizuna = $form->getData();
             $this->eskatzailea = $this->eskakizuna->getEskatzailea();
             if (null !== $this->eskatzailea->getId()) {
@@ -83,7 +82,6 @@ class EskakizunaController extends Controller
                 $this->eskakizuna->setEnpresa($zerbitzua->getEnpresa());
                 $zerbitzua_hautatua = true;
             }
-            //	    dump($this->eskakizuna);die;
             $this->_argazkia_gorde_multi();
             $this->_eranskinak_gorde_multi();
             if (null != $this->eskakizuna->getZerbitzua()) {
@@ -207,10 +205,10 @@ class EskakizunaController extends Controller
     {
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $form = $this->createForm(EskakizunaFormType::class, $eskakizuna, [
-        'editatzen' => true,
-        'role' => $user->getRoles(),
-        'locale' => $request->getLocale(),
-    ]);
+            'editatzen' => true,
+            'role' => $user->getRoles(),
+            'locale' => $request->getLocale(),
+        ]);
 
         $returnPage = $this->_getReturnPage($request);
 
@@ -222,11 +220,9 @@ class EskakizunaController extends Controller
             $eranskinakAldatuAurretik->add($eranskina);
         }
 
-        //	dump($eranskinakAldatuAurretik);
-
         $argazkiakAldatuAurretik = new ArrayCollection();
 
-        $aurrekoArgazkia = $eskakizuna->getArgazkia();
+//        $aurrekoArgazkia = $eskakizuna->getArgazkia();
         foreach ($eskakizuna->getArgazkiak() as $argazkia) {
             $argazkiakAldatuAurretik->add($argazkia);
         }
@@ -308,7 +304,7 @@ class EskakizunaController extends Controller
             }
 
             $this->_argazkia_gorde_multi($argazkiakAldatuAurretik);
-            //	    dump($eranskinakAldatuAurretik);die;
+
             $this->_eranskinak_gorde_multi($eranskinakAldatuAurretik);
 
             $em->persist($this->eskakizuna);
@@ -322,11 +318,11 @@ class EskakizunaController extends Controller
         }
 
         return $this->render('/eskakizuna/edit.html.twig', [
-        'eskakizunaForm' => $form->createView(),
-        'erantzunak' => $erantzunak,
-        'editatzen' => true,
-        'erantzun' => false,
-        'returnPage' => $returnPage,
+            'eskakizunaForm' => $form->createView(),
+            'erantzunak' => $erantzunak,
+            'editatzen' => true,
+            'erantzun' => false,
+            'returnPage' => $returnPage,
     ]);
     }
 
@@ -337,8 +333,8 @@ class EskakizunaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $eskakizuna = $em->getRepository(Eskakizuna::class)->findOneBy([
-        'id' => $id,
-    ]);
+            'id' => $id,
+        ]);
 
         if (!$eskakizuna) {
             $this->addFlash('error', 'messages.eskakizuna_ez_da_existitzen');
@@ -347,15 +343,14 @@ class EskakizunaController extends Controller
         }
 
         $returnPage = $this->_getReturnPage($request);
-        //	dump($returnPage);die;
         $em->remove($eskakizuna);
         $em->flush();
 
         $this->addFlash('success', 'messages.eskakizuna_ezabatua');
 
         return $this->redirectToRoute('admin_eskakizuna_list', [
-        'returnPage' => $returnPage,
-    ]);
+            'returnPage' => $returnPage,
+        ]);
     }
 
     /**
@@ -370,10 +365,10 @@ class EskakizunaController extends Controller
         $returnPage = $this->_getReturnPage($request);
 
         $eskakizunaForm = $this->createForm(EskakizunaFormType::class, $eskakizuna, [
-        'editatzen' => false,
-        'readonly' => true,
-        'role' => $user->getRoles(),
-        'locale' => $request->getLocale(),
+            'editatzen' => false,
+            'readonly' => true,
+            'role' => $user->getRoles(),
+            'locale' => $request->getLocale(),
         ]);
 
         $erantzunak = $eskakizuna->getErantzunak();
@@ -416,23 +411,23 @@ class EskakizunaController extends Controller
             $this->addFlash('success', 'messages.erantzuna_gordea');
 
             return $this->render('/eskakizuna/show.html.twig', [
-        'eskakizunaForm' => $eskakizunaForm->createView(),
-        'erantzunak' => $erantzunak,
-        'argazkia' => $argazkien_direktorioa.'/'.$eskakizuna->getArgazkia(),
-        'editatzen' => false,
-        'erantzun' => true,
-        'returnPage' => $returnPage,
-        ]);
+                'eskakizunaForm' => $eskakizunaForm->createView(),
+                'erantzunak' => $erantzunak,
+                'argazkia' => $argazkien_direktorioa.'/'.$eskakizuna->getArgazkia(),
+                'editatzen' => false,
+                'erantzun' => true,
+                'returnPage' => $returnPage,
+            ]);
         }
 
         return $this->render('/eskakizuna/show.html.twig', [
-        'eskakizunaForm' => $eskakizunaForm->createView(),
-        'erantzunak' => $erantzunak,
-        'argazkia' => $argazkien_direktorioa.'/'.$eskakizuna->getArgazkia(),
-        'editatzen' => false,
-        'erantzun' => true,
-        'returnPage' => $returnPage,
-    ]);
+            'eskakizunaForm' => $eskakizunaForm->createView(),
+            'erantzunak' => $erantzunak,
+            'argazkia' => $argazkien_direktorioa.'/'.$eskakizuna->getArgazkia(),
+            'editatzen' => false,
+            'erantzun' => true,
+            'returnPage' => $returnPage,
+        ]);
     }
 
     /**
@@ -519,20 +514,6 @@ class EskakizunaController extends Controller
         $this->eskatzailea->setPostaKodea($eskatzailea->getPostaKodea());
     }
 
-//    private function _parseEskakizuna($form){
-    //	$data = $form->getData();
-    //	$this->eskakizuna->setLep($data->getLep());
-    //	$this->eskakizuna->setNoiz($data->getNoiz());
-    //	$this->eskakizuna->setKalea($data->getKalea());
-    //	$this->eskakizuna->setArgazkia($data->getArgazkia());
-    //	$this->eskakizuna->setEskakizunMota($data->getEskakizunMota());
-    //	$this->eskakizuna->setJatorria($data->getJatorria());
-    //	$this->eskakizuna->setMamia($data->getMamia());
-    //	if ( $data->getZerbitzua() !== null ) {
-    //	    $this->eskakizuna->setZerbitzua($data->getZerbitzua());
-    //	}
-//    }
-
     private function _argazkia_kudeatu(Argazkia $argazkia)
     {
         $argazkien_direktorioa = $this->getParameter('images_uploads_directory');
@@ -554,33 +535,6 @@ class EskakizunaController extends Controller
         }
     }
 
-    private function _argazkia_gorde()
-    {
-        $argazkia = $this->eskakizuna->getArgazkia();
-        if (null !== $argazkia) {
-            // Generate a unique name for the file before saving it
-            $argazkiaren_izena = md5(uniqid()).'.'.$argazkia->guessExtension();
-
-            // Move the file to the directory where brochures are stored
-            $argazkien_direktorioa = $this->getParameter('images_uploads_directory');
-            $argazkien_zabalera = $this->getParameter('images_width');
-            $argazkien_thumb_zabalera = $this->getParameter('images_thumb_width');
-
-            $argazkia->move(
-        $argazkien_direktorioa,
-        $argazkiaren_izena
-        );
-            /* Honek funtzionatzen du baina agian zuzenean txikituta gorde daiteke */
-            $image = new Imagick($argazkien_direktorioa.'/'.$argazkiaren_izena);
-            $image->thumbnailImage($argazkien_zabalera, 0);
-            $image->writeImage($argazkien_direktorioa.'/'.$argazkiaren_izena);
-            $image->thumbnailImage($argazkien_thumb_zabalera, 0);
-            $image->writeImage($argazkien_direktorioa.'/'.'thumb-'.$argazkiaren_izena);
-
-            $this->eskakizuna->setArgazkia($argazkiaren_izena);
-        }
-    }
-
     private function _mezuaBidaliArduradunei($title, $eskakizuna)
     {
         $em = $this->getDoctrine()->getManager();
@@ -589,16 +543,16 @@ class EskakizunaController extends Controller
         foreach ($jasotzaileak as $jasotzailea) {
             $emailak[] = $jasotzailea->getEmail();
         }
-        $this->_mezuaBidali($title, $this->eskakizuna, $emailak);
+        $this->_mezuaBidali($title, $eskakizuna, $emailak);
     }
 
     private function _mezuaBidaliEnpresari($title, $eskakizuna, Enpresa $enpresa)
     {
         $em = $this->getDoctrine()->getManager();
         $jasotzaileak = $em->getRepository(Erabiltzailea::class)->findBy([
-        'enpresa' => $enpresa,
-        'enabled' => true,
-    ]);
+            'enpresa' => $enpresa,
+            'enabled' => true,
+        ]);
         $emailak = [];
         foreach ($jasotzaileak as $jasotzailea) {
             $emailak[] = $jasotzailea->getEmail();
@@ -626,23 +580,6 @@ class EskakizunaController extends Controller
         $mailer->send($message);
     }
 
-    private function _remove_noiztik_nora($criteria)
-    {
-        $from = null;
-        $to = null;
-        if (array_key_exists('noiztik', $criteria)) {
-            $from = $criteria['noiztik'];
-            $criteria['noiztik'] = null;
-        }
-        if (array_key_exists('nora', $criteria)) {
-            $to = $criteria['nora'];
-            $criteria['nora'] = null;
-        }
-        $new_criteria = $this->_remove_blank_filters($criteria);
-
-        return $new_criteria;
-    }
-
     private function _remove_blank_filters($criteria)
     {
         $new_criteria = [];
@@ -658,12 +595,11 @@ class EskakizunaController extends Controller
     private function _argazkia_gorde_multi($argazkiakAldatuAurretik = null)
     {
         $em = $this->getDoctrine()->getManager();
-        //	dump($argazkiakAldatuAurretik,$this->eskakizuna->getArgazkiak());die;
         if (null !== $argazkiakAldatuAurretik) {
             foreach ($argazkiakAldatuAurretik as $aurrekoArgazkia) {
                 if (false === $this->eskakizuna->getArgazkiak()->contains($aurrekoArgazkia)) {
-                    $aurrekoArgazkia->setEskakizuna(null);
-                    $em->persist($aurrekoArgazkia);
+                    $this->eskakizuna->removeArgazkiak($aurrekoArgazkia);
+                    $em->remove($aurrekoArgazkia);
                 }
             }
         }
@@ -671,9 +607,14 @@ class EskakizunaController extends Controller
         $argazkiak = $this->eskakizuna->getArgazkiak();
         if (!$argazkiak->isEmpty()) {
             foreach ($argazkiak as $argaz) {
-                $em->persist($argaz);
-                $this->_argazkia_kudeatu($argaz);
-                $argaz->setEskakizuna($this->eskakizuna);
+                if (null !== $argaz->getImageName()) {
+                    $argaz->setEskakizuna($this->eskakizuna);
+                    $em->persist($argaz);
+                    $this->_argazkia_kudeatu($argaz);
+                } else {
+                    $this->eskakizuna->getArgazkiak()->removeElement($argaz);
+                    $em->remove($argaz);
+                }
             }
         }
     }
@@ -726,7 +667,6 @@ class EskakizunaController extends Controller
     private function _setPageSize(Request $request)
     {
         $session = $request->getSession();
-        //	dump($session, $request);die;
         if (null != $request->query->get('pageSize')) {
             $pageSize = $request->query->get('pageSize');
             $request->query->remove('pageSize');

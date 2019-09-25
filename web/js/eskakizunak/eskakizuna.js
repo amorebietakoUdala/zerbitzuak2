@@ -1,5 +1,3 @@
-$(function() {
-
 function getUrlParameter(url,name) {
     name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
     var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
@@ -110,38 +108,6 @@ $(document).ready(function(){
     }
     /* FIN Autocompletes */
 
-    /* INICIO Erantzunak */
-/*
-    $('#add-another-erantzuna').click(function(e) {
-	e.preventDefault();
-
-	var erantzunakList = $('#js-erantzunak-list');
-	var erantzunakCount = $('#js-erantzunak-list li').length;
-
-	var newWidget = erantzunakList.attr('data-prototype');
-	
-	newWidget = newWidget.replace(/__name__/g, erantzunakCount);
-	erantzunakCount++;
-
-	// create a new list element and add it to the list
-	var newLi = $('<li></li>').html(newWidget);
-	newLi.appendTo(erantzunakList);
-	tinymce.init({ selector:'#js-erantzunak-list textarea',
-            menubar: false,
-            resize: false,
-            statusbar: false
-	});
-    });
-*/
-    // Borratzeko 
-//    var $erantzunakList = $('#js-erantzunak-list');
-//    
-//    $erantzunakList.find('li').each(function() {
-//        addErantzaunakFormDeleteLink($(this));
-//    });
-    
-    /* FIN Erantzunak*/
-    
     tinymce.init({ 
 	selector:'textarea',
             menubar: false,
@@ -158,20 +124,6 @@ $(document).ready(function(){
     });
     
 
-//    function addErantzaunakFormDeleteLink ($tagFormLi) {
-//        var $removeFormA = $('<a href="#"><i class="fa fa-close prefix active"></i></a>');
-//	$tagFormLi.append($removeFormA);
-//        $removeFormA.on('click', function(e) {
-//	    // prevent the link from creating a "#" on the URL
-//	    e.preventDefault();
-//	    // remove the li for the tag form
-//	    $tagFormLi.remove();
-//	});
-//    }
-    
-//    tinymce.get('textarea').getBody().setAttribute('contenteditable', false);
-
-    
     /* INICIO Eventos */
 
     $("label[for], input[type='text']").click( function (e) {
@@ -191,17 +143,6 @@ $(document).ready(function(){
 	fontAwesome: true
     }).attr('type','text'); // Honekin chromen ez da testua agertzen
 
-     $(".js-argazkia").change(function(){
-        var ok = readURL(this,$('argazkia-preview'));
-//	if (!ok) {
-//	    if (locale === 'eu')
-//		alert("Fitxategia handiegia da. Hautatu beste bat mesedez. 2Mb. baino txikiagoa");
-//	    else 
-//		alert("El fichero es demasiado grande elija uno más pequeño. Menos de 2Mb.");
-//	}
-    });
-    
-
     $(".js-btn-erantzun").click(function() {
         $(".js-erantzuna").show();
     });
@@ -214,82 +155,79 @@ $(document).ready(function(){
     });            
 
     google.maps.event.addDomListener(window, 'load', init_map(latitudea, longitudea));
+	
+	var max_size = 4*1024*1024;
 
     $(".js-gorde_botoia, .js-erantzun_botoia").click(function(e) {
-	var files = $('.btn-file');
-	var all_ok = true;
-	var ok = true;
-	for (i=0;i < files.length; i++) {
-	    var file=$('.btn-file')[i];
-	    ok = checkSize(file);
-	    if (!ok) {
-		all_ok = false;
-	    }
-	}
+		// Eranskinak eta argazkien tamainia konprobatu
+		var files = $('.js-eranskinaFile,.js-file');
+		console.log(files);
+		var all_ok = true;
+		var ok = true;
+		for (i=0;i < files.length; i++) {
+			var file= files[i];
+			ok = checkSize(file, max_size);
+			if (!ok) {
+			all_ok = false;
+			}
+		}
 
-	if (!all_ok) {
+		if (!all_ok) {
 	    swal_alert(locale, 
-			"El fichero es demasiado grande", "Elija uno más pequeño. Menor de 2Mb",
-			"Fitxategia handiegia da.","Hautatu beste bat mesedez. 2Mb baino txikiago.");
-	} else {
-	    $('#eskakizunaForm').submit();
-	}
+			"El fichero es demasiado grande", "Elija uno más pequeño. Menor de " + max_size/1024/1024 + "Mb",
+			"Fitxategia handiegia da.","Hautatu beste bat mesedez. " + max_size/1024/1024 +"Mb baino txikiago.");
+		} else {
+			$('#eskakizunaForm').submit();
+		}
     });
     
-    $('.btn-file').hide();
-    addEventToCheckSize(locale,'.btn-file');
+    $('.js-eranskinaFile').hide();
+    addEventToCheckSize(locale,'.js-eranskinaFile', max_size);
 
     /* INICIO Eranskinak */
     $('#add-another-eranskina').click(function(e) {
-	e.preventDefault();
+		e.preventDefault();
 
-	var eranskinakList = $('#js-eranskinak-list');
-	var eranskinakCount = $('#js-eranskinak-list li').length;
+		var eranskinakList = $('#js-eranskinak-list');
+		var eranskinakCount = $('#js-eranskinak-list li').length;
 
-	var newWidget = eranskinakList.attr('data-prototype');
-	
-	newWidget = newWidget.replace(/__name__/g, eranskinakCount);
-	eranskinakCount++;
+		var newWidget = eranskinakList.attr('data-prototype');
 
-	// create a new list element and add it to the list
-	var newLi = $('<li></li>').html(newWidget);
-	newLi.appendTo(eranskinakList);
-	$(newLi).show();
-	$(newLi).find('.js-file').show();
-	addEventToCheckSize(locale,'.btn-file');
-});    
+		newWidget = newWidget.replace(/__name__/g, eranskinakCount);
+		eranskinakCount++;
 
-    // Borratzeko 
-//    var $eranskinakList = $('#js-eranskinak-list');
-    
-//    $eranskinakList.find('li').each(function() {
-//        addEranskinakFormDeleteLink($(this));
-//    });
+		// create a new list element and add it to the list
+		var newLi = $('<li></li>').html(newWidget);
+		newLi.appendTo(eranskinakList);
+		$(newLi).show();
+		$(newLi).find('.js-file').show();
+		addEventToCheckSize(locale,'.js-eranskinaFile',max_size);
+	});    
 
     $('.js-eranskina-ezabatu').on('click', function(e) {
-	$(e.currentTarget).parents('li').remove();
+		$(e.currentTarget).parents('li').remove();
     });
 
     /* FIN Eranskinak */
 
     /* INICIO Argazkiak */
     $('#add-another-argazkia').click(function(e) {
-	e.preventDefault();
+		e.preventDefault();
 
-	var argazkiakList = $('#js-argazkiak-list');
-	var argazkiakCount = $('#js-argazkiak-list li').length;
+		var argazkiakList = $('#js-argazkiak-list');
+		var argazkiakCount = $('#js-argazkiak-list li').length;
 
-	var newWidget = argazkiakList.attr('data-prototype');
-	
-	newWidget = newWidget.replace(/__name__/g, argazkiakCount);
-	argazkiakCount++;
+		var newWidget = argazkiakList.attr('data-prototype');
 
-	// create a new list element and add it to the list
-	var newLi = $('<li></li>').html(newWidget);
-	newLi.appendTo(argazkiakList);
-	$(newLi).show();
-	$(newLi).find('.js-file').show();
-	addEventToCheckSize(locale,'.js-file');
+		newWidget = newWidget.replace(/__name__/g, argazkiakCount);
+		argazkiakCount++;
+
+		// create a new list element and add it to the list
+		var newLi = $('<li></li>').html(newWidget);
+		newLi.appendTo(argazkiakList);
+		$(newLi).show();
+		$(newLi).find('.js-file').show();
+		addEventToCheckSize(locale,'.js-file',max_size);
     });
     
     $(document).on('click','.js-atzera-botoia' ,function (e) {
@@ -306,49 +244,12 @@ $(document).ready(function(){
 	window.location.href=url;
     });
 
-/*
-    // Borratzeko 
-    var $argazkiakList = $('#js-argazkiak-list');
-    
-    $argazkiakList.find('li').each(function() {
-        addArgazkiakFormDeleteLink($(this));
-    });
-
-    function addArgazkiakFormDeleteLink ($tagFormLi) {
-        var $removeFormA = $('<a href="#"><i class="fa fa-close prefix active"></i></a>');
-	$tagFormLi.append($removeFormA);
-        $removeFormA.on('click', function(e) {
-	    console.log('Remove clicked!!!');
-	    // prevent the link from creating a "#" on the URL
-	    e.preventDefault();
-	    // remove the li for the tag form
-	    $tagFormLi.remove();
-	});
-    }
-
-        $('.js-argazkia-ezabatu').on('click', function(e) {
-	    $(e.currentTarget).parents('li').remove();
-	});
-*/
-
-    /* FIN Argazkiak */
-
 });
 
-//function addEranskinakFormDeleteLink ($tagFormLi) {
-//    var $removeFormA = $('<a href="#"><i class="fa fa-close"></i></a>');
-//    $tagFormLi.append($removeFormA);
-//    $removeFormA.on('click', function(e) {
-//	e.preventDefault();
-//	// remove the li for the tag form
-//	$tagFormLi.remove();
-//    });
-//}
-
-function checkSize(input) {
+function checkSize(input, max_size) {
     if (input.files && input.files[0]) {
 	var filesize = input.files[0].size;
-	if ( filesize <=  3*1024*1024 ) {
+	if ( filesize <=  max_size ) {
 	    return true;
 	} else {
 	    return false;
@@ -357,44 +258,21 @@ function checkSize(input) {
 	return true;
 }
 
-function addEventToCheckSize(locale, selector) {
+function addEventToCheckSize(locale, selector, max_size) {
     var files = $(selector);
     $(files).off('change');
     for (i=0;i < files.length; i++) {
 	var file=$(selector)[i];
 	$(file).on('change', function(){
-	    var ok = checkSize(file);
+	    var ok = checkSize(file, max_size);
 	    if (!ok) 
 		swal_alert(locale, 
-			    "El fichero es demasiado grande", "Elija uno más pequeño. Menor de 3Mb",
-			    "Fitxategia handiegia da.","Hautatu beste bat mesedez. 3Mb baino txikiago.");
+			    "El fichero es demasiado grande", "Elija uno más pequeño. Menor de "+max_size/1024/1024+"Mb",
+			    "Fitxategia handiegia da.","Hautatu beste bat mesedez. " + max_size/1024/1024 + "Mb baino txikiago.");
 	});
     }
 }
 
-function readURL(input) {
-    if (input.files && input.files[0]) {
-	var filesize = input.files[0].size;
-	if ( filesize <=  3*1024*1024 ) {
-	    
-	    var reader = new FileReader();
-
-	    reader.onload = function (e) {
-		$('#argazkia-preview').attr('src', e.target.result);
-	    }
-
-	    reader.readAsDataURL(input.files[0]);
-	    $('#argazkia-preview').css("height","270px");
-	    $('#argazkia-preview').css("width","auto");
-	    return true;
-	} else {
-		return false;
-	    
-	}
-	
-    }
-}
-    
 function init_map(latitudea, longitudea) {
     
     var var_location = new google.maps.LatLng(latitudea, longitudea);
@@ -493,4 +371,3 @@ function swal_alert ( locale, title_es, text_es, title_eu, text_eu) {
 });
 }
 
-});

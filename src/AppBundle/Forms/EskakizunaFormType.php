@@ -100,7 +100,7 @@ class EskakizunaFormType extends AbstractType
         },
         ])
         ->add('georeferentziazioa', GeoreferentziazioaFormType::class)
-            ->add('eranskinak', CollectionType::class, [
+        ->add('eranskinak', CollectionType::class, [
         'entry_type' => EranskinaFormType::class,
 //		'entry_options' => ['label' => 'messages.ezabatu' ],
         'allow_add' => true,
@@ -143,12 +143,9 @@ class EskakizunaFormType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        //	$resolver->setDefaults([
-        //	    'data_class' => '\AppBundle\Entity\Eskakizuna'
-        //	]);
         $resolver->setRequired(array(
             'editatzen',
-        'role',
+            'role',
         ));
         $resolver->setDefaults([
         'csrf_protection' => false,
