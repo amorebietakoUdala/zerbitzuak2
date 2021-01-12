@@ -1,0 +1,2 @@
+Invalid credentials.: 'security.login.invalid_credentials'
+Authentication request could not be processed due to a system problem.: 'security.login.system_error'

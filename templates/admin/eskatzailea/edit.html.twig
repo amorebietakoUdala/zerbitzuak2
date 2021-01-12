@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{"messages.eskatzailea" | trans | capitalize}} {{"messages.editatu" | trans | capitalize}}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+	
+{% endblock %}
+
+{% block edukia %}
+    <div class="container">
+	<div class="row">
+	    <div class="card margin-top-13 col-6">
+		<div class="card-block col">
+			<div class="text-center">
+			    <div class="text-primary">{{"messages.eskatzailea" | trans | capitalize}} {{"messages.editatu" | trans | capitalize}}</div>
+			    <hr class="mt-1 mb-1">
+			</div>
+			<div class="card-text">
+			    {{ include('admin/eskatzailea/_form.html.twig', {
+				'gordeBotoia': true 
+			    }) }}
+			</div>
+		</div>
+	    </div>
+	</div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" language="javascript">
+	$(document).ready(function(){
+	    
+	    $("#atzera").click(function() {
+		window.location.href=Routing.generate('admin_eskatzailea_list',{'_locale': '{{ app.request.getLocale() }}' });
+	    });
+	});    
+    </script>
+{% endblock%}

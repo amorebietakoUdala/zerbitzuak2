@@ -1,0 +1,200 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{"messages.eskakizun" | trans | capitalize}}
+	{{"messages.zerrenda" | trans | capitalize}}
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="{{ asset('bower_components/bootstrap-table/dist/bootstrap-table.css') }}" rel="stylesheet" type="text/css">
+	<link href="{{ asset('css/bootstrap-table-personalization.css') }}" rel="stylesheet" type="text/css">
+	<link href="{{ asset('bower_components/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet" type="text/css">
+	<link href="{{ asset('bower_components/jquery-ui/themes/base/jquery-ui.css') }}" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="{{ asset('css/bootstrap-datetimepicker.min.css') }}">
+{% endblock %}
+
+{% block header %}
+	{{ parent()}}
+{% endblock %}
+
+{% block menu %}
+	{{ parent() }}
+{% endblock %}
+
+{% block message %}
+	{% for msg in app.session.flashBag.get('success') %}
+		<div class="alert alert-success margin-top-13">
+			{{ msg | trans}}
+		</div>
+	{% endfor %}
+	{% for msg in app.session.flashBag.get('error') %}
+		<div class="alert alert-danger margin-top-13">
+			{{ msg | trans}}
+		</div>
+	{% endfor %}
+{% endblock %}
+
+{% block body %}
+	<div class="container margin-top-30">
+		<div class="card">
+			<div class="card-block">
+				<div class="text-center">
+					<div id="bilaketa_titulua" class="dropdown-toggle text-primary">{{"messages.bilaketa" | trans | capitalize}}</div>
+					<hr class="mt-1 mb-1">
+				</div>
+				<div id="bilatzailea" class="card-text">
+
+					{{ include('eskakizuna/_form_bilatzailea.html.twig',{
+			    }) }}
+
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="margin-top-13">
+				<div id="data-menu" class="btn-group dropdown">
+					<button class="btn btn-default dropdown-toggle" href="https://example.com" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<i class="fa fa-align-justify" aria-hidden="true"></i>
+					</button>
+
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+						<a id="batchclose" class="dropdown-item" href="#">{{ 'messages.itxi_aukeratutakoak' | trans | capitalize }}</a>
+					</div>
+				</div>
+
+				<table class="taula bootstrap-table table-sm table-responsive col-12" data-icons-prefix="fa" data-icon-export="fa-file-export" data-toolbar="#data-menu">
+					<thead>
+						<tr>
+							<th data-field="state" data-checkbox="true"></th>
+							<th data-field="id" data-visible="true">{{"messages.id" | trans | capitalize}}</th>
+							<th data-sortable="true">{{"messages.egoera" | trans | capitalize}}</th>
+							<th data-sortable="true" data-visible="false">{{"messages.lep" | trans | capitalize}}</th>
+							<th data-field="kalea" data-sortable="true">{{"messages.kalea" | trans | capitalize}}</th>
+							<th data-sortable="true">{{"messages.mamia" | trans | capitalize}}</th>
+							{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ARDURADUNA') or is_granted('ROLE_INFORMATZAILEA') %}
+								<th data-sortable="true">{{"messages.eskatzailea" | trans | capitalize}}</th>
+							{% endif %}
+							<th data-sortable="true">{{"messages.enpresa" | trans | capitalize}}</th>
+							<th data-sortable="true">{{"messages.zerbitzua" | trans | capitalize}}</th>
+							<th data-sortable="true">{{"messages.noiz" | trans | capitalize}}</th>
+							<th data-field="erantzunak" data-sortable="true" data-visible="true">{{"messages.erantzunak" | trans | capitalize}}</th>
+							<th data-sortable="true">{{"messages.egun" | trans | capitalize}}</th>
+							<th data-field="aukerak">{{"messages.aukerak" | trans | capitalize}}</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for eskakizuna in eskakizunak %}
+							<tr>
+								<td></td>
+								<td>{{eskakizuna.id }}</td>
+								<td>
+									{% if eskakizuna.egoera.id == 1 %}
+										<p style="display: none">{{lang == 'es' ? eskakizuna.egoera.deskripzioa_es : eskakizuna.egoera.deskripzioa_eu}}</p>
+										<i class="fa fa-envelope prefix" title="{{lang == 'es' ? eskakizuna.egoera.deskripzioa_es : eskakizuna.egoera.deskripzioa_eu}}" alt="{{lang == 'es' ? eskakizuna.egoera.deskripzioa_es : eskakizuna.egoera.deskripzioa_eu}}"></i>
+									{% elseif eskakizuna.egoera.id == 2 %}
+										<p style="display: none">{{lang == 'es' ? eskakizuna.egoera.deskripzioa_es : eskakizuna.egoera.deskripzioa_eu}}</p>
+										<i class="fa fa-send prefix" title="{{lang == 'es' ? eskakizuna.egoera.deskripzioa_es : eskakizuna.egoera.deskripzioa_eu}}" alt="{{lang == 'es' ? eskakizuna.egoera.deskripzioa_es : eskakizuna.egoera.deskripzioa_eu}}"></i>
+									{% elseif eskakizuna.egoera.id == 3 %}
+										<p style="display: none">{{lang == 'es' ? eskakizuna.egoera.deskripzioa_es : eskakizuna.egoera.deskripzioa_eu}}</p>
+										<i class="fa fa-reply prefix" title="{{lang == 'es' ? eskakizuna.egoera.deskripzioa_es : eskakizuna.egoera.deskripzioa_eu}}" alt="{{lang == 'es' ? eskakizuna.egoera.deskripzioa_es : eskakizuna.egoera.deskripzioa_eu}}"></i>
+									{% elseif eskakizuna.egoera.id == 4 %}
+										<p style="display: none">{{lang == 'es' ? eskakizuna.egoera.deskripzioa_es : eskakizuna.egoera.deskripzioa_eu}}</p>
+										<i class="fa fa-close prefix" title="{{lang == 'es' ? eskakizuna.egoera.deskripzioa_es : eskakizuna.egoera.deskripzioa_eu}}" alt="{{lang == 'es' ? eskakizuna.egoera.deskripzioa_es : eskakizuna.egoera.deskripzioa_eu}}"></i>
+									{% endif %}
+								</td>
+								<td>{{eskakizuna.lep }}</td>
+								<td>{{eskakizuna.kalea }}</td>
+								<td>{{eskakizuna.mamia | raw }}</td>
+								{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ARDURADUNA') or is_granted('ROLE_INFORMATZAILEA') %}
+									<td>{{eskakizuna.eskatzailea }}</td>
+								{% endif %}
+								<td>{{eskakizuna.enpresa }}</td>
+								{% if app.request.locale == 'es' %}
+									<td>
+										{% if eskakizuna.zerbitzua is not null %}
+											{{ eskakizuna.zerbitzua.izena_es }}
+										{% endif %}
+									</td>
+								{% else %}
+									<td>
+										{% if eskakizuna.zerbitzua is not null %}
+											{{ eskakizuna.zerbitzua.izena_eu }}
+										{% endif %}
+									</td>
+								{% endif %}
+								<td class="white-space-nowrap">{{eskakizuna.noizInformatua | date('Y-m-d H:i') }}</td>
+								<td>
+									{% set lehen_erantzuna = "" %}
+									{% for erantzuna in eskakizuna.erantzunak %}
+										{% if loop.first %}
+											{% set lehen_erantzuna = erantzuna %}
+										{% endif %}
+										{{ erantzuna.erantzuna| raw }}<br/>
+									{% endfor %}
+								</td>
+								<td>
+									{% if lehen_erantzuna != "" %}
+										{% set erantzun_data = lehen_erantzuna.noiz | date('Y-m-d H:i') %}
+										{% set tartea = date(erantzun_data).diff(date(eskakizuna.noizInformatua)) %}
+										{% set egun = tartea.days %}
+										{{ egun }}
+									{% else %}
+										{{ (date().diff(date(eskakizuna.noizInformatua))).days }}
+									{% endif %}
+								</td>
+								<td class="white-space-nowrap">
+									<a class="js-erakutsi_botoia" data-url="{{ path ('admin_eskakizuna_show', {'id': eskakizuna.id }) }}">
+										<i class="fa fa-eye prefix list-icon" title="{{"messages.ikusi" | trans | capitalize }}"></i>
+									</a>
+									{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ARDURADUNA') or is_granted('ROLE_INFORMATZAILEA') %}
+										&nbsp;<a class="js-editatu_botoia" data-url="{{ path ('admin_eskakizuna_edit', {'id': eskakizuna.id }) }}">
+											<i class="fa fa-edit prefix list-icon" title="{{"messages.editatu" | trans | capitalize}}"></i>
+										</a>
+										&nbsp;<a class="js-ezabatu_botoia" data-url="{{ path ('admin_eskakizuna_delete', {'id': eskakizuna.id }) }}" href="#">
+											<i class="fa fa-trash prefix" title="{{"messages.ezabatu" | trans | capitalize}}"></i>
+										</a>
+										&nbsp;<a class="js-itxi_botoia" data-url="{{ path ('admin_eskakizuna_close', {'id': eskakizuna.id }) }}" href="#">
+											<i class="fa fa-window-close prefix" title="{{"messages.itxi" | trans | capitalize}}"></i>
+										</a>
+										&nbsp;<a class="js-erreklamatu_botoia" data-url="{{ path ('admin_eskakizuna_resend', {'id': eskakizuna.id }) }}" href="#">
+											<i class="fa fa-forward" title="{{"messages.erreklamatu" | trans | capitalize}}"></i>
+										</a>
+									{% endif %}
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<span id="btn-berria" class="pull-right">
+			<a href="{{ path ('admin_eskakizuna_new') }}" class="btn btn-primary btn-rounded btn-fixed">
+				<i class="fa fa-plus"></i>
+			</a>
+		</span>
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+
+<script type="text/javascript" src="{{ asset('bower_components/jquery-ui/jquery-ui.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bower_components/moment/min/moment.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bower_components/sweetalert2/dist/sweetalert2.min.js') }}"></script>
+{% set agent = app.request.headers.get('user-agent') %}
+{% if 'Trident' in agent %}
+	<script type="text/javascript" src="{{ asset('bower_components/core.js/client/core.js') }}"></script>
+{% endif %}
+<script type="text/javascript" src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
+
+{{ include('default/bootstrap_table_js.html.twig') }}
+{% if app.request.locale == 'es' %}
+	<script type="text/javascript" src="{{ asset('js/locales/bootstrap-datetimepicker.es.js') }}"></script>
+{% else %}
+	<script type="text/javascript" src="{{ asset('js/locales/bootstrap-datetimepicker.eu.js') }}"></script>
+{% endif %}
+
+<script type="text/javascript" src="{{ asset('js/eskakizunak/eskakizuna_list.js') }}"></script>
+
+{% endblock%}

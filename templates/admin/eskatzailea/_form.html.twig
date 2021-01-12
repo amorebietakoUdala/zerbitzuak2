@@ -1,0 +1,64 @@
+{{ form_start(eskatzaileaForm, {
+	'attr': {
+	    'novalidate': 'novalidate'
+	}
+})
+}}
+{{ form_errors(eskatzaileaForm) }}
+
+    <div class="md-form form-group form-sm">
+	<i class="fa fa-id-card prefix"></i>
+	<label for="nan">{{ 'messages.nan' | trans | capitalize }}</label>
+	{{ form_widget(eskatzaileaForm.nan, { 'attr': { 'class' : 'form-control' } }) }}
+	{{ form_errors(eskatzaileaForm.nan) }}
+    </div>
+    <div class="md-form form-group form-sm">
+	<i class="fa fa-user prefix"></i>
+	<label for="izena">{{ 'messages.izena' | trans | capitalize }}</label>
+	{{ form_widget(eskatzaileaForm.izena, { 'attr': { 'class' : 'form-control' } }) }}
+	{{ form_errors(eskatzaileaForm.izena) }}
+    </div>
+    <div class="md-form form-group form-sm">
+	<i class="fa fa-phone prefix"></i>
+	<label for="telefonoa">{{ 'messages.telefonoa' | trans | capitalize }}</label>
+	{{ form_widget(eskatzaileaForm.telefonoa, { 'attr': { 'class' : 'form-control' } }) }}
+	{{ form_errors(eskatzaileaForm.telefonoa) }}
+    </div>
+    <div class="md-form form-group form-sm">
+	<i class="fa fa-fax prefix"></i>
+	<label for="faxa">{{ 'messages.faxa' | trans | capitalize }}</label>
+	{{ form_widget(eskatzaileaForm.faxa, { 'attr': { 'class' : 'form-control' } }) }}
+	{{ form_errors(eskatzaileaForm.faxa) }}
+    </div>
+    <div class="md-form form-group form-sm">
+	<i class="fa fa-compass prefix"></i>
+	<label for="helbidea">{{ 'messages.helbidea' | trans | capitalize }}</label>
+	{{ form_widget(eskatzaileaForm.helbidea, { 'attr': { 'class' : 'form-control' } }) }}
+	{{ form_errors(eskatzaileaForm.helbidea) }}
+    </div>
+    <div class="md-form form-group form-sm">
+	<i class="fa fa-send prefix"></i>
+	<label for="emaila">{{ 'messages.emaila' | trans | capitalize }}</label>
+	{{ form_widget(eskatzaileaForm.emaila, { 'attr': { 'class' : 'form-control' } }) }}
+	{{ form_errors(eskatzaileaForm.emaila) }}
+    </div>
+    <div class="md-form form-group form-sm">
+	<i class="fa fa-institution prefix"></i>
+	<label for="herria">{{ 'messages.herria' | trans | capitalize }}</label>
+	{{ form_widget(eskatzaileaForm.herria, { 'attr': { 'class' : 'form-control' } }) }}
+	{{ form_errors(eskatzaileaForm.herria) }}
+    </div>
+    <div class="md-form form-group form-sm">
+	<i class="fa fa-envelope prefix"></i>
+	<label for="postaKodea">{{ 'messages.postaKodea' | trans | capitalize }}</label>
+	{{ form_widget(eskatzaileaForm.postaKodea, { 'attr': { 'class' : 'form-control' } }) }}
+	{{ form_errors(eskatzaileaForm.postaKodea) }}
+    </div>
+    <div class="row md-form form-group form-sm col">
+	{% if (gordeBotoia == true) %}
+	    <button class="col-3 btn btn-primary form-control" type="submit" formnovalidate><i class="fa fa-save left"></i>{{"messages.gorde" | trans | capitalize}}</button>
+	{% endif %}
+	<button id="atzera" class="col-3 btn btn-primary form-control" type="button"><i class="fa fa-arrow-circle-left left"></i>{{"messages.utzi" | trans | capitalize}}</button>
+    </div>
+
+{{ form_end(eskatzaileaForm) }}

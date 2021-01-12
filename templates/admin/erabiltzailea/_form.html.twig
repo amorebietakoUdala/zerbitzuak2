@@ -1,0 +1,79 @@
+{{ form_start(erabiltzaileaForm, {
+	'attr': {
+	    'novalidate': 'novalidate'
+	}
+})
+}}
+{{ form_errors(erabiltzaileaForm) }}
+
+    <div class="md-form form-group form-sm">
+	<i class="fa fa-user prefix"></i>
+	<label for="username">{{ 'messages.username'|trans | capitalize}}</label>
+	{{ form_widget(erabiltzaileaForm.username, { 'attr': { 'class' : '' } }) }}
+	{{ form_errors(erabiltzaileaForm.username) }}
+    </div>
+
+    <div class="md-form form-group form-sm">
+	{{ form_row(erabiltzaileaForm.plainPassword, { 'attr': { 'class' : 'md-form form-group form-sm', 'autocomplete': 'off'} }) }}
+	{{ form_errors(erabiltzaileaForm.plainPassword) }}
+    </div>
+
+    <div class="md-form form-group form-sm">
+	<i class="fa fa-send prefix"></i>
+	<label for="email">{{ 'messages.email' | trans | capitalize }}</label>
+	{{ form_widget(erabiltzaileaForm.email, { 'attr': { 'class' : 'form-control' } }) }}
+	{{ form_errors(erabiltzaileaForm.email) }}
+    </div>
+
+    <div class="md-form form-group form-sm">
+	<i class="fa fa-male prefix"></i>
+	<label for="izena">{{ 'messages.izena' | trans | capitalize }}</label>
+	{{ form_widget(erabiltzaileaForm.izena, { 'attr': { 'class' : 'form-control' } }) }}
+	{{ form_errors(erabiltzaileaForm.izena) }}
+    </div>
+
+    <div class="md-form form-group form-sm">
+	<i class="fa fa-phone prefix"></i>
+	<label for="telefonoa">{{ 'messages.telefonoa' | trans | capitalize }}</label>
+	{{ form_widget(erabiltzaileaForm.telefonoa, { 'attr': { 'class' : 'form-control' } }) }}
+	{{ form_errors(erabiltzaileaForm.telefonoa) }}
+    </div>
+    <div class="md-form form-group form-sm">
+	<i class="fa fa-phone prefix"></i>
+	<label for="emaila">{{ 'messages.telefonoa2' | trans | capitalize }}</label>
+	{{ form_widget(erabiltzaileaForm.telefonoa2, { 'attr': { 'class' : 'form-control' } }) }}
+	{{ form_errors(erabiltzaileaForm.telefonoa2) }}
+    </div>
+
+    {% if profile == false %}
+	<div class="form-sm">
+	    <i class="fa fa-question prefix"></i>
+	    {{ form_widget(erabiltzaileaForm.roles, { 'attr': { 'class' : 'md-select' } }) }}
+	    {{ form_errors(erabiltzaileaForm.roles) }}
+	</div>
+
+	<div class="md-form form-group form-sm">
+	    <i class="fa fa-building prefix"></i>
+	    {{ form_widget(erabiltzaileaForm.enpresa, { 'attr': { 'class' : 'md-select' } }) }}
+	    {{ form_errors(erabiltzaileaForm.enpresa) }}
+	</div>
+
+	<div class="md-form form-group form-sm">
+	    <i class="fa fa-sort-numeric-asc prefix"></i>
+	    <label for="ordena">{{ 'messages.ordena' | trans | capitalize }}</label>
+	    {{ form_widget(erabiltzaileaForm.ordena, { 'attr': { 'class' : 'form-control' } }) }}
+	    {{ form_errors(erabiltzaileaForm.ordena) }}
+	</div>
+	<div class="clearfix form-inline">
+	    {{ form_widget(erabiltzaileaForm.enabled, { 'attr': { 'class' : 'form-control' } }) }}
+	    {{ form_errors(erabiltzaileaForm.enabled) }}
+	</div>
+    {% endif %}
+    <div class="row md-form form-group form-sm col">
+	{% if (gordeBotoia == true) %}
+	    <button class="col-3 btn btn-primary form-control" type="submit" formnovalidate><i class="fa fa-save left"></i>{{"messages.gorde" | trans | capitalize}}</button>
+	{% endif %}
+	<button id="atzera" class="col-3 btn btn-primary form-control" type="button"><i class="fa fa-arrow-circle-left left"></i>{{"messages.utzi" | trans | capitalize}}</button>
+    </div>
+
+{{ form_end(erabiltzaileaForm) }}

@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{"messages.erabiltzailea" | trans | capitalize}} {{"messages.ikusi" | trans | capitalize}}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+	
+{% endblock %}
+
+{% block edukia %}
+    <div class="container">
+	<div class="row">
+	    <div id="arduradunaren_datuak" class="card margin-top-13 col-6">
+		<div class="card-block col">
+			<div class="text-center">
+			    <div id="arduradun_titulua" class="text-primary">{{"messages.erabiltzailea" | trans | capitalize}} {{"messages.ikusi" | trans | capitalize}}</div>
+			    <hr class="mt-1 mb-1">
+			</div>
+			<div class="card-text">
+			    {{ include('admin/erabiltzailea/_form.html.twig',{
+				'gordeBotoia': true 
+			    }) }}
+			</div>
+		</div>
+	    </div>
+	</div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" language="javascript">
+	$(document).ready(function(){
+	    
+	    $("#atzera").click(function() {
+		window.location.href=Routing.generate('admin_erabiltzailea_list',{'_locale': '{{ app.request.getLocale() }}' });
+	    });
+	});    
+    </script>
+{% endblock%}

@@ -1,0 +1,31 @@
+{% block body_html %}
+<p><b>AMOREBIETA-ETXANO</b></p>
+
+<img class="logo" alt="Erantzunen logoa" src="{{ absolute_url(asset('images/erantzun_logo2.png')) }}">rantzun
+
+<p>
+<b>Número de aviso / Ohar zenbakia:</b> {{ eskakizuna.id }} <br/> 
+<b>Servicio / Zerbitzua:</b> {{ eskakizuna.zerbitzua.izena_es }} / {{ eskakizuna.zerbitzua.izena_eu }}<br/>
+<b>Fecha conocimiento/Ezagutza data:</b> {{ eskakizuna.noiz | date('Y-m-d') }}<br/>
+<b>Texto/Testua:</b><br/>
+{{ eskakizuna.mamia | raw }}<br/>
+<b>Dirección solicitud/Eskariaren helbidea:</b> {{ eskakizuna.kalea }}<br/>
+<b>Erantzunak / Respuestas:</b>
+</p>
+    <ul>
+    {% for erantzuna in eskakizuna.erantzunak %}
+	<li>
+	    {{ erantzuna | raw }}
+	</li>
+    {% endfor %}
+    </ul>
+</p>    
+    {% if ( eskakizuna.argazkia != null) %}
+	<img src="{{ absolute_url(asset( images_uploads_url)) }}/{{ eskakizuna.argazkia }}"/>
+    {% endif %}
+</p>
+
+<p>
+    <a href="{{ absolute_url(asset( path ('admin_eskakizuna_show', {'id': eskakizuna.id }))) }}">Acceso a la aplicación / Aplikaziora sartu</a>.<br/>
+</p>
+{% endblock %}

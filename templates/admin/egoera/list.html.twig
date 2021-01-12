@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{"messages.egoeren" | trans | capitalize}} {{"messages.zerrenda" | trans | capitalize}}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+	<link href="{{ asset('bower_components/bootstrap-table/dist/bootstrap-table.css') }}" rel="stylesheet" type="text/css">
+	
+	<link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css">
+	<link href="{{ asset('css/bootstrap-table-personalization.css') }}" rel="stylesheet" type="text/css">
+	<link href="{{ asset('bower_components/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block header %}
+    {{ parent()}}
+{% endblock %}
+
+{% block menua %}
+    {{ parent() }}
+{% endblock %}
+
+{% block mezuak %}
+    {% for msg in app.session.flashBag.get('success') %}
+	<div class="alert alert-success margin-top-13">
+	    {{ msg | trans}}
+	</div>
+    {% endfor %}
+    {% for msg in app.session.flashBag.get('error') %}
+	<div class="alert alert-danger margin-top-13">
+	    {{ msg | trans}}
+	</div>
+    {% endfor %}
+{% endblock %}
+    
+{% block gorputza %}
+    <div class="container">
+	<div class="row">
+	    <div class="margin-top-13">
+		<table class="taula bootstrap-table">
+		<thead>
+		    <tr>
+			<th data-sortable="true">{{"messages.deskripzioa_es" | trans | capitalize}}</th>
+			<th data-sortable="true">{{"messages.deskripzioa_eu" | trans | capitalize}}</th>
+			<th>{{"messages.aukerak" | trans | capitalize}}</th>
+		    </tr>
+		</thead>
+		<tbody>
+		    {% for egoera in egoerak %}
+		    <tr>
+			<td>{{egoera.deskripzioa_es }}</td>
+			<td>{{egoera.deskripzioa_eu }}</td>
+			<td class="white-space-nowrap">
+			    <a href="{{ path ('admin_egoera_show', {'id': egoera.id }) }}"><i class="fa fa-eye prefix"></i></a>
+			    &nbsp;<a href="{{ path ('admin_egoera_edit', {'id': egoera.id }) }}"><i class="fa fa-edit prefix"></i></a>
+			    &nbsp;<a class="js-ezabatu_botoia" data-url="{{ path ('admin_egoera_delete', {'id': egoera.id }) }}" href="#"><i class="fa fa-window-close prefix"></i></a>
+			</td>
+		    </tr>
+		    {% endfor %}
+		</tbody>
+		</table>
+	    </div>
+	</div>
+	<span id="btn-berria" class="pull-right"><a href="{{ path ('admin_egoera_new') }}" class="btn btn-primary btn-rounded btn-fixed"><i class="fa fa-plus"></i></a></span>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bower_components/sweetalert2/dist/sweetalert2.min.js') }}"></script>
+    {% set agent = app.request.headers.get('user-agent') %}
+    {% if 'Trident' in agent %}
+    <script type="text/javascript" src="{{ asset('bower_components/core.js/client/core.js') }}"></script>
+    {% endif %}
+    {{ include('default/bootstrap_table_js.html.twig') }}
+{% endblock%}
+
