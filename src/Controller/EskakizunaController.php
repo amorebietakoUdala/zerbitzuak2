@@ -11,7 +11,7 @@ namespace App\Controller;
 use App\Entity\Argazkia;
 use App\Entity\Egoera;
 use App\Entity\Enpresa;
-use App\Entity\Erabiltzailea;
+use App\Entity\User;
 use App\Entity\Erantzuna;
 use App\Entity\Eskakizuna;
 use App\Entity\Eskatzailea;
@@ -24,7 +24,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Imagick;
 use Psr\Log\LoggerInterface;
 use Swift_Message;
+use \Swift_Mailer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -36,6 +38,7 @@ use Symfony\Component\Routing\Annotation\Route;
 */
 
  /**
+ * @isGranted("ROLE_USER");
  * @Route("/{_locale}/eskakizuna")
  */
 class EskakizunaController extends AbstractController
@@ -43,7 +46,12 @@ class EskakizunaController extends AbstractController
     private $eskatzailea;
     private $eskakizuna;
     private $georeferentziazioa;
+    private $mailer;
 
+    public function __construct(\Swift_Mailer $mailer)
+    {
+        $this->mailer = $mailer;
+    }
     /**
      * @Route("/new", name="admin_eskakizuna_new", options={"expose" = true})
      */
@@ -51,8 +59,8 @@ class EskakizunaController extends AbstractController
     {
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $form = $this->createForm(EskakizunaFormType::class, new Eskakizuna(), [
-        'editatzen' => false,
-        'role' => $user->getRoles(),
+            'editatzen' => false,
+            'role' => $user->getRoles(),
             'locale' => $request->getLocale(),
     ]);
         $returnPage = $this->_getReturnPage($request);
@@ -455,8 +463,8 @@ class EskakizunaController extends AbstractController
         $this->addFlash('success', 'messages.eskakizuna_itxia');
 
         return $this->redirectToRoute('admin_eskakizuna_list', [
-        'returnPage' => $returnPage,
-    ]);
+            'returnPage' => $returnPage,
+        ]);
     }
 
     /**
@@ -533,13 +541,14 @@ class EskakizunaController extends AbstractController
             $imageThumbnailFile = new File($argazkien_direktorioa.'/'.'thumb-'.$argazkiaren_izena);
             $argazkia->setImageThumbnailFile($imageThumbnailFile);
             $argazkia->setImageThumbnailSize($imageThumbnailFile->getSize());
+
         }
     }
 
     private function _mezuaBidaliArduradunei($title, $eskakizuna)
     {
         $em = $this->getDoctrine()->getManager();
-        $jasotzaileak = $em->getRepository(Erabiltzailea::class)->findByRole('ROLE_ARDURADUNA');
+        $jasotzaileak = $em->getRepository(User::class)->findByRole('ROLE_ARDURADUNA');
         $emailak = [];
         foreach ($jasotzaileak as $jasotzailea) {
             $emailak[] = $jasotzailea->getEmail();
@@ -550,9 +559,9 @@ class EskakizunaController extends AbstractController
     private function _mezuaBidaliEnpresari($title, $eskakizuna, Enpresa $enpresa)
     {
         $em = $this->getDoctrine()->getManager();
-        $jasotzaileak = $em->getRepository(Erabiltzailea::class)->findBy([
+        $jasotzaileak = $em->getRepository(User::class)->findBy([
             'enpresa' => $enpresa,
-            'enabled' => true,
+            'activated' => true,
         ]);
         $emailak = [];
         foreach ($jasotzaileak as $jasotzailea) {
@@ -564,13 +573,12 @@ class EskakizunaController extends AbstractController
     private function _mezuaBidali($title, $eskakizuna, $emailak)
     {
         $from = $this->getParameter('mailer_from');
-        $mailer = $this->get('mailer');
         $message = new Swift_Message($title.' '.$eskakizuna->getId());
         $message->setFrom($from);
-        //	$message->setTo('ibilbao@amorebieta.eus');
+        $message->setTo('ibilbao@amorebieta.eus');
         // TODO deskomentatu denei bidaltzeko
         //	$message->setTo($this->getParameter('mailer_from'));
-        $message->setTo($emailak);
+        //$message->setTo($emailak);
         $message->setBody(
         $this->renderView('/eskakizuna/mail.html.twig', [
             'eskakizuna' => $eskakizuna,
@@ -578,7 +586,7 @@ class EskakizunaController extends AbstractController
     );
         $message->setContentType('text/html');
 
-        $mailer->send($message);
+        $this->mailer->send($message);
     }
 
     private function _remove_blank_filters($criteria)
@@ -604,7 +612,6 @@ class EskakizunaController extends AbstractController
                 }
             }
         }
-
         $argazkiak = $this->eskakizuna->getArgazkiak();
         if (!$argazkiak->isEmpty()) {
             foreach ($argazkiak as $argaz) {

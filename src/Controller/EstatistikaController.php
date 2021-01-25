@@ -47,7 +47,7 @@ class EstatistikaController extends AbstractController
         $guztira = array_reduce($estatistikak, function ($i, $obj) {
             return $i += $obj->getEskakizunak();
         });
-
+//        dd($dataTable2->toArray(), $estatiskaBatuak, $guztira);
         return $this->render('/estatistika/estatistika.html.twig', [
             'dataTable2' => $dataTable2->toArray(),
             'estatistikak' => $estatiskaBatuak,

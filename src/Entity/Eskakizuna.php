@@ -302,7 +302,7 @@ class Eskakizuna {
 	$this->egoera = $egoera;
     }
 
-    public function setNorkInformatua(Erabiltzailea $norkInformatua) {
+    public function setNorkInformatua(User $norkInformatua) {
 	$this->norkInformatua = $norkInformatua;
     }
 
@@ -346,7 +346,7 @@ class Eskakizuna {
 	$this->noizErreklamatua = $noizErreklamatua;
     }
 
-    public function setNorkErreklamatua(Erabiltzailea $norkErreklamatua) {
+    public function setNorkErreklamatua(User $norkErreklamatua) {
 	$this->norkErreklamatua = $norkErreklamatua;
     }
     

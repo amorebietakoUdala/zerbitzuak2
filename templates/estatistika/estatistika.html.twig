@@ -1,99 +1,102 @@
 {% extends "base.html.twig" %}
 
 {% block stylesheets %}
-    {{ parent() }}
+	{{ parent() }}
 	<link href="{{ asset('bower_components/bootstrap-table/dist/bootstrap-table.css') }}" rel="stylesheet" type="text/css">
-	
 	<link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css">
 	<link href="{{ asset('css/bootstrap-table-personalization.css') }}" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="{{ asset('css/bootstrap-datetimepicker.min.css') }}">
 
-
-        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-        <script type="text/javascript">
-            google.load("visualization", "1", {packages:["corechart", 'table', 'treemap', 'gauge']});
-	    google.load('jquery', '1.6.0');
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<script type="text/javascript">
+		google.load("visualization", "1", {
+packages: ["corechart", 'table', 'treemap', 'gauge']
+});
+// google.load('jquery', '1.6.0');
 	</script>
 {% endblock %}
 
-{% block edukia %}
+{% block body %}
 
-<div class="container margin-top-13">
-	<div class="card">
-		<div class="card-block">
-		    <div class="text-center">
-			<div id="bilaketa_titulua" class="dropdown-toggle text-primary">Bilaketa</div>
-			<hr class="mt-1 mb-1">
-		    </div>
-		    <div id="bilatzailea" class="card-text">
+	<div class="container margin-top-13">
+		<div class="card">
+			<div class="card-block">
+				<div class="text-center">
+					<div id="bilaketa_titulua" class="dropdown-toggle text-primary">Bilaketa</div>
+					<hr class="mt-1 mb-1">
+				</div>
+				<div id="bilatzailea" class="card-text">
 
-		    {{ include('estatistika/_form_stats_bilatzailea.html.twig',{
+					{{ include('estatistika/_form_stats_bilatzailea.html.twig',{
 			    }) }}
 
-		    </div>
+				</div>
+			</div>
 		</div>
 	</div>
-</div>
-			    
-<div class="container">
-	<table class="taula bootstrap-table">
-	    <thead>
-		<tr>
-		    <th data-sortable="true">{{ 'messages.enpresa' | trans | capitalize }}</th>
-		    <th data-sortable="true">{{ 'messages.eskakizunak' | trans | capitalize }}</th>
-		</tr>
-	    </thead>
-	    <tbody>
-		{% for key, value in estatistikak %}
-		<tr>
-		    {% if key != null %}
-			<td>{{ key }}</td>
-		    {% else %}
-			<td>{{ 'messages.zehaztu_gabe' | trans | capitalize }}</td>
-		    {% endif %}
-		    <td>{{ value }}</td>
-		</tr>
-		{% endfor %}
-		{% if estatistikak | length > 0 %}
-		    <tr>
-			    <td class="bg-primary text-white font-weight-bold">{{ 'messages.guztira' | trans | capitalize }}</td>
-			    <td class="bg-primary text-white font-weight-bold">{{ guztira }}</td>
-		    </tr>
-		{% endif %}
-	    </tbody>
-	</table>
-    </div>
-    {% if estatistikak | length > 0 %}
-	<div class="chart" id="grafikoa">&nbsp;</div>
-	<script>
-	$(function() {
-	{{ gchart_column_chart(dataTable2, 'grafikoa', '100%', '450', 'messages.estatitikak.grafikoarearen.titulua' | trans | capitalize ) }}
 
-	    $(window).resize(function(){
-		chartgrafikoa.draw(datagrafikoa, {"width":"100%","height":"450","title":"Eskakizun kopurua urte eta enpresaren arabera"});
-	    });
-	});
-
-	</script>
-    {% endif %}
+	<div class="container">
+		<table class="taula bootstrap-table">
+			<thead>
+				<tr>
+					<th data-sortable="true">{{ 'messages.enpresa' | trans | capitalize }}</th>
+					<th data-sortable="true">{{ 'messages.eskakizunak' | trans | capitalize }}</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for key, value in estatistikak %}
+					<tr>
+						{% if key != null %}
+							<td>{{ key }}</td>
+						{% else %}
+							<td>{{ 'messages.zehaztu_gabe' | trans | capitalize }}</td>
+						{% endif %}
+						<td>{{ value }}</td>
+					</tr>
+				{% endfor %}
+				{% if estatistikak | length > 0 %}
+					<tr>
+						<td class="bg-primary text-white font-weight-bold">{{ 'messages.guztira' | trans | capitalize }}</td>
+						<td class="bg-primary text-white font-weight-bold">{{ guztira }}</td>
+					</tr>
+				{% endif %}
+			</tbody>
+		</table>
+	</div>
+	{% if estatistikak | length > 0 %}
+		<div class="chart" id="grafikoa">&nbsp;</div>
+	{% endif %}
 
 {% endblock %}
 
 {% block javascripts %}
-        {{ parent() }}
+	{{ parent() }}
 	{{ include('default/bootstrap_table_js.html.twig') }}
-    <script type="text/javascript" src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
-    {% if app.request.locale == 'es' %}
-	<script type="text/javascript" src="{{ asset('js/locales/bootstrap-datetimepicker.es.js') }}"></script>
-    {% else %}
-        <script type="text/javascript" src="{{ asset('js/locales/bootstrap-datetimepicker.eu.js') }}"></script>
-    {% endif %}
-	
+	<script type="text/javascript" src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
+	{% if app.request.locale == 'es' %}
+		<script type="text/javascript" src="{{ asset('js/locales/bootstrap-datetimepicker.es.js') }}"></script>
+	{% else %}
+		<script type="text/javascript" src="{{ asset('js/locales/bootstrap-datetimepicker.eu.js') }}"></script>
+	{% endif %}
+
 	<script type="text/javascript" src="{{ asset('js/estatistikak/view.js') }}"></script>
 	<script type="text/javascript">
-	    $(document).ready(function () {
-		var view = View();
-		view.onTituluaClick();
-	    });
-	</script>
+		$(document).ready(function () {
+			var view = View();
+			view.onTituluaClick();
+		});
+
+			$(function () {
+				{{ gchart_column_chart(dataTable2, 'grafikoa', '100%', '450', 'messages.estatitikak.grafikoarearen.titulua' | trans | capitalize ) }}
+
+				$(window).resize(function () {
+					chartgrafikoa.draw(datagrafikoa, {
+						"width": "100%",
+						"height": "450",
+						"title": "Eskakizun kopurua urte eta enpresaren arabera"
+					});
+					});
+			});
+		</script>
+
 {% endblock %}

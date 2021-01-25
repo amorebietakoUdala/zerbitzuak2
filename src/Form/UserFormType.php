@@ -11,67 +11,96 @@ namespace App\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use FOS\UserBundle\Form\Type\RegistrationFormType as BaseRegistrationFormType;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use AMREU\UserBundle\Form\UserType as BaseUserType;
 use App\Entity\Enpresa;
+use App\Entity\User;
 use App\Repository\EnpresaRepository;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
 /**
- * Description of ErabiltzaileaFormType
+ * Description of UserFormType
  *
  * @author ibilbao
  */
-class UserFormType extends AbstractType {
+class UserFormType extends BaseUserType {
+
+	public function __construct()	{
+		$allowedRoles = [
+			"ROLE_ARDURADUNA",
+			"ROLE_ADMIN",
+			"ROLE_INFORMATZAILEA",
+			"ROLE_KANPOKO_TEKNIKARIA",
+		];
+		parent::__construct(User::class, $allowedRoles);
+	}	
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
-	$profile = $options['profile'];
-	$builder
-	    ->add('izena')
-	    ->add('email', EmailType::class)
-	    ->add('telefonoa')
-	    ->add('telefonoa2');
+		$profile = $options['profile'];
+		$readonly = $options['readonly'];
+		$builder
+			->add('telefonoa')
+			->add('telefonoa2');
 	
-	if ( !$profile) {
-	    $builder->add('ordena')
-            ->add('roles', ChoiceType::class,[
-                'choices' => [
-                    'ROLE_ADMIN' => 'ROLE_ADMIN',
-                    'ROLE_ARDURADUNA' => 'ROLE_ARDURADUNA',
-                    'ROLE_INFORMATZAILEA' => 'ROLE_INFORMATZAILEA',
-                    'ROLE_KANPOKO_TEKNIKARIA' => 'ROLE_KANPOKO_TEKNIKARIA'
-                ],
-		'choice_attr' => ['class' => 'form-inline'],
-		'expanded' => true,
-		'multiple' => true,
-		'constraints' => [new NotBlank(),],
-		'choice_translation_domain' => null,
-            ])
-	    ->add('enpresa', EntityType::class,[
-		'placeholder'=>'messages.hautatu_enpresa',
-		'class' => Enpresa::class,
-		'query_builder' => function (EnpresaRepository $repo) {
-		    return $repo->createAlphabeticalQueryBuilder();
+		if ( !$profile) {
+			$builder
+				->add('roles', ChoiceType::class, [
+					'label' => false,
+					'choices' => $this->allowedRoles,
+					'label_attr' => ['class' => 'checkbox-inline'],
+					'choice_attr' => function($choice, $key, $value) {
+						return ['class' => 'ml-1'];
+				  	},
+					'expanded' => true,
+					'multiple' => true,
+					'constraints' => [new NotBlank(),],
+					'choice_translation_domain' => null,
+					'disabled' => $readonly,
+				])
+				->add('ordena')
+					// ->add('roles', ChoiceType::class,[
+					// 	'choices' => [
+					// 		'ROLE_ADMIN' => 'ROLE_ADMIN',
+					// 		'ROLE_ARDURADUNA' => 'ROLE_ARDURADUNA',
+					// 		'ROLE_INFORMATZAILEA' => 'ROLE_INFORMATZAILEA',
+					// 		'ROLE_KANPOKO_TEKNIKARIA' => 'ROLE_KANPOKO_TEKNIKARIA'
+					// 	],
+					// 	'choice_attr' => ['class' => 'form-inline'],
+					// 	'expanded' => true,
+					// 	'multiple' => true,
+					// 	'constraints' => [new NotBlank(),],
+					// 	'choice_translation_domain' => null,
+					// ])
+				->add('enpresa', EntityType::class,[
+					'placeholder'=>'messages.hautatu_enpresa',
+					'class' => Enpresa::class,
+					'query_builder' => function (EnpresaRepository $repo) {
+						return $repo->createAlphabeticalQueryBuilder();
+					}
+				])
+				->add('activated', CheckboxType::class,[
+					'data' => true,
+					'label_attr' => ['class' => 'checkbox-inline']
+				])
+			;
 		}
-	    ])
-	    ->add('enabled', CheckboxType::class,[
-                'data' => true
-            ])
-	    ;
-	}
-    }
-    public function getParent() {
-        return BaseRegistrationFormType::class;
-    }
+	 }
+	 
+   public function getParent() {
+      return BaseUserType::class;
+   }
 
-    public function configureOptions(OptionsResolver $resolver) {
-	$resolver->setDefaults([
-	    'data_class' => '\AppBundle\Entity\Erabiltzailea',
-	    'profile' => false
-	]);
-    }
+   public function configureOptions(OptionsResolver $resolver) {
+		$resolver->setDefaults([
+			'data_class' => 'App\Entity\User',
+			'profile' => false,
+			'readonly' => false
+		]);
+   }
 
 }

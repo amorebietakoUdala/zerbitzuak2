@@ -1,4 +1,4 @@
-{% trans_default_domain 'UserBundle' %}
+{% trans_default_domain 'user_bundle' %}
 
 
 {% block message %}
@@ -25,13 +25,13 @@
 					{% endif %}
 
 					<div class="form-group">
-						<label for="username">{{ 'security.login.username'| trans }}</label>
+						<label for="username">{{ 'user.username'| trans }}</label>
 						<input class="form-control" type="text" id="username" name="username" value="{{ last_username }}" required="required"/>
 					</div>
 
 
 					<div class="form-group">
-						<label for="password">{{ 'security.login.password' | trans | capitalize }}</label>
+						<label for="password">{{ 'user.password' | trans | capitalize }}</label>
 						<input class="form-control" type="password" id="password" name="password" required="required"/>
 					</div>
 
@@ -42,7 +42,7 @@
 
 					<div class="container-fluid row">
 						<div class="container-fuild col text-center">
-							<button type="submit" class="btn btn-default">{{ 'security.login.submit'| trans | capitalize}}</button>
+							<button type="submit" class="btn btn-default">{{ 'btn.security.login.submit'| trans | capitalize}}</button>
 						</div>
 					</div>
 					<div

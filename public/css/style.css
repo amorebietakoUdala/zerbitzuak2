@@ -1,4 +1,5 @@
 /* Estilos Generales */
+
 body {
     padding: 0.1em 0.1em 0.1em 0.1em;
     line-height: 1;
@@ -14,7 +15,7 @@ main {
 }
 
 #span-logo img {
-/*    height: 80px; */
+    /*    height: 80px; */
     height: 4rem;
     width: auto;
 }
@@ -76,9 +77,20 @@ main {
     font-weight: bold;
 }
 
-input[type="text"], input[type="password"], input[type="email"], input[type="url"], input[type="time"], input[type="date"], input[type="datetime-local"], input[type="tel"], input[type="number"], input[type="search-md"], input[type="search"], textarea.md-textarea {
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="url"],
+input[type="time"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="tel"],
+input[type="number"],
+input[type="search-md"],
+input[type="search"],
+textarea.md-textarea {
     height: 1.1rem;
-    background-color: white;    
+    background-color: white;
 }
 
 .rounder-edge {
@@ -122,7 +134,7 @@ footer.page-footer {
 }
 
 .margin-top-30 {
-    margin-top: 30px; 
+    margin-top: 30px;
 }
 
 .border-top-grey-thin {
@@ -135,17 +147,19 @@ footer.page-footer {
 }
 
 .primary-color {
-  background-color: #06a4d5 !important; }
+    background-color: #06a4d5 !important;
+}
 
 .primary-color-dark {
-  background-color: #0d5bd9 !important; }
+    background-color: #0d5bd9 !important;
+}
 
 .text-primary {
-  color: #0275d8 !important;
+    color: #0275d8 !important;
 }
 
 .text-primary-dark {
-  color: #0d5bd9 !important;
+    color: #0d5bd9 !important;
 }
 
 .btn-primary {
@@ -156,7 +170,9 @@ i.btn-primary {
     background: #06a4d5 none repeat scroll 0 0;
 }
 
-.btn-primary:focus, .btn-primary:hover, .btn-primary:active {
+.btn-primary:focus,
+.btn-primary:hover,
+.btn-primary:active {
     background: #047395 none repeat scroll 0 0 !important;
 }
 
@@ -169,10 +185,12 @@ i.btn-primary {
     padding-right: 1rem !important;
 }
 
+
 /* FIN Estilos Generales */
 
 
 /* Estilos Página Login */
+
 .login-form {
     color: white !important;
 }
@@ -190,7 +208,9 @@ i.btn-primary {
     color: #06a4d5 !important;
 }
 
-.btn-secondary:active, .btn-default:hover, .btn-default:focus {
+.btn-secondary:active,
+.btn-default:hover,
+.btn-default:focus {
     background-color: #05a3d5 !important;
     color: white !important;
 }
@@ -200,15 +220,19 @@ i.btn-primary {
     color: #06a4d5 !important;
 }
 
-.btn-default:active, .btn-default:hover, .btn-default:focus {
+.btn-default:active,
+.btn-default:hover,
+.btn-default:focus {
     background-color: #05a3d5 !important;
     color: white !important;
 }
+
 
 /* FIN Estilos página Login */
 
 
 /* Estilos página alta solicitud */
+
 .breadcrumb {
     padding: 0.3rem 0.1rem;
 }
@@ -217,7 +241,7 @@ i.btn-primary {
     color: #5e676e;
 }
 
-.breadcrumb-item + .breadcrumb-item::before {
+.breadcrumb-item+.breadcrumb-item::before {
     color: #ffffff;
 }
 
@@ -229,6 +253,7 @@ i.btn-primary {
 .md-form {
     margin-bottom: 0rem;
 }
+
 .form-group {
     margin-bottom: 0rem;
 }
@@ -245,7 +270,7 @@ i.btn-primary {
     margin-right: 3rem !important;
 }
 
-.form-inline fieldset label{
+.form-inline fieldset label {
     position: relative;
     top: auto;
     margin-left: 0.1rem;
@@ -264,14 +289,15 @@ i.btn-primary {
     margin-bottom: 1rem;
 }
 
-.form-control#username:focus, .form-control#password:focus{
+.form-control#username:focus,
+.form-control#password:focus {
     background-color: white !important;
 }
 
 .md-form.form-sm input {
     padding-top: 0.4rem !important;
     line-height: 1.5rem;
-/*    border: 0; */
+    /*    border: 0; */
 }
 
 .md-form.form-sm input[type="file"] {
@@ -282,14 +308,16 @@ i.btn-primary {
 .help-block {
     font-size: 0.8rem;
     color: red;
-    
 }
+
+
 /* FIN Estilos página alta solicitud */
+
 
 /* Estilos pagina listado */
 
 .btn-rounded {
-    border-radius: 10rem;  
+    border-radius: 10rem;
     padding: 1rem 1rem;
 }
 
@@ -302,7 +330,6 @@ select.form-control:not([size]):not([multiple]) {
     width: calc(100% - 3rem);
 }
 
-
 .md-select {
     color: #757575;
     border-color: #ccc;
@@ -310,18 +337,19 @@ select.form-control:not([size]):not([multiple]) {
     border-left: 0;
     border-right: 0;
     border-bottom: 1px;
-    height: 1.1rem;
+    height: 1.8rem;
     font-size: 0.9rem;
-/*    line-height: 0.5; */
+    /*    line-height: 0.5; */
     padding-left: 0.0rem;
     padding-bottom: 0;
     padding-top: 0.5rem;
     border-color: currentcolor currentcolor #ccc;
     border-style: none none solid;
     outline: medium none;
-   -webkit-appearance: none; 
-   -moz-appearance: none;
-    appearance: none;       /* remove default arrow */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    /* remove default arrow */
     background-image: url('../images/select-down.png');
     background-position: center right;
     background-repeat: no-repeat;
@@ -330,7 +358,7 @@ select.form-control:not([size]):not([multiple]) {
     -moz-padding-end: 20px;
     -webkit-padding-start: 2px;
     -moz-padding-start: 2px;
-    font-family: "Roboto",sans-serif;
+    font-family: "Roboto", sans-serif;
     margin-left: 2rem;
 }
 
@@ -340,11 +368,12 @@ select.form-control:not([size]):not([multiple]) {
     background-repeat: no-repeat;
     -webkit-padding-start: 0px;
     -moz-padding-start: 0px;
-    font-family: "Roboto",sans-serif;    
+    font-family: "Roboto", sans-serif;
 }
 
-select::-ms-expand { 
-    display: none; /* hide the default arrow in ie10 and ie11 */
+select::-ms-expand {
+    display: none;
+    /* hide the default arrow in ie10 and ie11 */
 }
 
 .btn-fixed {
@@ -353,20 +382,22 @@ select::-ms-expand {
     bottom: 50px;
 }
 
+
 /* FIN Estilos pagina listado */
 
+
 /* INICIO Administrar enpresa */
+
 .checkbox input {
     margin-left: 15px;
     margin-bottom: 4px;
 }
 
-.checkbox input:active, 
-	  input:focus, 
-	  input:hover {
+.checkbox input:active,
+input:focus,
+input:hover {
     color: #4285f4;
 }
-
 
 .form-inline .form-control {
     margin-right: 21px;
@@ -379,20 +410,23 @@ select::-ms-expand {
 #goiko-botoiak {
     font-size: 1.4rem;
 }
+
+
 /* FIN administrar enpresa */
 
 .chart {
-  width: 100%; 
-  min-height: 450px;
+    width: 100%;
+    min-height: 450px;
 }
 
 #js-argazkiak-list li {
     display: none;
 }
 
-#eskakizuna_form_argazkia {
-    display:none;
-}
+
+/* #eskakizuna_form_argazkia {
+    display: none;
+} */
 
 .js-file {
     display: none;
@@ -410,25 +444,19 @@ select::-ms-expand {
 
 @media screen and (max-width: 576px) {
     #span-titulua {
-	width: 190px !important;
+        width: 190px !important;
     }
-
     #span-erabiltzailea {
-	display: none;
+        display: none;
     }
-
     #span-logo {
-	width: auto !important;
+        width: auto !important;
     }
-    
     .menuaren_titulua {
-	display: none;
+        display: none;
     }
-    
-    .navbar.navbar-dark .nav-link, .navbar.navbar-dark .navbar-toggler {
-	display: inline-flex;
+    .navbar.navbar-dark .nav-link,
+    .navbar.navbar-dark .navbar-toggler {
+        display: inline-flex;
     }
-
 }
-
-

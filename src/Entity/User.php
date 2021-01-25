@@ -9,12 +9,11 @@
 namespace App\Entity;
 
 /**
- * Arduradunen Entitatea
+ * User Entity. Defines the user that can access the application.
  *
  * @author ibilbao
  */
 
-//use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Enpresa;
 use Symfony\Component\Validator\Constraints as Assert;

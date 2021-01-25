@@ -19,4 +19,6 @@ return [
     AMREU\UserBundle\UserBundle::class => ['all' => true],
     JMS\SerializerBundle\JMSSerializerBundle::class => ['all' => true],
     Vich\UploaderBundle\VichUploaderBundle::class => ['all' => true],
+    Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle::class => ['all' => true],
+    SaadTazi\GChartBundle\SaadTaziGChartBundle::class => ['all' => true],
 ];

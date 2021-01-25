@@ -19,7 +19,7 @@
     {{ parent() }}
 {% endblock %}
 
-{% block mezuak %}
+{% block message %}
     {% for msg in app.session.flashBag.get('success') %}
 	<div class="alert alert-success margin-top-13">
 	    {{ msg | trans}}
@@ -32,7 +32,7 @@
     {% endfor %}
 {% endblock %}
     
-{% block gorputza %}
+{% block body %}
     <div class="container">
 	<div class="row">
 	    <div class="margin-top-13">

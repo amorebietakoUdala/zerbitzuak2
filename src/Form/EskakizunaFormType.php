@@ -42,7 +42,7 @@ class EskakizunaFormType extends AbstractType
         ->add('noiz', DateTimeType::class, [
             'disabled' => $readonly,
             'widget' => 'single_text',
-            'html5' => 'false',
+            'html5' => false,
             'format' => 'yyyy-MM-dd HH:mm',
             'constraints' => [new NotBlank()],
             ])
@@ -63,18 +63,22 @@ class EskakizunaFormType extends AbstractType
                 }
             },
             'query_builder' => function (ZerbitzuaRepository $repo) {
-            return $repo->createZerbitzuAktiboakQueryBuilder();
-        },
+                return $repo->createZerbitzuAktiboakQueryBuilder();
+            },
             ])
         ->add('argazkia', FileType::class, [
             'disabled' => $readonly,
             'data_class' => null,
+            'label' => false,
         ])
         ->add('eskakizunMota', EntityType::class, [
             'disabled' => $readonly,
+            'label' => false,
             'placeholder' => 'messages.hautatu_eskakizun_mota',
             'class' => EskakizunMota::class,
-            'choice_attr' => ['class' => 'form-inline'],
+            'choice_attr' => function($choice, $key, $value) {
+                return ['class' => 'form-check-input ml-1'];
+            },
             'expanded' => true,
             'multiple' => false,
             'choice_translation_domain' => null,
@@ -84,8 +88,12 @@ class EskakizunaFormType extends AbstractType
         ])
         ->add('jatorria', EntityType::class, [
             'disabled' => $readonly,
+            'label' => false,
             'placeholder' => 'messages.hautatu_jatorria',
             'class' => Jatorria::class,
+            'choice_attr' => function($choice, $key, $value) {
+                return ['class' => 'form-check-input'];
+            },
             'expanded' => true,
             'multiple' => false,
             'choice_label' => function (Jatorria $jatorria) use ($locale) {
@@ -99,13 +107,16 @@ class EskakizunaFormType extends AbstractType
                 return $repo->createOrderedQueryBuilder();
             },
             ])
-        ->add('georeferentziazioa', GeoreferentziazioaFormType::class)
+        ->add('georeferentziazioa', GeoreferentziazioaFormType::class,[
+            'label' => false,
+        ])
         ->add('eranskinak', CollectionType::class, [
             'entry_type' => EranskinaFormType::class,
     //		'entry_options' => ['label' => 'messages.ezabatu' ],
             'allow_add' => true,
             'allow_delete' => true,
             'by_reference' => false,
+            'label' => false,
         ])
         ->add('argazkiak', CollectionType::class, [
             'entry_type' => ArgazkiaFormType::class,
@@ -113,6 +124,7 @@ class EskakizunaFormType extends AbstractType
             'allow_add' => true,
             'allow_delete' => true,
             'by_reference' => false,
+            'label' => false,
         ])
         ;
         if (false === $options['editatzen']) {
@@ -137,6 +149,7 @@ class EskakizunaFormType extends AbstractType
         if (in_array('ROLE_ADMIN', $options['role']) or in_array('ROLE_ARDURADUNA', $options['role']) or in_array('ROLE_INFORMATZAILEA', $options['role'])) {
             $builder->add('eskatzailea', EskatzaileaFormType::class, [
             'disabled' => $readonly,
+            'label' => false,
         ]);
         }
     }

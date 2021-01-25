@@ -4,39 +4,49 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-
+  images_uploads_url: /erantzun/images/uploads
+  images_uploads_directory: "%kernel.project_dir%/public/images/uploads"
+  images_width: 640
+  images_thumb_width: 200
+  max_upload_image_size: 3M
+  erantzundakoan_mezua_bidali: false
+  mezuak_bidali: true
+  eranskinak_uploads_url: /images/uploads
+  eranskinak_uploads_directory: "%kernel.project_dir%/public/images/uploads"
+  mailer_from: '%env(MAILER_USER)%'
+  
 services:
-    Symfony\Component\Ldap\Ldap:
-        arguments: ['@Symfony\Component\Ldap\Adapter\ExtLdap\Adapter']
+  Symfony\Component\Ldap\Ldap:
+    arguments: ['@Symfony\Component\Ldap\Adapter\ExtLdap\Adapter']
 
-    ldap:
-        alias: Symfony\Component\Ldap\Ldap
-            
-    Symfony\Component\Ldap\Adapter\ExtLdap\Adapter:
-        arguments:
-            -   host: '%env(LDAP_HOST)%'
-                port: '%env(LDAP_PORT)%'
-                encryption: none
-                options:
-                    protocol_version: 3
-                    referrals: false    
-                    
-    # default configuration for services in *this* file
-    _defaults:
-        autowire: true      # Automatically injects dependencies in your services.
-        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+  ldap:
+    alias: Symfony\Component\Ldap\Ldap
 
-    # makes classes in src/ available to be used as services
-    # this creates a service per class whose id is the fully-qualified class name
-    App\:
-        resource: '../src/*'
-        exclude: '../src/{DependencyInjection,Entity,Tests,Kernel.php}'
+  Symfony\Component\Ldap\Adapter\ExtLdap\Adapter:
+    arguments:
+      - host: "%env(LDAP_HOST)%"
+        port: "%env(LDAP_PORT)%"
+        encryption: none
+        options:
+          protocol_version: 3
+          referrals: false
 
-    # controllers are imported separately to make sure services can be injected
-    # as action arguments even if you don't extend any base controller class
-    App\Controller\:
-        resource: '../src/Controller'
-        tags: ['controller.service_arguments']
+  # default configuration for services in *this* file
+  _defaults:
+    autowire: true # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+  # makes classes in src/ available to be used as services
+  # this creates a service per class whose id is the fully-qualified class name
+  App\:
+    resource: "../src/*"
+    exclude: "../src/{DependencyInjection,Entity,Tests,Kernel.php}"
+
+  # controllers are imported separately to make sure services can be injected
+  # as action arguments even if you don't extend any base controller class
+  App\Controller\:
+    resource: "../src/Controller"
+    tags: ["controller.service_arguments"]
+
+  # add more service definitions when explicit configuration is needed
+  # please note that last definitions always *replace* previous ones

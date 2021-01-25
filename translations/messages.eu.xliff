@@ -425,8 +425,8 @@
                 <source>messages.egun</source>
                 <target>Egun</target>
             </trans-unit>
-            <trans-unit id="Enabled">
-                <source>Enabled</source>
+            <trans-unit id="Activated">
+                <source>Activated</source>
                 <target>Aktibatua</target>
             </trans-unit>
             <trans-unit id="Aktibatua">
@@ -509,6 +509,10 @@
                 <source>messages.ezin_erabiltzailea_borratu_eskakizunak_dituelako</source>
                 <target>Ezin da erabiltzailea borratu eskakizunak erreklamatu dituelako</target>
             </trans-unit>
+            <trans-unit id="messages.ezin_erabiltzailea_borratu_erantzunak_sartu_dituelako">
+                <source>messages.ezin_erabiltzailea_borratu_erantzunak_sartu_dituelako</source>
+                <target>Ezin da erabiltzailea borratu erantzunak sartu dituelako</target>
+            </trans-unit>
             <trans-unit id="messages.ezin_eskakizunmota_borratu_eskakizunak_erreklamatu_dituelako">
                 <source>messages.ezin_eskakizunmota_borratu_eskakizunak_dituelako</source>
                 <target>Ezin da eskakizun mota borratu eskakizunak dituelako</target>
@@ -556,6 +560,10 @@
             <trans-unit id="eskakizun">
                 <source>eskakizun</source>
                 <target>eskakizun</target>
+            </trans-unit>
+            <trans-unit id="messages.pasahitzak_ez_datoz_bat">
+                <source>messages.pasahitzak_ez_datoz_bat</source>
+                <target>Las contraseñas no coinciden</target>
             </trans-unit>
 
 	    <!-- Amaiera Entitateak -->

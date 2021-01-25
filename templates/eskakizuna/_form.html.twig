@@ -8,280 +8,294 @@
 }}
 
 {{ form_errors(eskakizunaForm) }}
-	<div class="row">
-	    <div class="col-12">
+<div class="row">
+	<div class="col-12">
 		{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ARDURADUNA') or is_granted('ROLE_INFORMATZAILEA') %}
-		    <div id="eskatzailea" class="card">
-			<div class="card-block">
-			    <div class="text-center">
-				<p class="text-primary">{{"messages.eskatzailea" | trans | capitalize}}</p>
-				<hr class="mt-1 mb-1">
-			    </div>
-			    <div class="card-text">
-				<div class="row col-12 form-inline">
-				    <div class="col-lg-2 col-md-3 md-form form-sm">
-					<i class="fa fa-id-card prefix"></i>
-					<label for="nan">{{ 'messages.nan' | trans | capitalize }}</label>
-					{{ form_widget(eskakizunaForm.eskatzailea.nan, { 'attr': { 'class' : 'form-control' } }) }}
-					{{ form_errors(eskakizunaForm.eskatzailea.nan) }}
-				    </div>
-				    <div class="col-lg-4 col-md-9 md-form form-sm">
-					<i class="fa fa-user prefix"></i>
-					<label for="izena">{{ 'messages.izena' | trans | capitalize }}</label>
-					{{ form_widget(eskakizunaForm.eskatzailea.izena, { 'attr': { 'class' : 'form-control' } }) }}
-					{{ form_errors(eskakizunaForm.eskatzailea.izena) }}
-					<input type="hidden" id="eskatzailea-id">
-				    </div>
-				    <div class="col-lg-4 col-md-5 md-form form-sm">
-					<i class="fa fa-send prefix"></i>
-					<label for="emaila">{{ 'messages.emaila' | trans | capitalize }}</label>
-					{{ form_widget(eskakizunaForm.eskatzailea.emaila, { 'attr': { 'class' : 'form-control' } }) }}
-					{{ form_errors(eskakizunaForm.eskatzailea.emaila) }}
-				    </div>
-				    <div class="col-lg-2 col-md-3 md-form form-sm">
-					<i class="fa fa-phone prefix"></i>
-					<label for="telefonoa">{{ 'messages.telefonoa' | trans | capitalize }}</label>
-					{{ form_widget(eskakizunaForm.eskatzailea.telefonoa, { 'attr': { 'class' : 'form-control' } }) }}
-					{{ form_errors(eskakizunaForm.eskatzailea.telefonoa) }}
-				    </div>
+			<div id="eskatzailea" class="card">
+				<div class="card-block">
+					<div class="text-center">
+						<p class="text-primary">{{"messages.eskatzailea" | trans | capitalize}}</p>
+						<hr class="mt-1 mb-1">
+					</div>
+					<div class="card-text">
+						<div class="row col-12 form-inline">
+							<div class="col-lg-2 col-md-3 md-form form-sm">
+								<i class="fa fa-id-card prefix"></i>
+								<label for="nan">{{ 'messages.nan' | trans | capitalize }}</label>
+								{{ form_widget(eskakizunaForm.eskatzailea.nan, { 'attr': { 'class' : 'form-control' } }) }}
+								{{ form_errors(eskakizunaForm.eskatzailea.nan) }}
+							</div>
+							<div class="col-lg-4 col-md-9 md-form form-sm">
+								<i class="fa fa-user prefix"></i>
+								<label for="izena">{{ 'messages.izena' | trans | capitalize }}</label>
+								{{ form_widget(eskakizunaForm.eskatzailea.izena, { 'attr': { 'class' : 'form-control' } }) }}
+								{{ form_errors(eskakizunaForm.eskatzailea.izena) }}
+								<input type="hidden" id="eskatzailea-id">
+							</div>
+							<div class="col-lg-4 col-md-5 md-form form-sm">
+								<i class="fa fa-send prefix"></i>
+								<label for="emaila">{{ 'messages.emaila' | trans | capitalize }}</label>
+								{{ form_widget(eskakizunaForm.eskatzailea.emaila, { 'attr': { 'class' : 'form-control' } }) }}
+								{{ form_errors(eskakizunaForm.eskatzailea.emaila) }}
+							</div>
+							<div class="col-lg-2 col-md-3 md-form form-sm">
+								<i class="fa fa-phone prefix"></i>
+								<label for="telefonoa">{{ 'messages.telefonoa' | trans | capitalize }}</label>
+								{{ form_widget(eskakizunaForm.eskatzailea.telefonoa, { 'attr': { 'class' : 'form-control' } }) }}
+								{{ form_errors(eskakizunaForm.eskatzailea.telefonoa) }}
+							</div>
+						</div>
+						<div class="row col-12 form-inline">
+							<div class="col-lg-2 col-md-3 md-form form-sm">
+								<i class="fa fa-fax prefix"></i>
+								<label for="faxa">{{ 'messages.faxa' | trans | capitalize }}</label>
+								{{ form_widget(eskakizunaForm.eskatzailea.faxa, { 'attr': { 'class' : 'form-control' } }) }}
+								{{ form_errors(eskakizunaForm.eskatzailea.faxa) }}
+							</div>
+							<div class="col-lg-4 col-md-9 md-form form-sm">
+								<i class="fa fa-compass prefix"></i>
+								<label for="helbidea">{{ 'messages.helbidea' | trans | capitalize }}</label>
+								{{ form_widget(eskakizunaForm.eskatzailea.helbidea, { 'attr': { 'class' : 'form-control' } }) }}
+								{{ form_errors(eskakizunaForm.eskatzailea.helbidea) }}
+							</div>
+							<div class="col-lg-2 col-md-2 md-form form-sm">
+								<i class="fa fa-envelope prefix"></i>
+								<label for="postaKodea">{{ 'messages.postaKodea' | trans | capitalize }}</label>
+								{{ form_widget(eskakizunaForm.eskatzailea.postaKodea, { 'attr': { 'class' : 'form-control' } }) }}
+								{{ form_errors(eskakizunaForm.eskatzailea.postaKodea) }}
+							</div>
+							<div class="col-lg-2 col-md-4 md-form form-sm">
+								<i class="fa fa-institution prefix"></i>
+								<label for="herria">{{ 'messages.herria' | trans | capitalize }}</label>
+								{{ form_widget(eskakizunaForm.eskatzailea.herria, { 'attr': { 'class' : 'form-control' } }) }}
+								{{ form_errors(eskakizunaForm.eskatzailea.herria) }}
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="row col-12 form-inline">
-				    <div class="col-lg-2 col-md-3 md-form form-sm">
-					<i class="fa fa-fax prefix"></i>
-					<label for="faxa">{{ 'messages.faxa' | trans | capitalize }}</label>
-					{{ form_widget(eskakizunaForm.eskatzailea.faxa, { 'attr': { 'class' : 'form-control' } }) }}
-					{{ form_errors(eskakizunaForm.eskatzailea.faxa) }}
-				    </div>
-				    <div class="col-lg-4 col-md-9 md-form form-sm">
-					<i class="fa fa-compass prefix"></i>
-					<label for="helbidea">{{ 'messages.helbidea' | trans | capitalize }}</label>
-					{{ form_widget(eskakizunaForm.eskatzailea.helbidea, { 'attr': { 'class' : 'form-control' } }) }}
-					{{ form_errors(eskakizunaForm.eskatzailea.helbidea) }}
-				    </div>
-				    <div class="col-lg-2 col-md-2 md-form form-sm">
-					<i class="fa fa-envelope prefix"></i>
-					<label for="postaKodea">{{ 'messages.postaKodea' | trans | capitalize }}</label>
-					{{ form_widget(eskakizunaForm.eskatzailea.postaKodea, { 'attr': { 'class' : 'form-control' } }) }}
-					{{ form_errors(eskakizunaForm.eskatzailea.postaKodea) }}
-				    </div>
-				    <div class="col-lg-2 col-md-4 md-form form-sm">
-					<i class="fa fa-institution prefix"></i>
-					<label for="herria">{{ 'messages.herria' | trans | capitalize }}</label>
-					{{ form_widget(eskakizunaForm.eskatzailea.herria, { 'attr': { 'class' : 'form-control' } }) }}
-					{{ form_errors(eskakizunaForm.eskatzailea.herria) }}
-				    </div>
-				</div>
-			    </div>
 			</div>
-		    </div>
 		{% endif %}
 		<div id="eskaria" class="card">
-		    <div class="card-block">
-			<div class="text-center">
-			    <span class="text-primary">{{"messages.eskakizuna" | trans | capitalize}}</span>
-			    <span id="goiko-botoiak" class="text-primary pull-right">
-                                {% if (gordeBotoia == true) %}
-				    &nbsp;<a class="js-gorde_botoia" title="{{"messages.gorde" | trans | capitalize}}"><i class="fa fa-save left"></i></a>
-                                {% endif %}
-                                {% if (erantzun == true) %}
-				    &nbsp; <a class="js-erantzun_botoia" title="{{"messages.erantzun" | trans | capitalize}}"><i class="fa fa-reply left"></i></a>
-                                {% endif %}
-				    &nbsp;<a title="{{"messages.atzera" | trans | capitalize}}" href="{{ path ('admin_eskakizuna_list',{'returnPage': returnPage }) }}"><i class="fa fa-arrow-circle-left left"></i></a>
-				{% if (is_granted('ROLE_ADMIN') or is_granted('ROLE_ARDURADUNA') or is_granted('ROLE_INFORMATZAILEA')) and editatzen == true %}
-				    &nbsp;<a class="js-ezabatu_botoia" title="{{"messages.ezabatu" | trans | capitalize}}" data-url="{{ path ('admin_eskakizuna_delete', {'id': eskakizunaForm.vars.value.id, 'returnPage': returnPage }) }}" href="#"><i class="fa fa-trash prefix" title="{{"messages.ezabatu" | trans | capitalize}}"></i></a>
-				    &nbsp;<a class="js-itxi_botoia" title="{{"messages.itxi" | trans | capitalize}}" data-url="{{ path ('admin_eskakizuna_close', {'id': eskakizunaForm.vars.value.id, 'returnPage': returnPage }) }}" href="#"><i class="fa fa-window-close prefix" title="{{"messages.itxi" | trans | capitalize}}"></i></a>
-				    &nbsp;<a class="js-erreklamatu_botoia" title="{{"messages.erreklamatu" | trans | capitalize}}" data-url="{{ path ('admin_eskakizuna_resend', {'id': eskakizunaForm.vars.value.id, 'returnPage': returnPage }) }}" href="#"><i class="fa fa-forward" title="{{"messages.erreklamatu" | trans | capitalize}}"></i></a>
-				{% endif %}
-			    </span>
-			    <hr class="mt-1 mb-1">
-			</div>
-			<div class="card-text">
-			    <div class="row col-12">
-				<div class="col-lg-2 col-md-3 md-form form-group form-sm">
-				    <i class="fa fa-id-card prefix js-calendar"></i>
-				    <label for="let">{{ 'messages.lep' | trans | capitalize }}</label>
-				    {{ form_widget(eskakizunaForm.lep, { 'attr': { 'class' : 'form-control' } }) }}
-				    {{ form_errors(eskakizunaForm.lep) }}
+			<div class="card-block">
+				<div class="text-center">
+					<span class="text-primary">{{"messages.eskakizuna" | trans | capitalize}}</span>
+					<span id="goiko-botoiak" class="text-primary pull-right">
+						{% if (gordeBotoia == true) %}
+							&nbsp;<a class="js-gorde_botoia" title="{{"messages.gorde" | trans | capitalize}}">
+								<i class="fa fa-save left"></i>
+							</a>
+						{% endif %}
+						{% if (erantzun == true) %}
+							&nbsp;
+							<a class="js-erantzun_botoia" title="{{"messages.erantzun" | trans | capitalize}}">
+								<i class="fa fa-reply left"></i>
+							</a>
+						{% endif %}
+						&nbsp;<a title="{{"messages.atzera" | trans | capitalize}}" href="{{ path ('admin_eskakizuna_list',{'returnPage': returnPage }) }}">
+							<i class="fa fa-arrow-circle-left left"></i>
+						</a>
+						{% if (is_granted('ROLE_ADMIN') or is_granted('ROLE_ARDURADUNA') or is_granted('ROLE_INFORMATZAILEA')) and editatzen == true %}
+							&nbsp;<a class="js-ezabatu_botoia" title="{{"messages.ezabatu" | trans | capitalize}}" data-url="{{ path ('admin_eskakizuna_delete', {'id': eskakizunaForm.vars.value.id, 'returnPage': returnPage }) }}" href="#">
+								<i class="fa fa-trash prefix" title="{{"messages.ezabatu" | trans | capitalize}}"></i>
+							</a>
+							&nbsp;<a class="js-itxi_botoia" title="{{"messages.itxi" | trans | capitalize}}" data-url="{{ path ('admin_eskakizuna_close', {'id': eskakizunaForm.vars.value.id, 'returnPage': returnPage }) }}" href="#">
+								<i class="fa fa-window-close prefix" title="{{"messages.itxi" | trans | capitalize}}"></i>
+							</a>
+							&nbsp;<a class="js-erreklamatu_botoia" title="{{"messages.erreklamatu" | trans | capitalize}}" data-url="{{ path ('admin_eskakizuna_resend', {'id': eskakizunaForm.vars.value.id, 'returnPage': returnPage }) }}" href="#">
+								<i class="fa fa-forward" title="{{"messages.erreklamatu" | trans | capitalize}}"></i>
+							</a>
+						{% endif %}
+					</span>
+					<hr class="mt-1 mb-1">
 				</div>
-				
-				<div class="col-lg-2 col-md-3 md-form form-group form-sm">
-				    <i class="fa fa-calendar prefix js-calendar"></i>
-				    <label class="js-noiz-label" for="noiz">{{ 'messages.noiz' | trans | capitalize }}</label>
-					{{ form_widget(eskakizunaForm.noiz, { 'attr': { 'class' : 'js-datepicker' } }) }}
-				    {{ form_errors(eskakizunaForm.noiz) }}
-				</div>
-				<div class="col-lg-8 md-form form-group form-sm">
-				    <i class="fa fa-crosshairs prefix"></i>
-					{{ form_widget(eskakizunaForm.zerbitzua, { 'attr': { 'class' : 'md-select' } }) }}
-					{{ form_errors(eskakizunaForm.zerbitzua) }}
-				</div>
-			    </div>
-			    <div class="row col-12">
-				<div class="col-12 md-form form-group form-sm">
-				    <p class="grey-text">{{ 'messages.mamia' | trans | capitalize }}
-					{% if eskakizunaForm.vars.value.norkInformatua is defined and eskakizunaForm.vars.value.norkInformatua != null %}
-					    {% if (is_granted('ROLE_ADMIN') or is_granted('ROLE_ARDURADUNA') or is_granted('ROLE_INFORMATZAILEA')) %}
-                :<b>{{ eskakizunaForm.vars.value.norkInformatua.izena }}</b>
-                <span class="text-muted">
-                  (
-                  {% if eskakizunaForm.vars.value.noizInformatua is defined and eskakizunaForm.vars.value.noizInformatua != null %}
-                      {{ eskakizunaForm.vars.value.noizInformatua | date('Y-m-d H:i') }}
-                  {% endif %}
-                  )
-                </span>
-					    {% endif %}
-					{% endif %}
-				    </p>
-					    {{ form_widget(eskakizunaForm.mamia, { 'attr': { 'class' : 'js-mamia tinymce' } }) }}
-					    {{ form_errors(eskakizunaForm.mamia) }}
-				</div>
-			    </div>
-			    <div class="container row chat_box_wrapper">
-				<div class="col-12 margin-top-13 chat_box chat_box_colors_a">
-				    {% if erantzunak is defined and erantzunak | length > 0 %}
-					    <p class="grey-text">{{ 'messages.erantzunak' | trans | capitalize }}</p>
-					{% for erantzuna in erantzunak %}
-						<div class="chat_message_wrapper chat_message">
-						    <ul id="js-erantzunak-list" class="col-12 chat_message">
-							<li><b>{{ erantzuna.erantzulea.izena | raw }}</b> <span class="text-muted">({{ erantzuna.noiz | date('Y-m-d H:i') }})</span><br/>{{ erantzuna.erantzuna | raw }}</li>
-						    </ul>
+				<div class="card-text">
+					<div class="row col-12">
+						<div class="col-lg-2 col-md-3 md-form form-group form-sm">
+							<i class="fa fa-id-card prefix js-calendar"></i>
+							<label for="let">{{ 'messages.lep' | trans | capitalize }}</label>
+							{{ form_widget(eskakizunaForm.lep, { 'attr': { 'class' : 'form-control' } }) }}
+							{{ form_errors(eskakizunaForm.lep) }}
 						</div>
-					{% endfor %}
-					{% endif %}
-{#					
-					{% if eskakizunaForm.erantzunak|length > 0 %}
-					    <p class="grey-text">{{ 'messages.erantzunak' | trans | capitalize }}</p>
-						{{ form_errors(eskakizunaForm.erantzunak) }}
-						{% for erantzuna in eskakizunaForm.erantzunak %}
-						<p class="margin-top-13">{{ 'messages.nork' | trans | capitalize }} {{ erantzuna.vars.value.erantzulea.izena }} <span class="text-muted">({{ erantzuna.vars.value.noiz | date('Y-m-d H:i') }})</span></p>
-						<div class="chat_message_wrapper chat_message">
-						    <ul id="js-erantzunak-list" class="col-12 chat_message" data-prototype="{{ form_widget(eskakizunaForm.erantzunak.vars.prototype)|e }}">
-							<li>{{ form_widget(eskakizunaForm.erantzunak) }}</li>
-						    </ul>
-						</div>
-						{% endfor %}
-					{% endif %}
-#}
-				    {% if editatzen == true or erantzun == true %} 
-					<div class="col-12 md-form form-group form-sm">
-					    <p class="grey-text">{{ 'messages.erantzuna_gehitu' | trans | capitalize }}</p>
-						    {{ form_widget(eskakizunaForm.erantzunak, { 'attr': { 'class' : 'tinymce' }, 'value': '' }) }}
-						    {{ form_errors(eskakizunaForm.erantzunak.erantzuna) }}
-					</div>
-				    {% endif %}
-				</div>
-			    </div>
-			    <div class="row col-12 margin-top-13">
-				<div class="col-6">
-				    <p class="grey-text">{{ 'messages.eskakizun_mota_zehaztu' | trans | capitalize }}</p>
-				    <div class="md-form form-group form-sm form-inline">
-					{{ form_widget(eskakizunaForm.eskakizunMota) }}
-					{{ form_errors(eskakizunaForm.eskakizunMota) }}
-				    </div>
-				</div>
-				<div class="col-6">
-				    <p class="grey-text">{{ 'messages.jatorria' | trans | capitalize }}</p>
-				    <div class="md-form form-group form-sm form-inline">
-					{{ form_widget(eskakizunaForm.jatorria) }}
-					{{ form_errors(eskakizunaForm.jatorria) }}
-				    </div>
-				</div>
-			    </div>
-			    <div class="row container margin-top-13">
-				<div class="col md-form form-group form-sm margin-top-08">
-				    <div class="form-group form-sm">
-				    <a id="add-another-eranskina" href="#" class="add_tag_link">{{ 'messages.eranskina-gehitu' | trans }}</a>
-				    <ul id="js-eranskinak-list" class="eranskinak margin-top-13" data-prototype="{{ form_widget(eskakizunaForm.eranskinak.vars.prototype)|e('html_attr') }}">
-					{% for eranskina in eskakizunaForm.eranskinak %}
-					    <li>{{ form_widget(eranskina.eranskinaFile) }}
-						{{ form_errors(eranskina.eranskinaFile) }}
-					    </li>
-					{% endfor %}
-				    </ul>
-				    </div>
-				</div>
-			    </div>
-			    <div class="col-lg-12 row margin-top-13">
-				<div class="col-lg-6 col-md-6 md-form form-group form-sm">
-					<div class="col md-form form-group form-sm">
-					    <i class="fa fa-compass prefix"></i>
-					    <label for="kalea">{{ 'messages.kalea' | trans | capitalize }}</label>
-					    {{ form_widget(eskakizunaForm.kalea, { 'attr': { 'class' : 'form-control' } }) }}
-					    {{ form_errors(eskakizunaForm.kalea) }}
-					</div>
-				</div>
-				<div class="col-lg-6 col-md-6 md-form form-group form-sm">
-				    <button id="buscar" class="col-4 btn btn-primary form-control" type="button"><i class="fa fa-compass"></i>{{"messages.bilatu" | trans | capitalize}}</button>
-				</div>
-			    </div>
-			    <div class="row container margin-top-13">
-				<div id="map-container" class="col z-depth-1" style="height: 300px"></div>
-			    </div>
-{#			    <div class="row col md-form form-group form-sm">
-				<div class="col-lg-6 col-md-6 md-form form-group form-sm">
-				    <i class="fa fa-picture-o prefix"></i>
-				    {{ form_widget(eskakizunaForm.argazkia, { 'attr': { 'class' : 'form-control js-argazkia' } }) }}
-				    {{ form_errors(eskakizunaForm.argazkia) }}
-				{% if ( eskakizunaForm.vars.value.argazkia != null ) %}
-				    <img id="argazkia-preview" src="{{ images_uploads_url }}/{{ eskakizunaForm.vars.value.argazkia }}" alt=""/>
-				{% else %}
-				    <img id="argazkia-preview" src="" alt=""/>
-				{% endif %}
-				</div>
-			    </div>
-#}
-			    <div class="row col margin-top-13">
-				<div id="karrusela" class="carousel slide" data-ride="carousel">
-				  <div class="carousel-inner">
-				      {% set active="true"%}
-				      {% for argazki in eskakizunaForm.argazkiak %}
-					<div class="carousel-item{%if active == "true"%} active{%endif%}">
-					    <img class="d-block img-fluid" src="{{ images_uploads_url }}/{{argazki.vars.value.imageName }}">
-					</div>
-				      {% set active="false"%}
-				      {% endfor %}
-				      <a class="carousel-control-prev" href="#karrusela" data-slide="prev">
-					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-					<span class="sr-only">Previous</span>
-				      </a>
-				      <a class="carousel-control-next" href="#karrusela" data-slide="next">
-					<span class="carousel-control-next-icon" aria-hidden="true"></span>
-					<span class="sr-only">Next</span>
-				      </a>
-				  </div>
-				</div>
-			    </div>
-			    <div class="row col md-form form-group form-sm margin-top-13">
-				<div class="form-group form-sm">
-				<a id="add-another-argazkia" href="#" class="add_tag_link">{{ 'messages.argazkia_gehitu' | trans | capitalize }}</a>
-				<ul id="js-argazkiak-list" class="argazkiak" data-prototype="{{ form_widget(eskakizunaForm.argazkiak.vars.prototype)|e('html_attr') }}">
-				    {% for argazki in eskakizunaForm.argazkiak %}
-					<li>{{ form_widget(argazki.imageFile) }}
-					    {{ form_errors(argazki.imageFile) }}
-					</li>
-				    {% endfor %}
-				</ul>
-				<img id="argazkia-preview" src="" alt=""/>
-				</div>
-			    </div>
-			    <div id="beheko-botoiak" class="row col-12 md-form form-group form-sm margin-top-13">
-                                {% if (gordeBotoia == true) %}
-                                    <button class="col-2 btn btn-primary form-control js-gorde_botoia" type="button" formnovalidate ><i class="fa fa-save left"></i>{{"messages.gorde" | trans | capitalize}}</button>
-                                {% endif %}
-                                {% if (erantzun == true) %}
-                                    <button class="col-2 btn btn-primary form-control js-erantzun_botoia" type="button" formnovalidate><i class="fa fa-reply left"></i>{{"messages.erantzun" | trans | capitalize}}</button>
-                                {% endif %}
-                                <button class="col-2 btn btn-primary form-control js-atzera-botoia" type="button"  data-url="{{ path ('admin_eskakizuna_list',{'returnPage': returnPage }) }}"><i class="fa fa-arrow-circle-left left"></i>{{"messages.utzi" | trans | capitalize}}</button>
-				{% if (is_granted('ROLE_ADMIN') or is_granted('ROLE_ARDURADUNA') or is_granted('ROLE_INFORMATZAILEA')) and editatzen == true %}
-				    <button id="js-ezabatu_botoia_azpikoa" class="col-2 btn btn-primary form-control js-ezabatu_botoia" type="button" data-url="{{ path ('admin_eskakizuna_delete', {'id': eskakizunaForm.vars.value.id, 'returnPage': returnPage }) }}"><i class="fa fa-trash left"></i>{{"messages.ezabatu" | trans | capitalize}}</button>
-				    <button id="js-itxi_botoia_azpikoa" class="col-2 btn btn-primary form-control js-itxi_botoia" type="button" data-url="{{ path ('admin_eskakizuna_close', {'id': eskakizunaForm.vars.value.id, 'returnPage': returnPage }) }}"><i class="fa fa-window-close left"></i>{{"messages.itxi" | trans | capitalize}}</button>
-				    <button id="js-erreklamatu_botoia_azpikoa" class="col-2 btn btn-primary form-control js-erreklamatu_botoia" type="button" data-url="{{ path ('admin_eskakizuna_resend', {'id': eskakizunaForm.vars.value.id, 'returnPage': returnPage }) }}"><i class="fa fa-forward left"></i>{{"messages.erreklamatu" | trans | capitalize}}</button>
-				{% endif %}
 
-			    </div>
+						<div class="col-lg-2 col-md-3 md-form form-group form-sm">
+							<i class="fa fa-calendar prefix js-calendar"></i>
+							<label class="js-noiz-label" for="noiz">{{ 'messages.noiz' | trans | capitalize }}</label>
+							{{ form_widget(eskakizunaForm.noiz, { 'attr': { 'class' : 'js-datepicker' } }) }}
+							{{ form_errors(eskakizunaForm.noiz) }}
+						</div>
+						<div class="col-lg-8 md-form form-group form-sm">
+							<i class="fa fa-crosshairs prefix"></i>
+							{{ form_widget(eskakizunaForm.zerbitzua, { 'attr': { 'class' : 'md-select' } }) }}
+							{{ form_errors(eskakizunaForm.zerbitzua) }}
+						</div>
+					</div>
+					<div class="row col-12">
+						<div class="col-12 md-form form-group form-sm">
+							<p class="grey-text">{{ 'messages.mamia' | trans | capitalize }}
+								{% if eskakizunaForm.vars.value.norkInformatua is defined and eskakizunaForm.vars.value.norkInformatua != null %}
+									{% if (is_granted('ROLE_ADMIN') or is_granted('ROLE_ARDURADUNA') or is_granted('ROLE_INFORMATZAILEA')) %}
+										:<b>{{ eskakizunaForm.vars.value.norkInformatua.izena }}</b>
+										<span class="text-muted">
+											(
+											{% if eskakizunaForm.vars.value.noizInformatua is defined and eskakizunaForm.vars.value.noizInformatua != null %}
+												{{ eskakizunaForm.vars.value.noizInformatua | date('Y-m-d H:i') }}
+											{% endif %}
+											)
+										</span>
+									{% endif %}
+								{% endif %}
+							</p>
+							{{ form_widget(eskakizunaForm.mamia, { 'attr': { 'class' : 'js-mamia tinymce' } }) }}
+							{{ form_errors(eskakizunaForm.mamia) }}
+						</div>
+					</div>
+					<div class="container row chat_box_wrapper">
+						<div class="col-12 margin-top-13 chat_box chat_box_colors_a">
+							{% if erantzunak is defined and erantzunak | length > 0 %}
+								<p class="grey-text">{{ 'messages.erantzunak' | trans | capitalize }}</p>
+								{% for erantzuna in erantzunak %}
+									<div class="chat_message_wrapper chat_message">
+										<ul id="js-erantzunak-list" class="col-12 chat_message">
+											<li>
+												<b>{{ erantzuna.erantzulea.izena | raw }}</b>
+												<span class="text-muted">({{ erantzuna.noiz | date('Y-m-d H:i') }})</span><br/>{{ erantzuna.erantzuna | raw }}</li>
+										</ul>
+									</div>
+								{% endfor %}
+							{% endif %}
+							{% if editatzen == true or erantzun == true %}
+								<div class="col-12 md-form form-group form-sm">
+									<p class="grey-text">{{ 'messages.erantzuna_gehitu' | trans | capitalize }}</p>
+									{{ form_widget(eskakizunaForm.erantzunak, { 'attr': { 'class' : 'tinymce' }, 'value': '' }) }}
+									{{ form_errors(eskakizunaForm.erantzunak.erantzuna) }}
+								</div>
+							{% endif %}
+						</div>
+					</div>
+					<div class="row col-12 margin-top-13">
+						<div class="col-6">
+							<p class="grey-text">{{ 'messages.eskakizun_mota_zehaztu' | trans | capitalize }}</p>
+							<div class="form-group d-flex">
+								{{ form_widget(eskakizunaForm.eskakizunMota, {'attr': { 'class' : 'form-inline'}}) }}
+								{{ form_errors(eskakizunaForm.eskakizunMota) }}
+							</div>
+						</div>
+						<div class="col-6">
+							<p class="grey-text">{{ 'messages.jatorria' | trans | capitalize }}</p>
+							<div class="form-group d-flex">
+								{{ form_widget(eskakizunaForm.jatorria, {'attr': { 'class' : 'form-inline'}}) }}
+								{{ form_errors(eskakizunaForm.jatorria) }}
+							</div>
+						</div>
+					</div>
+					<div class="row container margin-top-13">
+						<div class="col md-form form-group form-sm margin-top-08">
+							<div
+								class="form-group form-sm">
+								{# Only show this button on edit #}
+								{% if gordeBotoia == true %}
+									<a id="add-another-eranskina" href="#" class="add_tag_link">{{ 'messages.eranskina-gehitu' | trans }}</a>
+								{% endif %}
+								<ul id="js-eranskinak-list" class="eranskinak margin-top-13" data-prototype="{{ form_widget(eskakizunaForm.eranskinak.vars.prototype)|e('html_attr') }}">
+									{% for eranskina in eskakizunaForm.eranskinak %}
+										<li>{{ form_widget(eranskina.eranskinaFile) }}
+											{{ form_errors(eranskina.eranskinaFile) }}
+										</li>
+									{% endfor %}
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-12 row margin-top-13">
+						<div class="col-lg-6 col-md-6 md-form form-group form-sm">
+							<div class="col md-form form-group form-sm">
+								<i class="fa fa-compass prefix"></i>
+								<label for="kalea">{{ 'messages.kalea' | trans | capitalize }}</label>
+								{{ form_widget(eskakizunaForm.kalea, { 'attr': { 'class' : 'form-control' } }) }}
+								{{ form_errors(eskakizunaForm.kalea) }}
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-6 md-form form-group form-sm">
+							<button id="buscar" class="col-4 btn btn-primary form-control" type="button">
+								<i class="fa fa-compass"></i>
+								{{"messages.bilatu" | trans | capitalize}}</button>
+						</div>
+					</div>
+					<div class="row container margin-top-13">
+						<div id="map-container" class="col z-depth-1" style="height: 300px"></div>
+					</div>
+					<div class="row col margin-top-13">
+						<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+							<div class="carousel-inner" role="listbox">
+								{% set active="true"%}
+								{% for argazki in eskakizunaForm.argazkiak %}
+									{% if active == "true" %}
+										<div class="carousel-item active col">
+										{% else %}
+											<div class="carousel-item">
+											{% endif %}
+											<img class="d-block" src="{{ images_uploads_url }}/{{argazki.vars.value.imageName }}">
+										</div>
+										{% set active="false"%}
+									{% endfor %}
+								</div>
+								<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+									<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+									<span class="sr-only">Previous</span>
+								</a>
+								<a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+									<span class="carousel-control-next-icon" aria-hidden="true"></span>
+									<span class="sr-only">Next</span>
+								</a>
+							</div>
+						</div>
+						<div class="row col form-group form-sm margin-top-13">
+							<div
+								class="form-group form-sm">
+								{# Only show this button on edit #}
+								{% if gordeBotoia == true %}
+									<a id="add-another-argazkia" href="#" class="add_tag_link">{{ 'messages.argazkia_gehitu' | trans | capitalize }}</a>
+								{% endif %}
+								<ul id="js-argazkiak-list" class="argazkiak" data-prototype="{{ form_widget(eskakizunaForm.argazkiak.vars.prototype)|e('html_attr') }}">
+									{% for argazki in eskakizunaForm.argazkiak %}
+										<li>{{ form_widget(argazki.imageFile) }}
+											{{ form_errors(argazki.imageFile) }}
+										</li>
+									{% endfor %}
+								</ul>
+								<img id="argazkia-preview" src="" alt=""/>
+							</div>
+						</div>
+						<div id="beheko-botoiak" class="row col-12 md-form form-group form-sm margin-top-13">
+							{% if (gordeBotoia == true) %}
+								<button class="col-2 btn btn-primary form-control js-gorde_botoia" type="button" formnovalidate>
+									<i class="fa fa-save left"></i>
+									{{"messages.gorde" | trans | capitalize}}</button>
+							{% endif %}
+							{% if (erantzun == true) %}
+								<button class="col-2 btn btn-primary form-control js-erantzun_botoia" type="button" formnovalidate>
+									<i class="fa fa-reply left"></i>
+									{{"messages.erantzun" | trans | capitalize}}</button>
+							{% endif %}
+							<button class="col-2 btn btn-primary form-control js-atzera-botoia" type="button" data-url="{{ path ('admin_eskakizuna_list',{'returnPage': returnPage }) }}">
+								<i class="fa fa-arrow-circle-left left"></i>
+								{{"messages.utzi" | trans | capitalize}}</button>
+							{% if (is_granted('ROLE_ADMIN') or is_granted('ROLE_ARDURADUNA') or is_granted('ROLE_INFORMATZAILEA')) and editatzen == true %}
+								<button id="js-ezabatu_botoia_azpikoa" class="col-2 btn btn-primary form-control js-ezabatu_botoia" type="button" data-url="{{ path ('admin_eskakizuna_delete', {'id': eskakizunaForm.vars.value.id, 'returnPage': returnPage }) }}">
+									<i class="fa fa-trash left"></i>
+									{{"messages.ezabatu" | trans | capitalize}}</button>
+								<button id="js-itxi_botoia_azpikoa" class="col-2 btn btn-primary form-control js-itxi_botoia" type="button" data-url="{{ path ('admin_eskakizuna_close', {'id': eskakizunaForm.vars.value.id, 'returnPage': returnPage }) }}">
+									<i class="fa fa-window-close left"></i>
+									{{"messages.itxi" | trans | capitalize}}</button>
+								<button id="js-erreklamatu_botoia_azpikoa" class="col-2 btn btn-primary form-control js-erreklamatu_botoia" type="button" data-url="{{ path ('admin_eskakizuna_resend', {'id': eskakizunaForm.vars.value.id, 'returnPage': returnPage }) }}">
+									<i class="fa fa-forward left"></i>
+									{{"messages.erreklamatu" | trans | capitalize}}</button>
+							{% endif %}
+
+						</div>
+					</div>
+				</div>
 			</div>
-		    </div>
 		</div>
-	    </div>
 	</div>
-{{ form_end(eskakizunaForm,{'render_rest': true}) }}
+	{{ form_end(eskakizunaForm,{'render_rest': true}) }}
