@@ -18,6 +18,11 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use AMREU\UserBundle\Doctrine\UserManager;
 use App\Entity\Erantzuna;
+use App\Form\PasswordResetRequestFormType;
+use App\Form\PasswordResetFormType;
+use DateTime;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use \Swift_Mailer;
 
 /**
  * Description of ErabiltzaileakController.
@@ -28,11 +33,21 @@ use App\Entity\Erantzuna;
 class ErabiltzaileaController extends AbstractController
 {
 
+    private $translator;
+    private $mailer;
+    private $userManager;
+
+    public function __construct (TranslatorInterface $translator, \Swift_Mailer $mailer, UserManager $userManager) {
+        $this->translator = $translator;
+        $this->mailer = $mailer;
+        $this->userManager = $userManager;
+    }
+
     /**
      * @Route("/{_locale}/profile", name="user_profile_action")
      * @IsGranted("ROLE_USER")
      */
-    public function profleAction(Request $request, LoggerInterface $logger, UserManager $userManager)
+    public function profleAction(Request $request, LoggerInterface $logger)
     {
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $logger->info('Showing: '.$user->getId());
@@ -55,7 +70,7 @@ class ErabiltzaileaController extends AbstractController
                 $em->flush();
             } else {
             // This updates and persist the new password, no need to persist it again.
-                $userManager->updatePassword($user, $user->getPassword());
+                $this->userManager->updatePassword($user, $user->getPassword());
             }
             $this->addFlash('success', 'messages.erabiltzailea_gordea');
 
@@ -72,7 +87,7 @@ class ErabiltzaileaController extends AbstractController
      * @Route("/{_locale}/admin/erabiltzaileak/new", name="admin_erabiltzailea_new")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function newAction(Request $request, UserManager $userManager)
+    public function newAction(Request $request)
     {
         $form = $this->createForm(UserFormType::class, null, [
             'password_change' => true
@@ -108,7 +123,7 @@ class ErabiltzaileaController extends AbstractController
                 ]);
             }
             // This persists the user no need to persist again
-            $userManager->updatePassword($user, $user->getPassword());
+            $this->userManager->updatePassword($user, $user->getPassword());
 
             $this->addFlash('success', 'messages.erabiltzailea_gordea');
 
@@ -125,7 +140,7 @@ class ErabiltzaileaController extends AbstractController
      * @Route("/{_locale}/admin/erabiltzaileak/{id}/edit", name="admin_erabiltzailea_edit")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function editAction(Request $request, User $user, UserManager $userManager)
+    public function editAction(Request $request, User $user)
     {
         $form = $this->createForm(UserFormType::class, $user, [
             'password_change' => true
@@ -142,7 +157,7 @@ class ErabiltzaileaController extends AbstractController
                 $em->flush();
             } else {
             // This updates and persist the new password, no need to persist it again.
-                $userManager->updatePassword($user, $user->getPassword());
+            $this->userManager->updatePassword($user, $user->getPassword());
             }
             $this->addFlash('success', 'messages.erabiltzailea_gordea');
 
@@ -231,4 +246,97 @@ class ErabiltzaileaController extends AbstractController
         'erabiltzaileak' => $erabiltzaileak,
     ]);
     }
+
+     /**
+     * @Route("/{_locale}/request_reset", name="user_request_reset_action")
+     */
+    public function resetRequest(Request $request) {
+        $form = $this->createForm(PasswordResetRequestFormType::class);
+
+        $form->handleRequest($request);
+        if ( $form->isSubmitted() && $form->isValid() ){
+            $data = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            /** @var User $user */
+            $user = $em->getRepository(User::class)->findOneBy(['email'=> $data['email']]);
+            $token = $this->generateToken();
+            $user->setConfirmationToken($token);
+            $user->setPasswordRequestedAt(new \DateTime());
+            $this->sendResetPasswordMessage($user, $token);
+
+            $em->persist($user);
+            $em->flush();
+            $this->addFlash('success','message.sent');
+
+            return $this->redirectToRoute('user_security_login_check');
+        }
+        return $this->render('admin/erabiltzailea/request_reset.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    private function sendResetPasswordMessage(User $user, string $token)
+    {
+        $from = $this->getParameter('mailer_from');
+        $message = new \Swift_Message($this->translator->trans('message.password_reset_message_title'));
+        $message->setFrom($from);
+        $message->setTo($user->getEmail());
+        $message->setBody(
+            $this->renderView('/admin/erabiltzailea/reset_password_email.html.twig', [
+                'token' => $token,
+                'user' => $user,
+            ])
+        );
+        $message->setContentType('text/html');
+
+        $this->mailer->send($message);
+    }
+
+    private function generateToken()
+    {
+        return rtrim(strtr(base64_encode(random_bytes(32)), '+/', '-_'), '=');
+    }
+
+     /**
+     * @Route("/{_locale}/reset/{token}", name="user_reset_password_action", methods={"GET","POST"})
+     */
+    public function resetPassword(Request $request, string $token) {
+        $em = $this->getDoctrine()->getManager();
+        /** @var User $user  */
+        $user = $em->getRepository(User::class)->findOneBy(['confirmationToken' => $token]);
+
+        if (null === $user) {
+            $this->addFlash('error', 'messages.erabiltzailea_ez_da_existitzen');
+            return $this->redirectToRoute('homepage');
+        }
+
+        $datediff = date_diff(new \DateTime(),  $user->getPasswordRequestedAt());
+        if ( $datediff->format('%a') > 1 ) {
+            $this->addFlash('error', 'message.token_expired');
+            return $this->redirectToRoute('user_security_login_check');
+        }
+
+        $form = $this->createForm(PasswordResetFormType::class);
+        
+        $form->handleRequest($request);
+        if ( $form->isSubmitted() && $form->isValid() ) {
+            $data = $form->getData();
+
+            
+            $this->userManager->updatePassword($user,$data['password']);
+
+            $this->addFlash('success', 'message.pasahitza_ondo_aldatu_da');
+
+            return $this->redirectToRoute('user_security_login_check');
+        }
+    
+        return $this->render('admin/erabiltzailea/reset_password.html.twig', [
+            'token' => $token,
+            'form' => $form->createView(),
+        ]);
+
+
+    }
+
 }
+

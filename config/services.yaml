@@ -11,10 +11,10 @@ parameters:
   max_upload_image_size: 3M
   erantzundakoan_mezua_bidali: false
   mezuak_bidali: true
-  eranskinak_uploads_url: /images/uploads
-  eranskinak_uploads_directory: "%kernel.project_dir%/public/images/uploads"
-  mailer_from: '%env(MAILER_USER)%'
-  
+  eranskinak_uploads_url: erantzun/docs
+  eranskinak_uploads_directory: "%kernel.project_dir%/public/docs"
+  mailer_from: "%env(MAILER_USER)%"
+
 services:
   Symfony\Component\Ldap\Ldap:
     arguments: ['@Symfony\Component\Ldap\Adapter\ExtLdap\Adapter']

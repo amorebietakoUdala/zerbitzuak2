@@ -16,4 +16,5 @@ npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 public/images/uploads/
-lib/
+public/docs/
+erantzun.code-workspace

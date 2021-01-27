@@ -1,61 +1,66 @@
 security:
-    encoders:
-        legacy_bcrypt:
-            algorithm: bcrypt
-            
-        App\Entity\User:
-            algorithm: auto
-            migrate_from: 
-                - legacy_bcrypt
+  encoders:
+    legacy_bcrypt:
+      algorithm: bcrypt
 
-    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
-    providers:
-        # used to reload user from session & other features (e.g. switch_user)
-        amreu_user_provider:
-            entity:
-                class: App\Entity\User
-                property: username
-#        logout: 
-#            path: app_logout
+    App\Entity\User:
+      algorithm: auto
+      migrate_from:
+        - legacy_bcrypt
 
-        
-    firewalls:
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-        main:
-            anonymous: true
-            lazy: true
-            provider: amreu_user_provider
+  # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+  providers:
+    # used to reload user from session & other features (e.g. switch_user)
+    amreu_user_provider:
+      entity:
+        class: App\Entity\User
+        property: username
+  #        logout:
+  #            path: app_logout
 
-            guard:
-                authenticators:
-                    - amreu.login.form.authenticator
-                entry_point: amreu.login.form.authenticator
-                
-            form_login:
-                login_path: user_security_login_check
-                check_path: user_security_login_check
-                
-            logout:
-                path: user_security_logout
-                # where to redirect after logout
-                # target: app_any_route
+  firewalls:
+    dev:
+      pattern: ^/(_(profiler|wdt)|css|images|js)/
+      security: false
+    main:
+      anonymous: true
+      lazy: true
+      provider: amreu_user_provider
 
-            # activate different ways to authenticate
-            # https://symfony.com/doc/current/security.html#firewalls-authentication
+      guard:
+        authenticators:
+          - amreu.login.form.authenticator
+        entry_point: amreu.login.form.authenticator
 
-            # https://symfony.com/doc/current/security/impersonating_user.html
-            # switch_user: true
+      form_login:
+        login_path: user_security_login_check
+        check_path: user_security_login_check
 
-    # Easy way to control access for large sections of your site
-    # Note: Only the *first* access control that matches will be used
-    access_control:
-        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/[a-z]+/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/[a-z]+/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api, role: ROLE_USER }
-        - { path: ^/admin/, role: ROLE_ADMIN }
-        - { path: ^/eskakizuna/, role: ROLE_USER }
-        - { path: ^/, role: ROLE_USER }
+      logout:
+        path: user_security_logout
 
+      # It's adds a cookie to get authenticated for 1 month if remember_me checkbox is activated
+      remember_me:
+        secret: "%kernel.secret%"
+        lifetime: 2592000
+
+        # where to redirect after logout
+        # target: app_any_route
+
+      # activate different ways to authenticate
+      # https://symfony.com/doc/current/security.html#firewalls-authentication
+
+      # https://symfony.com/doc/current/security/impersonating_user.html
+      # switch_user: true
+
+  # Easy way to control access for large sections of your site
+  # Note: Only the *first* access control that matches will be used
+  access_control:
+    - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/(es|eu)/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/(es|eu)/request_reset, role: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/(es|eu)/reset, role: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/api, role: ROLE_USER }
+    - { path: ^/admin/, role: ROLE_ADMIN }
+    - { path: ^/eskakizuna/, role: ROLE_USER }
+    - { path: ^/, role: ROLE_USER }

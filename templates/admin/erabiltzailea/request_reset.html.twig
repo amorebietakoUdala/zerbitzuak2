@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{"messages.erabiltzailea" | trans | capitalize}}
+	{{"messages.ikusi" | trans | capitalize}}
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+
+  <script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+      $('#erabiltzailea_form_plainPassword_first').val('');
+      $("#atzera").click(function () {
+      window.location.href = Routing.generate('admin_erabiltzailea_list', {'_locale': '{{ app.request.getLocale() }}'});
+      });
+    });
+  </script>
+{% endblock javascripts %}
+
+{% block body %}
+	<div class="container">
+		<div class="row">
+			<div class="card margin-top-13 col-12">
+				<div class="card-block col">
+					<div class="text-center">
+						<div class="text-primary">{{ 'security.login.remember_password' | trans | capitalize  }}</div>
+						<hr class="mt-1 mb-1">
+					</div>
+					<div class="card-text">
+            {{ form_start(form) }}
+							<div class="container">
+								<div class="row">
+                  <div class="md-form form-group form-sm">
+                    <i class="fa fa-send prefix"></i>
+                    <label for="email">{{ 'messages.email' | trans | capitalize }}</label>
+                    {{ form_widget(form.email, { 'attr': { 'class' : 'form-control' } }) }}
+                    {{ form_errors(form.email) }}
+                  </div>
+									<div class="md-form form-group form-sm col-4">
+										<button class="btn btn-primary form-control waves-effect waves-light" type="submit" formnovalidate>
+											<i class="fa fa-send left"></i>
+											{{ 'btn.bidali' | trans | capitalize }}</button>
+									</div>
+								</div>
+							</div>
+						{{ form_end(form) }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

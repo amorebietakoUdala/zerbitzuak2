@@ -63,19 +63,6 @@ class UserFormType extends BaseUserType {
 					'disabled' => $readonly,
 				])
 				->add('ordena')
-					// ->add('roles', ChoiceType::class,[
-					// 	'choices' => [
-					// 		'ROLE_ADMIN' => 'ROLE_ADMIN',
-					// 		'ROLE_ARDURADUNA' => 'ROLE_ARDURADUNA',
-					// 		'ROLE_INFORMATZAILEA' => 'ROLE_INFORMATZAILEA',
-					// 		'ROLE_KANPOKO_TEKNIKARIA' => 'ROLE_KANPOKO_TEKNIKARIA'
-					// 	],
-					// 	'choice_attr' => ['class' => 'form-inline'],
-					// 	'expanded' => true,
-					// 	'multiple' => true,
-					// 	'constraints' => [new NotBlank(),],
-					// 	'choice_translation_domain' => null,
-					// ])
 				->add('enpresa', EntityType::class,[
 					'placeholder'=>'messages.hautatu_enpresa',
 					'class' => Enpresa::class,

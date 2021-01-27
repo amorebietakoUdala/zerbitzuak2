@@ -28,7 +28,6 @@
         "symfony/twig-bridge": "5.*",
         "symfony/twig-pack": "^1.0",
         "symfony/validator": "5.*",
-        "symfony/webpack-encore-bundle": "^1.7",
         "symfony/yaml": "5.*",
         "vich/uploader-bundle": "^1.15",
         "willdurand/js-translation-bundle": "^4.0"
@@ -93,7 +92,7 @@
         },
         {
             "type": "path",
-            "url": "lib/SaadTaziGChartBundle"
+            "url": "../../bundles/SaadTaziGChartBundle"
         }
     ]
 }

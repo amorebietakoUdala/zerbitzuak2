@@ -40,7 +40,7 @@ class User extends BaseUser implements AMREUserInterface {
     protected $username;
 
     /**
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="json")
      */
     protected $roles = [];
 
@@ -71,6 +71,16 @@ class User extends BaseUser implements AMREUserInterface {
     protected $lastLogin;
     
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $confirmationToken;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $passwordRequestedAt;
+
+    /**
     * @ORM\Column(type="string", nullable=true)
     */
     private $izena;
@@ -100,9 +110,29 @@ class User extends BaseUser implements AMREUserInterface {
     private $ordena;
 
     public function getId(): ?int {
-	return $this->id;
+	    return $this->id;
     }
 
+    public function getConfirmationToken(): string {
+        return $this->confirmationToken;
+    }
+
+    public function setConfirmationToken(string $confirmationToken) {
+        $this->confirmationToken = $confirmationToken;
+
+        return $this;
+    }
+
+    public function getPasswordRequestedAt(): \DateTime {
+        return $this->passwordRequestedAt;
+    }
+
+    public function setPasswordRequestedAt(\DateTime $passwordRequestedAt) {
+        $this->passwordRequestedAt = $passwordRequestedAt;
+
+        return $this;
+    }
+    
     public function getIzena() {
         return $this->izena;
     }
@@ -156,4 +186,5 @@ class User extends BaseUser implements AMREUserInterface {
         $this->username = $username;
         return $this;
     }
+
 }

@@ -565,7 +565,31 @@
                 <source>messages.pasahitzak_ez_datoz_bat</source>
                 <target>Las contraseñas no coinciden</target>
             </trans-unit>
-			<!-- Amaiera Entitateak -->
+            <trans-unit id="btn.bidali">
+                <source>btn.bidali</source>
+                <target>Enviar</target>
+            </trans-unit>
+            <trans-unit id="message.password_reset_message_title">
+                <source>message.password_reset_message_title</source>
+                <target>Erantzun: Petición de reseteo de contraseña</target>
+            </trans-unit>
+            <trans-unit id="message.reset_password_body">
+                <source>message.reset_password_body</source>
+                <target>Hemos recibido su petición de reseteo de contraseña. Tiene 24 horas para cambiarla pulsando el siguiente enlace:</target>
+            </trans-unit>
+            <trans-unit id="message.sent">
+                <source>message.sent</source>
+                <target>El mensaje se ha enviado correctamente</target>
+            </trans-unit>
+            <trans-unit id="message.pasahitza_ondo_aldatu_da">
+                <source>message.pasahitza_ondo_aldatu_da</source>
+                <target>La contraseña se ha cambiado correctamente</target>
+            </trans-unit>
+            <trans-unit id="message.token_expired">
+                <source>message.token_expired</source>
+                <target>Se ha superado el tiempo para resetear la contraseña</target>
+            </trans-unit>
+		    <!-- Amaiera Entitateak -->
 	</body>
     </file>
 </xliff>
