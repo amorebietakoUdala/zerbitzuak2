@@ -4,7 +4,6 @@ namespace App\Controller\API;
 
 use App\Controller\Web\Admin\EskatzaileaFormType;
 use App\Controller\Web\User\ErantzunaFormType;
-use App\Entity\Erabiltzailea;
 use App\Entity\Erantzuna;
 use App\Entity\Eskakizuna;
 use App\Entity\Eskatzailea;
@@ -16,15 +15,12 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
-
-use function GuzzleHttp\json_decode;
 
 /**
  * @Route("/api")
  */
-class ApiController extends AbstractController// extends BaseController
+class ApiController extends AbstractController
 {
 
     private $serializer;
@@ -273,7 +269,7 @@ class ApiController extends AbstractController// extends BaseController
      */
     public function closeAction(Request $request)
     {
-        $ids = json_decode($request->get('ids'));
+        $ids = \json_decode($request->get('ids'));
 
         $em = $this->getDoctrine()->getManager();
 

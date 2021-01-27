@@ -589,6 +589,14 @@
                 <source>message.token_expired</source>
                 <target>Pasahitza berezatzeko epea gainditu da</target>
             </trans-unit>
+            <trans-unit id="user.new_password">
+                <source>user.new_password</source>
+                <target>Pasahitz berria</target>
+            </trans-unit>
+            <trans-unit id="user.repeat_new_password">
+                <source>user.repeat_new_password</source>
+                <target>Errepikatu pasahitz berria</target>
+            </trans-unit>
 	    <!-- Amaiera Entitateak -->
 	</body>
     </file>

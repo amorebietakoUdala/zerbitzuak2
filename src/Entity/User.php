@@ -81,11 +81,6 @@ class User extends BaseUser implements AMREUserInterface {
     private $passwordRequestedAt;
 
     /**
-    * @ORM\Column(type="string", nullable=true)
-    */
-    private $izena;
-
-    /**
     * @ORM\ManyToOne (targetEntity="Enpresa", inversedBy="erabiltzaileak")
     * @ORM\JoinColumn(nullable=true);
     */
@@ -133,14 +128,6 @@ class User extends BaseUser implements AMREUserInterface {
         return $this;
     }
     
-    public function getIzena() {
-        return $this->izena;
-    }
-
-    public function setIzena($izena) {
-        $this->izena = $izena;
-    }
-
     public function getEnpresa() {
 	return $this->enpresa;
     }
