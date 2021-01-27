@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\API;
+namespace App\Controller;
 
 use App\Controller\Web\Admin\EskatzaileaFormType;
 use App\Controller\Web\User\ErantzunaFormType;
