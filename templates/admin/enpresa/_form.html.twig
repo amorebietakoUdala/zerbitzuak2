@@ -17,10 +17,10 @@
 	{{ form_widget(enpresaForm.ordena, { 'attr': { 'class' : 'form-control' } }) }}
 	{{ form_errors(enpresaForm.ordena) }}
     </div>
-    <div class="clearfix form-inline">
-	{{ form_widget(enpresaForm.aktibatua, { 'attr': { 'class' : 'form-control' } }) }}
+	<div class="form-group form-inline form-sm mb-1 pl-2">
+	{{ form_widget(enpresaForm.aktibatua, { 'attr': { 'class' : '' } }) }}
 	{{ form_errors(enpresaForm.aktibatua) }}
-    </div>
+	</div>				
     <div id="botonera"class="md-form form-group form-sm col-12 clearfix">
 	{% if (gordeBotoia == true) %}
 	    <button class="col-3 btn btn-primary form-control" type="submit" formnovalidate><i class="fa fa-save left"></i>{{"messages.gorde" | trans | capitalize}}</button>

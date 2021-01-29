@@ -25,7 +25,9 @@ class EnpresaFormType extends AbstractType {
 	    ->add('izena')
 	    ->add('ordena')
             ->add('aktibatua', CheckboxType::class,[
-                'data' => true
+                'data' => true,
+                'label' => 'messages.aktibatua',
+                'label_attr' => ['class' => 'checkbox-inline']                
             ])
 	;
     }

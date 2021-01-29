@@ -85,7 +85,7 @@ packages: ["corechart", 'table', 'treemap', 'gauge']
 			var view = View();
 			view.onTituluaClick();
 		});
-
+	{% if estatistikak | length > 0 %}
 			$(function () {
 				{{ gchart_column_chart(dataTable2, 'grafikoa', '100%', '450', 'messages.estatitikak.grafikoarearen.titulua' | trans | capitalize ) }}
 
@@ -97,6 +97,7 @@ packages: ["corechart", 'table', 'treemap', 'gauge']
 					});
 					});
 			});
+	{% endif %}
 		</script>
 
 {% endblock %}

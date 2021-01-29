@@ -46,5 +46,6 @@ window.location.href = Routing.generate('admin_eskakizuna_list', {
 	{% endif %}
 	<script type="text/javascript" src="{{ asset('js/eskakizunak/eskakizuna.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('js/orokorra.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('https://maps.googleapis.com/maps/api/js?key=AIzaSyCn-GGZ6dxYSUHErqsyVHzKHwReuUz4XPY') }}"></script>
+	{% set gmapAsset = 'https://maps.googleapis.com/maps/api/js?key='~googleMapsApiKey %}
+	<script type="text/javascript" src="{{ asset(gmapAsset) }}"></script>
 {% endblock %}

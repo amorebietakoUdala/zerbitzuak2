@@ -70,14 +70,12 @@ class EstatistikaRepository extends ServiceEntityRepository
         $sql =
             'SELECT e.urtea, enp.izena as enpresa, sum(e.eskakizunak) as eskakizunak
              FROM view_estatistikak e 
-             INNER JOIN enpresak enp on enpresa_id = enp.id';
+             LEFT JOIN enpresak enp on enpresa_id = enp.id';
         if (null !== $nora) {
             $sql = $sql.' WHERE e.data <= :nora';
-//              $sql = $sql.' WHERE e.data <= STR_TO_DATE(":nora","%Y-%m-%d")';
         }
         if (null !== $noiztik) {
             $sql = $sql.' AND e.data >= :noiztik';
-//              $sql = $sql.' AND e.data >= STR_TO_DATE(":noiztik","%Y-%m-%d")';
         }
         if (null !== $enpresa) {
             $sql = $sql.' AND e.enpresa_id = :enpresa';
@@ -86,18 +84,16 @@ class EstatistikaRepository extends ServiceEntityRepository
         $conn = $this->getEntityManager()->getConnection();
         $stmt = $conn->prepare($sql);
         if (null !== $noiztik) {
-            $stmt->bindValue('noiztik', $noiztik->format('Y-m-d H:i:s'));
+            $stmt->bindValue('noiztik', $noiztik->format('Y-m-d H:i'));
         }
         if (null !== $nora) {
-            $stmt->bindValue('nora', $nora->format('Y-m-d H:i:s'));
+            $stmt->bindValue('nora', $nora->format('Y-m-d H:i'));
         }
         if (null !== $enpresa) {
             $stmt->bindValue('enpresa', $enpresa->getId());
         }
         $stmt->execute();
-//        dump($stmt);
         $result = $stmt->fetchAll(\PDO::FETCH_CLASS, 'App\Entity\Estatistika');
-//        dd($result);
         return $result;
     }
 }

@@ -44,7 +44,9 @@ class ZerbitzuaFormType extends AbstractType {
 		])
 	    ->add('ordena')
 	    ->add('aktibatua', CheckboxType::class, [
-                'data' => true
+					 'data' => true,
+					 'label' => 'messages.aktibatua',
+					 'label_attr' => ['class' => 'checkbox-inline']
             ])
 	;
     }

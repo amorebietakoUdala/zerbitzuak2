@@ -134,7 +134,7 @@
 							<p class="grey-text">{{ 'messages.mamia' | trans | capitalize }}
 								{% if eskakizunaForm.vars.value.norkInformatua is defined and eskakizunaForm.vars.value.norkInformatua != null %}
 									{% if (is_granted('ROLE_ADMIN') or is_granted('ROLE_ARDURADUNA') or is_granted('ROLE_INFORMATZAILEA')) %}
-										:<b>{{ eskakizunaForm.vars.value.norkInformatua.izena }}</b>
+										:<b>{{ eskakizunaForm.vars.value.norkInformatua.firstName }}</b>
 										<span class="text-muted">
 											(
 											{% if eskakizunaForm.vars.value.noizInformatua is defined and eskakizunaForm.vars.value.noizInformatua != null %}
@@ -157,7 +157,7 @@
 									<div class="chat_message_wrapper chat_message">
 										<ul id="js-erantzunak-list" class="col-12 chat_message">
 											<li>
-												<b>{{ erantzuna.erantzulea.izena | raw }}</b>
+												<b>{{ erantzuna.erantzulea.firstName | raw }}</b>
 												<span class="text-muted">({{ erantzuna.noiz | date('Y-m-d H:i') }})</span><br/>{{ erantzuna.erantzuna | raw }}</li>
 										</ul>
 									</div>

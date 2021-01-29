@@ -126,6 +126,7 @@ class EskakizunaController extends AbstractController
         'erantzun' => false,
         'editatzen' => false,
         'returnPage' => $returnPage,
+        'googleMapsApiKey' => $this->getParameter('googleMapsApiKey'),
     ]);
     }
 
@@ -332,6 +333,8 @@ class EskakizunaController extends AbstractController
             'editatzen' => true,
             'erantzun' => false,
             'returnPage' => $returnPage,
+            'googleMapsApiKey' => $this->getParameter('googleMapsApiKey'),
+
     ]);
     }
 
@@ -426,6 +429,8 @@ class EskakizunaController extends AbstractController
                 'editatzen' => false,
                 'erantzun' => true,
                 'returnPage' => $returnPage,
+                'googleMapsApiKey' => $this->getParameter('googleMapsApiKey'),
+
             ]);
         }
 
@@ -436,6 +441,8 @@ class EskakizunaController extends AbstractController
             'editatzen' => false,
             'erantzun' => true,
             'returnPage' => $returnPage,
+            'googleMapsApiKey' => $this->getParameter('googleMapsApiKey'),
+
         ]);
     }
 

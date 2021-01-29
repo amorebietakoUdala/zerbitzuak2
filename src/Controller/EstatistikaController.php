@@ -29,25 +29,23 @@ class EstatistikaController extends AbstractController
     public function estatistikaEnpresakoAction(Request $request)
     {
         $estatistikaForm = $this->createForm(EstatistikaFormType::class);
+        $criteria = [
+            'noiztik' => DateTime::createFromFormat('Y-m-d H:i:s', date('Y').'-01-01 00:00:00'),
+        ];
+        $estatistikak = $this->getDoctrine()->getRepository(Estatistika::class)
+            ->findEskakizunKopuruakNoiztikNora($criteria);
         $estatistikaForm->handleRequest($request);
 
         if ($estatistikaForm->isSubmitted() && $estatistikaForm->isValid()) {
             $criteria = $estatistikaForm->getData();
             $estatistikak = $this->getDoctrine()->getRepository(Estatistika::class)
                 ->findEskakizunKopuruakNoiztikNora($criteria);
-        } else {
-            $criteria = [
-                'noiztik' => DateTime::createFromFormat('Y-m-d H:i:s', date('Y').'-01-01 00:00:00'),
-            ];
-            $estatistikak = $this->getDoctrine()->getRepository(Estatistika::class)
-                    ->findEskakizunKopuruakNoiztikNora($criteria);
         }
         $estatiskaBatuak = $this->sumValuesOfTheSameKey($estatistikak);
         $dataTable2 = $this->createDataTable($estatistikak);
         $guztira = array_reduce($estatistikak, function ($i, $obj) {
             return $i += $obj->getEskakizunak();
         });
-//        dd($dataTable2->toArray(), $estatiskaBatuak, $guztira);
         return $this->render('/estatistika/estatistika.html.twig', [
             'dataTable2' => $dataTable2->toArray(),
             'estatistikak' => $estatiskaBatuak,
@@ -69,7 +67,7 @@ class EstatistikaController extends AbstractController
             $urtekoEskakizunak = $value;
             $cells = [new DataTable\DataCell($key)];
             foreach ($urtekoEskakizunak as $key2 => $value2) {
-                $cells[] = new DataTable\DataCell($value2, $value2.' '.$this->translator->trans('eskakizun'));
+                $cells[] = new DataTable\DataCell($value2, $this->translator->trans('messages.eskakizun', ['count' => intval($value2)]));
             }
             $dataTable2->addRowObject(new DataTable\DataRow($cells));
         }

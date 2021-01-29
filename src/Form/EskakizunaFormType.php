@@ -81,10 +81,16 @@ class EskakizunaFormType extends AbstractType
             },
             'expanded' => true,
             'multiple' => false,
-            'choice_translation_domain' => null,
             'query_builder' => function (EskakizunMotaRepository $repo) {
                 return $repo->createOrderedQueryBuilder();
             },
+            'choice_label' => function (EskakizunMota $eskakizunMota) use ($locale) {
+                if ('es' === $locale) {
+                    return $eskakizunMota->getDeskripzioaEs();
+                } else {
+                    return $eskakizunMota->getDeskripzioaEu();
+                }
+            },            
         ])
         ->add('jatorria', EntityType::class, [
             'disabled' => $readonly,

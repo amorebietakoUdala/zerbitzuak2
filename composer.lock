@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7802ed806ed6ccf34d873256154820a5",
+    "content-hash": "2dbe4ca5a12997d257bd15cdb92ad389",
     "packages": [
         {
             "name": "amorebietakoudala/user-bundle",
@@ -2453,15 +2453,21 @@
         },
         {
             "name": "saad-tazi/g-chart-bundle",
-            "version": "dev-master",
+            "version": "v4.0.0",
             "target-dir": "SaadTazi/GChartBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/saadtazi/SaadTaziGChartBundle.git",
+                "reference": "fe943cb558ba1b7daa6f845754313765f8960e45"
+            },
             "dist": {
-                "type": "path",
-                "url": "../../bundles/SaadTaziGChartBundle",
-                "reference": "92e9972b720098b889ef173443444a98cc6112ce"
+                "type": "zip",
+                "url": "https://api.github.com/repos/saadtazi/SaadTaziGChartBundle/zipball/fe943cb558ba1b7daa6f845754313765f8960e45",
+                "reference": "fe943cb558ba1b7daa6f845754313765f8960e45",
+                "shasum": ""
             },
             "require": {
-                "symfony/framework-bundle": "3.* || 4.* || 5.*"
+                "symfony/framework-bundle": "5.*"
             },
             "type": "symfony-bundle",
             "autoload": {
@@ -2469,6 +2475,7 @@
                     "SaadTazi\\GChartBundle": ""
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -2482,9 +2489,11 @@
                 "chart",
                 "google"
             ],
-            "transport-options": {
-                "relative": true
-            }
+            "support": {
+                "issues": "https://github.com/saadtazi/SaadTaziGChartBundle/issues",
+                "source": "https://github.com/saadtazi/SaadTaziGChartBundle/tree/v4.0.0"
+            },
+            "time": "2021-01-28T15:56:26+00:00"
         },
         {
             "name": "sensio/framework-extra-bundle",
@@ -8326,8 +8335,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "amorebietakoudala/user-bundle": 20,
-        "saad-tazi/g-chart-bundle": 20
+        "amorebietakoudala/user-bundle": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
