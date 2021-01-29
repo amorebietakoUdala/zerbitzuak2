@@ -26,12 +26,12 @@
     border: 0;
 }
 
-.btn-secondary {
-    background: white none repeat scroll 0 0 !important;
+.btn-secondary, .btn-secondary:focus {
+    background-color: white !important;
     color: #06a4d5 !important;
 }
 
-.btn-secondary:hover {
+.btn-secondary:active, .btn-secondary:hover, .btn-secondary:hover:active {
 	background-color: #05a3d5 !important;
 	color: white !important;
 }
