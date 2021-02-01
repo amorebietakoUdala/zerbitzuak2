@@ -23,13 +23,17 @@ final class Version20210112080434 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('CREATE Table user as select * from erabiltzaileak');
-        $this->addSql('ALTER TABLE user ADD firstName VARCHAR(255) NOT NULL, ADD activated TINYINT(1) DEFAULT \'1\' NOT NULL, ADD lastLogin DATETIME DEFAULT NULL, DROP username_canonical, DROP email_canonical, DROP salt, DROP confirmation_token, DROP password_requested_at, CHANGE id id INT AUTO_INCREMENT NOT NULL, CHANGE email email VARCHAR(255) NOT NULL');
+        $this->addSql('ALTER TABLE user ADD firstName VARCHAR(255) NOT NULL, ADD activated TINYINT(1) DEFAULT \'1\' NOT NULL, ADD lastLogin DATETIME DEFAULT NULL, DROP username_canonical, DROP email_canonical, DROP salt, DROP confirmation_token, DROP password_requested_at, CHANGE email email VARCHAR(255) NOT NULL');
         $this->addSql('UPDATE user set firstName = izena');
         $this->addSql('UPDATE user set lastLogin = last_login');
         $this->addSql('UPDATE user set activated = enabled');
+	$this->addSql('ALTER TABLE user ADD PRIMARY KEY (id)');
         $this->addSql('ALTER TABLE user ADD CONSTRAINT FK_8D93D6496B932554 FOREIGN KEY (enpresa_id) REFERENCES enpresak (id)');
+	$this->addSql('ALTER TABLE erantzunak DROP FOREIGN KEY FK_56263887905C16CA');
         $this->addSql('ALTER TABLE erantzunak ADD CONSTRAINT FK_56263887905C16CA FOREIGN KEY (erantzulea_id) REFERENCES user (id)');
+	$this->addSql('ALTER TABLE eskakizunak DROP FOREIGN KEY FK_380BE00051798FC8');
         $this->addSql('ALTER TABLE eskakizunak ADD CONSTRAINT FK_380BE00051798FC8 FOREIGN KEY (norkErreklamatua_id) REFERENCES user (id)');
+	$this->addSql('ALTER TABLE eskakizunak DROP FOREIGN KEY FK_380BE000412DF9F6');
         $this->addSql('ALTER TABLE eskakizunak ADD CONSTRAINT FK_380BE000412DF9F6 FOREIGN KEY (norkInformatua_id) REFERENCES user (id)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_8D93D649F85E0677 ON user (username)');
         $this->addSql('CREATE INDEX IDX_8D93D6496B932554 ON user (enpresa_id)');
