@@ -67,7 +67,8 @@ class UserFormType extends BaseUserType {
 				])
 				->add('activated', CheckboxType::class,[
 					'data' => true,
-					'label_attr' => ['class' => 'checkbox-inline']
+					'label_attr' => ['class' => 'checkbox-inline'],
+					'label' => 'messages.aktibatua'
 				])
 			;
 		}
