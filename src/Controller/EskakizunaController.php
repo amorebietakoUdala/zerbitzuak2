@@ -582,10 +582,7 @@ class EskakizunaController extends AbstractController
         $from = $this->getParameter('mailer_from');
         $message = new Swift_Message($title.' '.$eskakizuna->getId());
         $message->setFrom($from);
-        $message->setTo('ibilbao@amorebieta.eus');
-        // TODO deskomentatu denei bidaltzeko
-        //	$message->setTo($this->getParameter('mailer_from'));
-        //$message->setTo($emailak);
+        $message->setTo($emailak);
         $message->setBody(
         $this->renderView('/eskakizuna/mail.html.twig', [
             'eskakizuna' => $eskakizuna,
