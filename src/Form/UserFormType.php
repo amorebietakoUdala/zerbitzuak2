@@ -30,6 +30,8 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
  */
 class UserFormType extends BaseUserType {
 
+	private $allowedRoles;
+
 	public function __construct()	{
 		$allowedRoles = [
 			"ROLE_ARDURADUNA",
@@ -38,6 +40,7 @@ class UserFormType extends BaseUserType {
 			"ROLE_KANPOKO_TEKNIKARIA",
 		];
 		parent::__construct(User::class, $allowedRoles);
+		$this->allowedRoles = $allowedRoles;
 	}	
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
